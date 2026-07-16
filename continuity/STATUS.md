@@ -1,38 +1,43 @@
 # Status atual
 
-Atualizado em: 2026-07-16
-Branch autorizada: `master`
-Última rodada executada pelo Codex: `RND-20260716-005`
-Última rodada do orquestrador: `RND-20260716-004`
+Atualizado em: 2026-07-16  
+Branch autorizada: `master`  
+Última rodada executada pelo Codex: `RND-20260716-005`  
+Última rodada do orquestrador: `RND-20260716-006`
 
 ## Fase do programa
 
-`WP02_EXECUTED_AWAITING_REVIEW`
+`WP02_CORRECTION_READY`
 
-O repositório primário `faleious-ai/gitlab-runner_ynh` concluiu o charter
-`CHR-WP02-001`. Este coordenador contém a síntese cross-repo e aguarda revisão
-independente; não declara aceite.
+O charter cross-repo `CHR-WP02-001` foi revisado e recebeu `CORRECTION_REQUIRED`. A revisão está em `continuity/reviews/REV-RND-20260716-005.md`. O charter corretivo `CHR-WP02-002` está `READY`, com `faleious-ai/gitlab-runner_ynh` como repositório funcional primário.
 
-## Síntese cross-repo
+## Partes confirmadas da rodada anterior
 
-O Runner removeu o literal credential-like da fixture, adicionou prevenção e
-redaction, corrigiu a action `register`, centralizou o fluxo de registro e
-implementou resolver/generator determinístico para Runner + helper images. A
-fixture oficial `v19.0.1` foi resolvida em dry-run com baseline `18.6.2`, sem
-alterar a versão declarada nem publicar release.
+- remediação da árvore atual e scanner/redaction;
+- action com target e helper de registro compartilhado;
+- validações estruturais da matriz Runner/helper;
+- escrita auxiliar atômica/idempotente;
+- ausência de promoção de versão;
+- commits remotos coordenados com o mesmo `Round-ID`.
 
-Outputs e comandos estão em `continuity/rounds/RND-20260716-005.md` no Runner
-e no coordenador. A matriz consolidada está no índice de evidências de cada
-repositório.
+## Correções pendentes
 
-## Gate humano aberto
+- checksum com cadeia de confiança oficial;
+- descoberta atual pela Releases API;
+- fronteira exata de origem;
+- cópia candidata do manifest e diff guard;
+- credencial fora de argv;
+- contrato atual da action YunoHost;
+- CI remoto verificável e actions fixadas por SHA.
 
-`HG-RUN-SEC-01` permanece `UNRESOLVED_NO_AUTHORITY`: o administrador do projeto
-GitLab externo usado pelo package_check deve confirmar revogação, rotação ou
-expiração do valor histórico. O valor não foi usado, validado ou reproduzido.
+## Gate humano
 
-## Próximo passo
+`HG-RUN-SEC-01` permanece `UNRESOLVED_NO_AUTHORITY`. É risco histórico externo e não bloqueia o charter corretivo.
 
-O orquestrador deve revisar os dois commits da rodada, distinguir limitações
-ambientais de lacunas técnicas e decidir o estado conforme
-`continuity/REVIEW_PROTOCOL.md`.
+## Integridade
+
+- commits revisados: Runner `0e6acbd3fddc6bf79e7b235cb43a25405dcd2e25`; coordenador `46e2fb46d8addaeee321d449ffa7a5f81ccc196f`;
+- manifest Runner permanece `18.6.2~ynh1`;
+- nenhuma alteração funcional foi feita pelo orquestrador nesta revisão;
+- nenhuma branch, PR, force push ou release criada;
+- evidência: `EVD-WP02-ORCHESTRATOR-REVIEW`.

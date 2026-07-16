@@ -1,28 +1,70 @@
 # Rodada ativa
 
-Charter-ID: `CHR-WP02-001`
-Estado: `EXECUTED_AWAITING_REVIEW`
-Round-ID: `RND-20260716-005`
-Executor primário: Codex
-Repositório funcional: `faleious-ai/gitlab-runner_ynh`
+Charter-ID: `CHR-WP02-002`  
+Estado: `READY`  
+Preparado em: 2026-07-16  
+Orquestrador: ChatGPT com o Maestro Diretor  
+Executor principal: Codex  
+Unidade: `WP-02 Correção — confiança do updater Runner`
 
-## Síntese
+## Autorização
 
-O Runner concluiu S1, S2, U1, U2, U3 e A1: remediação de fixture e redaction,
-action de registro executável e compartilhada, fonte/fixture oficial,
-resolver atômico, generator determinístico, testes negativos e CI read-only.
+`Leia AGENTS.md e continue` autoriza a execução integral deste charter. O repositório funcional primário é `faleious-ai/gitlab-runner_ynh`. Este coordenador recebe síntese, decisões, evidências e continuidade com o mesmo novo `Round-ID`.
 
-Nenhuma versão foi promovida, nenhum Runner real foi registrado e nenhuma
-ação destrutiva foi executada.
+## Revisão anterior
 
-## Evidência
+`CHR-WP02-001` recebeu `CORRECTION_REQUIRED`. Registro local: `continuity/reviews/REV-RND-20260716-005.md`. Revisão detalhada no Runner: arquivo de mesmo path.
 
-O índice `evidence/EVIDENCE_INDEX.md` deste coordenador registra a síntese e
-aponta para os outputs do Runner. O round record do coordenador é
-`continuity/rounds/RND-20260716-005.md`.
+## Objetivo
 
-## Gate e revisão
+Completar a cadeia de confiança e as capacidades faltantes da fundação Runner sem promover versão: descoberta oficial atual, checksums verificáveis, fronteira exata de origem, cópia candidata do manifest/diff guard, credencial fora de argv, contrato atual da action YunoHost e CI remoto verificável.
 
-`HG-RUN-SEC-01` permanece aberto e está registrado como risco residual. O
-estado final é `EXECUTED_AWAITING_REVIEW`; somente o orquestrador pode revisar
-e aceitar.
+## Repositório primário e escopo
+
+No Runner, executar integralmente `CHR-WP02-002` local, incluindo:
+
+- API/freshness e allowlists;
+- checksum oficial/assinatura ou recálculo equivalente;
+- manifest candidato e diff limitado;
+- transporte seguro da credencial e teste de argv;
+- decisão demonstrada sobre action YunoHost;
+- testes negativos e CI com referências imutáveis;
+- relatórios de confiança e candidata sem promoção.
+
+Neste coordenador:
+
+- registrar síntese cross-repo, riscos, fontes e níveis de evidência;
+- atualizar `STATUS`, `HANDOFF_CURRENT`, `ACTIVE_ROUND`, `EVIDENCE_INDEX` e round record;
+- preservar decisões gerais do programa;
+- usar o mesmo `Round-ID` do Runner.
+
+## DAG paralelo no Runner
+
+1. API/freshness/allowlists;
+2. checksums/assinatura/fixtures;
+3. manifest candidato/diff guard;
+4. registro/action YunoHost;
+5. testes/CI.
+
+Subagentes não fazem commit. O executor principal integra arquivos canônicos, repete checks e publica.
+
+## Fora de escopo
+
+Promover versão, registrar ou remover Runner real, usar a credencial histórica, executar ação destrutiva em produção, publicar release, criar branch/PR/worktree, force push, reescrever histórico ou alterar ruleset/licença/visibilidade.
+
+## Gate
+
+`HG-RUN-SEC-01` permanece `UNRESOLVED_NO_AUTHORITY` e não bloqueia nenhuma tarefa. Nenhuma pergunta humana adicional é necessária.
+
+## Definition of Done cross-repo
+
+- todos os critérios do charter Runner `CHR-WP02-002` atendidos;
+- manifest Runner rastreado ainda em `18.6.2~ynh1`;
+- evidências distinguem descoberta online, fixture offline, checksum/signature e conteúdo;
+- exatamente um commit publicado em `origin/master` por repositório afetado, mesmo `Round-ID`;
+- `HEAD == origin/master`, árvores limpas e material recuperável pelo GitHub;
+- estado `EXECUTED_AWAITING_REVIEW` nos dois repositórios.
+
+## Pacote de revisão
+
+SHAs completos, URLs remotas, matriz tarefa-output-evidência, fontes oficiais, relatórios, testes, CI, decisão da action, prova de credencial fora de argv, limitações e gate. Não declarar `ACCEPTED`.

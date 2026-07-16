@@ -5,49 +5,45 @@
 - Evidência deve ser reproduzível ou marcada como observação.
 - Claim sem prova recebe `UNVERIFIED`.
 - Logs com segredos devem ser redigidos.
-- Cada rodada atualiza entradas do seu escopo.
-- Trabalho executado pelo Codex só é aceito após revisão independente do orquestrador.
+- Trabalho do Codex só é aceito após revisão independente.
 
 ## Estados
 
-- `OBSERVED`: fato inspecionado, sem teste completo.
-- `VERIFIED`: demonstrado por check reproduzível.
-- `FAILED`: check executado e falhou.
-- `UNVERIFIED`: não demonstrado.
-- `SUPERSEDED`: substituído.
+`OBSERVED`, `VERIFIED`, `FAILED`, `UNVERIFIED`, `SUPERSEDED`.
 
-## Evidências
+## Evidências do programa
 
-| ID | Estado | Round | Assunto | Localização | Resultado |
-|---|---|---|---|---|---|
-| EVD-20260716-001 | VERIFIED | RND-20260716-001 | bootstrap MAESTRO | `AGENTS.md`, `CONTEXT.md`, `continuity/`, `docs/`, `evidence/` | estrutura criada; sem mudança funcional |
-| EVD-20260716-002 | VERIFIED | RND-20260716-002 | contrato orquestrador/Codex e paralelismo | `AGENTS.md`, `ACTIVE_ROUND.md`, protocolos, ADR-0005 e especificações | papéis, charter, revisão, bloqueio e subagentes persistidos; sem mudança funcional |
-| EVD-BASELINE-001 | OBSERVED | pre-bootstrap | versão GitLab YNH | `manifest.toml` | baseline `19.1.0~ynh1` |
-| EVD-BASELINE-002 | OBSERVED | pre-bootstrap | versão Runner YNH | repositório relacionado `manifest.toml` | baseline `18.6.2~ynh1` |
-| EVD-BASELINE-003 | OBSERVED | pre-bootstrap | gaps de autoupdate Runner | repositório relacionado `manifest.toml` | bloco comentado/helper sem estratégia |
-| EVD-WP01-GITLAB-INVENTORY | VERIFIED | RND-20260716-003 | inventário GitLab | `docs/audit/GITLAB_PACKAGE_BASELINE.md` | manifest, 52 source sections/104 assets, scripts, config, lifecycle e limitações documentados |
-| EVD-WP01-RUNNER-INVENTORY | VERIFIED | RND-20260716-003 | inventário Runner | `docs/audit/CROSS_REPO_BASELINE.md`; relatório no repositório relacionado | sources, helper images, Docker, tokens, action e lifecycle documentados |
-| EVD-WP01-UPSTREAM-DIVERGENCE | VERIFIED | RND-20260716-003 | comparação upstream | `docs/audit/UPSTREAM_DIVERGENCE.md` | forks funcionalmente iguais aos snapshots YunoHost-Apps; divergência local documental |
-| EVD-WP01-RISK-MAP | VERIFIED | RND-20260716-003 | riscos e backlog | `docs/audit/AUTOUPDATE_GAPS.md`, `docs/audit/LIFECYCLE_AND_RISK_MAP.md` | riscos priorizados, critérios e dependências derivados sem correção funcional |
-| EVD-WP01-VALIDATION | VERIFIED | RND-20260716-003 | validação estática e de fontes | relatórios de auditoria | TOML/shell/Python, forma de hashes e HEADs representativos; runtime explicitamente não demonstrado |
-| EVD-WP01-ORCHESTRATOR-REVIEW | VERIFIED | RND-20260716-004 | revisão independente de WP-01 | `continuity/reviews/REV-RND-20260716-003.md` | charter atendido; commits atômicos cross-repo; achados críticos reproduzidos; verdict `ACCEPTED` |
+| ID | Estado | Round | Assunto | Resultado |
+|---|---|---|---|---|
+| EVD-20260716-001 | VERIFIED | RND-20260716-001 | bootstrap MAESTRO | estrutura criada sem mudança funcional |
+| EVD-20260716-002 | VERIFIED | RND-20260716-002 | orquestração/Codex | papéis, charter, revisão, paralelismo e persistência remota definidos |
+| EVD-WP01-GITLAB-INVENTORY | VERIFIED | RND-20260716-003 | baseline GitLab | inventário e limitações documentados |
+| EVD-WP01-RUNNER-INVENTORY | VERIFIED | RND-20260716-003 | baseline Runner | sources, helper, Docker, tokens, action e lifecycle documentados |
+| EVD-WP01-UPSTREAM-DIVERGENCE | VERIFIED | RND-20260716-003 | upstream | divergência funcional/documental classificada |
+| EVD-WP01-ORCHESTRATOR-REVIEW | VERIFIED | RND-20260716-004 | revisão WP-01 | verdict `ACCEPTED` |
+| EVD-WP02-CROSS-REPO-SYNTHESIS | VERIFIED | RND-20260716-005 | síntese de execução WP-02 | commits e entregas persistidos; aceite reservado ao revisor |
+| EVD-WP02-ORCHESTRATOR-REVIEW | VERIFIED | RND-20260716-006 | revisão independente WP-02 | `continuity/reviews/REV-RND-20260716-005.md`; verdict `CORRECTION_REQUIRED` |
 
-## Evidências requeridas para CHR-WP02-001
+## Classificação da rodada WP-02 revisada
 
-- `EVD-WP02-SECRET-REMEDIATION`;
-- `EVD-WP02-REGISTER-ACTION`;
-- `EVD-WP02-RELEASE-PROVENANCE`;
-- `EVD-WP02-ATOMIC-RESOLVER`;
-- `EVD-WP02-GENERATOR-TESTS`;
-- `EVD-WP02-CI-AND-REDACTION`;
-- `EVD-WP02-ORCHESTRATOR-REVIEW`.
+- remediação da árvore/scanner/redaction: `VERIFIED`;
+- action/helper/matriz estrutural: `OBSERVED`, com lacunas de contrato e argv;
+- provenance/checksums: `FAILED` para o critério do charter;
+- generator do manifest: `FAILED` para o critério do charter;
+- CI remoto: `UNVERIFIED`.
 
-## Síntese cross-repo produzida por RND-20260716-005
+## Evidências requeridas para CHR-WP02-002
 
-| ID | Estado | Round | Assunto | Localização | Resultado |
-|---|---|---|---|---|---|
-| EVD-WP02-CROSS-REPO-SYNTHESIS | VERIFIED | RND-20260716-005 | execução do Runner e coordenação | `continuity/rounds/RND-20260716-005.md`, `continuity/STATUS.md`, `continuity/HANDOFF_CURRENT.md`, `continuity/ACTIVE_ROUND.md` | síntese, limitações, gate humano e próximo passo persistidos; aceite reservado ao orquestrador |
+- `EVD-WP02C-LIVE-DISCOVERY`;
+- `EVD-WP02C-CHECKSUM-TRUST`;
+- `EVD-WP02C-SOURCE-BOUNDARY`;
+- `EVD-WP02C-MANIFEST-CANDIDATE`;
+- `EVD-WP02C-TOKEN-NOT-IN-ARGV`;
+- `EVD-WP02C-YUNOHOST-ACTION-CONTRACT`;
+- `EVD-WP02C-TESTS-AND-REMOTE-CI`;
+- `EVD-WP02C-CROSS-REPO-SYNTHESIS`;
+- `EVD-WP02C-ORCHESTRATOR-REVIEW`.
 
-## Convenção para outputs
+## Convenção
 
-Registrar método/comando, ambiente, entrada/commit, resultado, limitações e risco residual em `evidence/<wp>/` quando detalhes forem necessários. Nunca reproduzir o valor credential-like histórico.
+O coordenador aponta para evidência funcional no Runner e persiste síntese, decisão e continuidade. Fixture não é autoridade de freshness ou checksum por si só. Nunca reproduzir a credencial histórica.
