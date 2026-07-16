@@ -1,25 +1,26 @@
 # Handoff atual
 
-Estado: `EXECUTED_AWAITING_REVIEW`
-Round-ID: `RND-20260716-007`
-Charter: `CHR-WP02-002`
+Estado: `READY_FOR_CODEX_FULL_ROUND`  
+Charter ativo: `CHR-WP02-003`  
+Revisão anterior: `REV-RND-20260716-007 — CORRECTION_REQUIRED`  
 Branch: `master`
 
-## Papel do coordenador
+## Prompt
 
-O trabalho funcional foi executado em `faleious-ai/gitlab-runner_ynh`. Este repositório persiste a síntese cross-repo e aponta para os artefatos remotos do Runner. O pacote aguarda revisão independente.
+```text
+Leia AGENTS.md e continue.
+```
 
-## Artefatos
+## Retomada
 
-- `continuity/rounds/RND-20260716-007.md` neste coordenador;
-- `evidence/EVIDENCE_INDEX.md`;
-- Runner: `continuity/rounds/RND-20260716-007.md`;
-- Runner: `evidence/wp02-online-discovery.json`;
-- Runner: `evidence/wp02-checksum-trust.json`;
-- Runner: `evidence/wp02-candidate-report.json`;
-- Runner: `evidence/wp02-manifest-diff.json`;
-- Runner: `docs/decisions/ADR-0006-runner-release-provenance.md`.
+1. Ler `AGENTS.md`.
+2. Reconciliar `origin/master` deste coordenador e do Runner.
+3. Ler `STATUS.md` e `ACTIVE_ROUND.md` nos dois repositórios.
+4. Executar integralmente o charter detalhado no Runner.
+5. Usar novo `Round-ID` comum e publicar ambos os commits.
 
-## Limites
+## Direção
 
-Não houve branch, PR, force push, promoção de versão, release, registro Runner real, operação destrutiva ou uso de credencial histórica. Não declarar aceite.
+O Runner deve corrigir controlador YunoHost, entradas efêmeras, interface legada, backup/restore, trust criptográfico, self-link/redirects, índice canônico e CI remoto. Este coordenador recebe somente síntese, evidência e continuidade.
+
+Não promover versão, registrar Runner real ou usar a credencial histórica.

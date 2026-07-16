@@ -2,26 +2,35 @@
 
 Atualizado em: 2026-07-16  
 Branch autorizada: `master`  
-Última rodada executada pelo Codex: `RND-20260716-007`
-Última rodada do orquestrador: `RND-20260716-006`
+Última rodada executada pelo Codex: `RND-20260716-007`  
+Última rodada do orquestrador: `RND-20260716-008`
 
 ## Fase do programa
 
-`WP02_EXECUTED_AWAITING_REVIEW`
+`WP02_CORRECTION_REQUIRED_CHR003_READY`
 
-O Runner é o repositório funcional primário. O coordenador recebeu a síntese, as fontes, os relatórios e a continuidade do mesmo `Round-ID`.
+A revisão cross-repo de `CHR-WP02-002` resultou em `CORRECTION_REQUIRED`. O Runner preserva avanços de descoberta, checksum e manifest candidato, mas precisa corrigir action, lifecycle, trust criptográfico, evidência canônica e CI remoto.
 
-## Síntese cross-repo
+Registro: `continuity/reviews/REV-RND-20260716-007.md`.
 
-- Runner: descoberta oficial `v19.2.0`, checksum/signature trust, manifest candidate, registro sem token em argv, action config-panel e CI imutável;
-- coordenador: round record, handoff, status, active round, evidence index e matriz de revisão;
-- ambos preservam o manifest Runner em `18.6.2~ynh1`, sem promoção ou registro real;
-- ambos aguardam revisão independente e não declaram `ACCEPTED`.
+## Unidade ativa
 
-## Validações reportadas pelo Runner
+`CHR-WP02-003 — Action, trust fail-closed e lifecycle seguro`.
 
-14/14 testes PASS; secret scan clean; Bash PASS; parsing JSON/TOML PASS; dry-run/diff guard PASS; assinatura online VERIFIED; manifest exato `18.6.2~ynh1`.
+Estado: `READY`.
 
-## Gate
+Repositório funcional: `faleious-ai/gitlab-runner_ynh`.
 
-`HG-RUN-SEC-01` permanece `UNRESOLVED_NO_AUTHORITY` e não bloqueia a execução técnica.
+## Achados impeditivos
+
+- config panel sem controlador `run__register()` e entradas efêmeras;
+- interface legada ainda aceita credencial em argumentos;
+- backup/restore não preservam identidade e restore depende de senha não persistida;
+- assinatura inválida pode ser classificada como limitação ambiental;
+- self-link/origem/redirects incompletos;
+- índice canônico do Runner desatualizado;
+- CI remoto não demonstrado.
+
+## Gate humano
+
+`HG-RUN-SEC-01` permanece `UNRESOLVED_NO_AUTHORITY`, sem bloquear a correção.
