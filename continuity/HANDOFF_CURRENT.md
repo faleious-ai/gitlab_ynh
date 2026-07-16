@@ -1,74 +1,50 @@
 # Handoff atual
 
-Estado: `EXECUTED_AWAITING_REVIEW`
-Charter executado: `CHR-WP01-001`
-Round concluído: `RND-20260716-003`
+Estado: `READY_FOR_CODEX_FULL_ROUND`  
+Charter ativo: `CHR-WP02-001`  
+Revisão anterior: `REV-RND-20260716-003 — ACCEPTED`  
 Branch: `master`
 
 ## Prompt de retomada
-
-Use exatamente:
 
 ```text
 Leia AGENTS.md e continue.
 ```
 
-Uma orientação adicional pode ser anexada, mas o Codex deve reconciliá-la com o charter ativo e registrá-la no round record.
-
-## Retomada mínima do Codex
+## Retomada mínima
 
 1. Ler `AGENTS.md`.
-2. Confirmar HEAD de `master` nos dois repositórios.
+2. Confirmar HEAD de `master` neste repositório e em `faleious-ai/gitlab-runner_ynh`.
 3. Ler `continuity/STATUS.md` e `continuity/ACTIVE_ROUND.md`.
-4. Confirmar o estado persistido e consultar o revisor antes de abrir nova rodada.
+4. Confirmar `Charter-ID: CHR-WP02-001` e estado `READY`.
+5. Atribuir novo `Round-ID` e executar integralmente o DAG, com o Runner como repositório primário.
 
-## Rodada executada
+## Rodada autorizada
 
-`WP-01A/B/C/D — Auditoria baseline completa dos dois instaladores`.
+A rodada combina o maior volume coerente de trabalho técnico não bloqueado:
 
-O charter definiu e a execução concluiu quatro frentes paralelas iniciais:
+- remover a credencial persistida da árvore atual e impedir recorrência;
+- reparar ou remover justificadamente a action `register` sem target;
+- centralizar e testar o fluxo de registro sem usar token real;
+- implementar fonte, resolver e generator determinístico para Runner + helper images;
+- adicionar fixtures offline, testes negativos e CI somente de validação;
+- atualizar este coordenador com síntese e evidência.
 
-- estrutura/manifest/sources do GitLab;
-- lifecycle/testes/workflows do GitLab;
-- inventário completo do Runner;
-- upstream e divergências dos dois forks.
+Não promover versão de produção, não registrar Runner real e não executar ação destrutiva.
 
-Após integração, foram executadas as sínteses de riscos, assurance e backlog.
-O updater não foi implementado.
+## Paralelismo
 
-## Regra de esforço
+O charter define frentes independentes para segurança, action/registro, proveniência, resolver/generator e assurance. Subagentes não fazem commit. O Codex integra interfaces, executa validação final e persiste um commit por repositório.
 
-O Codex não deve parar para fornecer progresso. Deve concluir todas as tarefas não bloqueadas, tentar alternativas técnicas e continuar frentes independentes. Só pode parar após:
+## Gate humano
 
-- conclusão integral e commits coordenados; ou
-- conclusão de todo trabalho independente e registro de bloqueio humano válido.
+`HG-RUN-SEC-01` permanece aberto: o valor histórico deve ser revogado, rotacionado ou confirmado como expirado por quem administra o projeto GitLab usado pelo package_check.
 
-## Subagentes
+O Codex não deve usar ou validar o valor. Esse gate não autoriza interrupção precoce: todas as tarefas técnicas independentes devem ser concluídas primeiro.
 
-Use subagentes para frentes independentes. Eles não fazem commit, não alteram arquivos canônicos compartilhados sem ownership e não expandem escopo. O Codex integra, verifica e valida.
+## Estado de saída esperado
 
-## Estado de saída
+- `EXECUTED_AWAITING_REVIEW`, se o gate humano estiver resolvido ou não fizer parte do critério técnico final; ou
+- `BLOCKED_HUMAN`, somente após todo o restante estar concluído, com ação humana exata registrada.
 
-`EXECUTED_AWAITING_REVIEW`.
-
-O Codex entregou commits, evidências, matriz tarefa-output-evidência, gaps,
-riscos residuais e bloqueios. Não marcou `ACCEPTED`.
-
-## Revisão
-
-O ChatGPT deve revisar o trabalho via repositório. Se houver lacuna técnica,
-definirá rodada corretiva completa. Se houver gate humano, apresentará ao
-usuário alternativas, consequências e recomendação, persistirá a resolução e
-liberará a continuação.
-
-## Resultados para revisão
-
-- Baseline GitLab: docs/audit/GITLAB_PACKAGE_BASELINE.md
-- Divergência: docs/audit/UPSTREAM_DIVERGENCE.md
-- Autoupdate: docs/audit/AUTOUPDATE_GAPS.md
-- Lifecycle/risco: docs/audit/LIFECYCLE_AND_RISK_MAP.md
-- Síntese cross-repo: docs/audit/CROSS_REPO_BASELINE.md
-
-Achados principais: baseline GitLab 19.1.0~ynh1, candidato 19.1.2
-disponível nos índices consultados, workflow herdado incompatível com
-master-only, ausência de testes do gerador e lifecycle ainda não demonstrado.
+O Codex entrega commits, evidências, matriz tarefa-output-evidência, testes, riscos e estado do gate. Não marca `ACCEPTED`.

@@ -2,66 +2,50 @@
 
 Atualizado em: 2026-07-16  
 Branch autorizada: `master`  
-Última rodada registrada: `RND-20260716-003`
-Commit da rodada: fechamento coordenado em master; ver round record e HEAD
+Última rodada executada pelo Codex: `RND-20260716-003`  
+Última rodada do orquestrador: `RND-20260716-004`
 
 ## Fase do programa
 
-`EXECUTED_AWAITING_REVIEW`
+`WP01_ACCEPTED_WP02_READY`
 
-A estrutura MAESTRO formaliza o usuário como Maestro Diretor, ChatGPT como
-orquestrador/revisor e Codex como executor de rodadas completas. O charter
-`CHR-WP01-001` foi executado em `RND-20260716-003` e aguarda revisão.
+A auditoria baseline cross-repo `CHR-WP01-001` foi revisada e aceita. O próximo charter `CHR-WP02-001` está `READY` para segurança e fundação determinística do autoupdate do Runner.
 
-## Estado factual confirmado
+## Veredito da revisão WP-01
 
-- A frase `Leia AGENTS.md e continue` roteia o Codex para `continuity/ACTIVE_ROUND.md`.
-- O orquestrador prepara cada rodada após resolver perguntas humanas materiais.
-- O Codex deve concluir todas as tarefas não bloqueadas, integrar subagentes e encerrar aguardando revisão.
-- Subagentes não fazem commit nem alteram autoridade da rodada.
-- `gitlab_ynh` continua declarando `19.1.0~ynh1` no baseline observado.
-- `gitlab-runner_ynh` continua declarando `18.6.2~ynh1` no baseline observado.
-- O GitLab possui 52 source sections e 104 registros de assets estruturalmente fixados.
-- O workflow de autoupdate herdado usa testing/branch/PR e não corresponde à política master-only.
-- O path.json consultado retornou 19.1.2; nenhuma atualização foi aplicada.
-- Nenhum comportamento de instalação foi alterado.
+`ACCEPTED`.
 
-## Unidade concluída
+O trabalho cumpriu o charter de auditoria: produziu todos os outputs obrigatórios, usou um commit em `master` por repositório com o mesmo `Round-ID`, não alterou arquivos funcionais e distinguiu corretamente evidência estática de lifecycle não demonstrado.
 
-`WP-00B — Contrato orquestrador-executor e paralelismo`.
+A revisão reproduziu os achados de maior impacto:
 
-Entregas:
+- o manifest GitLab da fork corresponde ao snapshot upstream auditado;
+- a fixture Runner contém literal credential-like, sem reprodução do valor nos relatórios;
+- `actions.json` declara `scripts/actions/register`, target ausente;
+- o workflow GitLab herdado usa branch e base `testing`, incompatíveis com o contrato master-only;
+- package_linter e lifecycle real continuam `UNVERIFIED`, como declarado.
 
-- modelo de papéis e autoridade;
-- contrato de charter completo;
-- protocolo de revisão;
-- política de subagentes;
-- semântica de bloqueio/resolução/retomada;
-- charter completo WP-01 pronto.
+Registro: `continuity/reviews/REV-RND-20260716-003.md`.
 
-## Unidade executada
+## Unidade ativa
 
-`CHR-WP01-001 — WP-01 Auditoria baseline`.
+`CHR-WP02-001 — Segurança e fundação determinística do autoupdate do Runner`.
 
-Estado: `EXECUTED_AWAITING_REVIEW`.
+Estado: `READY`.
 
-WP-01A/B/C/D foi executado integralmente, sem implementar autoupdate.
+O repositório primário é `faleious-ai/gitlab-runner_ynh`. Este coordenador recebe síntese, decisões, evidência e continuidade com o mesmo `Round-ID`.
 
-## Bloqueios
+## Gate humano aberto
 
-Nenhum bloqueio humano ativo. Criação de mirrors e novos repositórios permanece
-dependente de ambiente/credenciais em etapa posterior. O Runner tem um
-achado P0 de credential-like literal em fixture, registrado sem reproduzir o
-valor; a correção é backlog técnico da próxima rodada.
+`HG-RUN-SEC-01`: confirmar revogação, rotação ou expiração do valor histórico usado pela fixture do package_check.
+
+Esse gate não impede o Codex de remover o literal da árvore atual, adicionar secret scan, corrigir o fluxo de registro e implementar/testar o updater. O executor deve concluir todo o trabalho independente antes de parar pelo gate.
 
 ## Integridade
 
-- Código funcional alterado: não.
-- Manifest/versão/source alterados: não.
-- Relatórios de auditoria e continuidade adicionados: sim.
+- Código funcional alterado na revisão: não.
+- Manifest/versão/source alterados na revisão: não.
 - Branch criada: não.
 - Force push: não.
-- Segredo persistido: não.
-- Evidências: `EVD-WP01-GITLAB-INVENTORY`, `EVD-WP01-UPSTREAM-DIVERGENCE`,
-  `EVD-WP01-RISK-MAP` e `EVD-WP01-VALIDATION`.
-- Exceção de bootstrap: o conector Contents API gerou múltiplos commits documentais e probes temporários durante esta rodada; todos os probes foram removidos. A política normativa de um commit aplica-se às rodadas futuras do Codex e do orquestrador.
+- Segredo reproduzido: não.
+- Evidência da revisão: `EVD-WP01-ORCHESTRATOR-REVIEW`.
