@@ -2,60 +2,56 @@
 
 Atualizado em: 2026-07-16  
 Branch autorizada: `master`  
-Última rodada registrada: `RND-20260716-001`  
-Commit da rodada: `SELF` — o commit que contém este registro
+Última rodada registrada: `RND-20260716-002`  
+Commit da rodada: série de bootstrap do conector; ver integridade abaixo
 
 ## Fase do programa
 
-`FOUNDATION_READY`
+`ORCHESTRATION_READY`
 
-A estrutura MAESTRO de orquestração, memória, decisão, evidência e persistência foi definida. Nenhum comportamento do instalador foi alterado nesta rodada.
+A estrutura MAESTRO agora formaliza o usuário como Maestro Diretor, ChatGPT como orquestrador/revisor e Codex como executor de rodadas completas. O charter `CHR-WP01-001` está `READY` para execução paralela da auditoria baseline.
 
 ## Estado factual confirmado
 
-- `gitlab_ynh` declara `19.1.0~ynh1` no baseline observado.
-- O manifesto fixa pacotes CE/EE por distribuição Debian e arquitetura com SHA256.
-- `gitlab-runner_ynh` declara `18.6.2~ynh1` no baseline observado.
-- O bloco de autoupdate do Runner está comentado e helper images não possuem estratégia automática definida.
-- A issue coordenadora é `faleious-ai/gitlab_ynh#1`.
-- O conector GitLab atual não cobre toda a API pretendida.
-- O trabalho deve ocorrer diretamente em `master`, sem branches secundárias.
+- A frase `Leia AGENTS.md e continue` roteia o Codex para `continuity/ACTIVE_ROUND.md`.
+- O orquestrador prepara cada rodada após resolver perguntas humanas materiais.
+- O Codex deve concluir todas as tarefas não bloqueadas, integrar subagentes e encerrar aguardando revisão.
+- Subagentes não fazem commit nem alteram autoridade da rodada.
+- `gitlab_ynh` continua declarando `19.1.0~ynh1` no baseline observado.
+- `gitlab-runner_ynh` continua declarando `18.6.2~ynh1` no baseline observado.
+- Nenhum comportamento de instalação foi alterado.
 
 ## Unidade concluída
 
-`WP-00 — Bootstrap MAESTRO dos repositórios`
+`WP-00B — Contrato orquestrador-executor e paralelismo`.
 
 Entregas:
 
-- roteador mínimo em `AGENTS.md`;
-- contexto canônico;
-- protocolo de rodada e commit;
-- status e handoff;
-- plano de execução e divisão de trabalho;
-- decisões e ADRs;
-- especificações do pacote, programa e MCP;
-- índice de evidências;
-- registro da rodada.
+- modelo de papéis e autoridade;
+- contrato de charter completo;
+- protocolo de revisão;
+- política de subagentes;
+- semântica de bloqueio/resolução/retomada;
+- charter completo WP-01 pronto.
 
-## Unidade ativa seguinte
+## Unidade ativa
 
-`WP-01 — Auditoria baseline dos dois instaladores`
+`CHR-WP01-001 — WP-01 Auditoria baseline`.
 
-O próximo agente deve executar `WP-01A` e `WP-01B` conforme `continuity/EXECUTION_PLAN.md`, sem iniciar implementação de autoupdate antes de persistir os inventários e divergências.
+Estado: `READY`.
+
+O Codex deve executar WP-01A/B/C/D integralmente, com frentes paralelas, sem implementar autoupdate.
 
 ## Bloqueios
 
-Nenhum bloqueio humano ativo para a auditoria baseline.
-
-Bloqueios ambientais conhecidos para etapas posteriores:
-
-- criação de novos repositórios e mirrors pode exigir Codex, GitHub CLI ou runner com credenciais;
-- execução remota pelo Asimov MCP Gateway depende de sessão que exponha o command runner.
+Nenhum bloqueio humano ativo para WP-01. Criação de mirrors e novos repositórios permanece dependente de ambiente/credenciais em etapa posterior.
 
 ## Integridade
 
-- Código de instalação modificado nesta rodada: não.
-- Segredos adicionados: não.
+- Código funcional alterado: não.
+- Manifest/versão/source alterados: não.
 - Branch criada: não.
-- Force push utilizado: não.
-- Evidência da rodada: `EVD-20260716-001`.
+- Force push: não.
+- Segredo persistido: não.
+- Evidência: `EVD-20260716-002`.
+- Exceção de bootstrap: o conector Contents API gerou múltiplos commits documentais e probes temporários durante esta rodada; todos os probes foram removidos. A política normativa de um commit aplica-se às rodadas futuras do Codex e do orquestrador.
