@@ -5,48 +5,60 @@ Estado: `READY`
 Preparado em: 2026-07-16  
 Orquestrador: ChatGPT com o Maestro Diretor  
 Executor principal: Codex  
-Repositório funcional: `faleious-ai/gitlab-runner_ynh`  
-Unidade: `WP-02 Correção final — action, trust fail-closed e lifecycle seguro`
+Unidade: `WP-02 Correção final do Runner — action, trust e lifecycle`
+
+## Autoridade
+
+O contrato funcional detalhado e as skills de execução estão em `faleious-ai/gitlab-runner_ynh`:
+
+- `continuity/ACTIVE_ROUND.md`;
+- `.agents/skills/README.md`;
+- ADR-0006 e protocolos locais.
+
+Este coordenador mantém missão, decisão, estado transversal, evidência sintética e handoff. Não replique implementação do Runner aqui.
 
 ## Autorização
 
-`Leia AGENTS.md e continue` autoriza a execução integral do charter detalhado no Runner. Atribua novo `Round-ID`, conclua todo trabalho não bloqueado e use o mesmo identificador nos dois repositórios.
+`Leia AGENTS.md e continue` autoriza o charter detalhado no Runner. Atribua novo `Round-ID`. Cada Task-ID concluído gera commit apenas nos repositórios realmente afetados. Um commit do coordenador é exigido quando a tarefa alterar estado, decisão, evidência ou síntese cross-repo.
 
-## Revisão anterior
+Baseline: resolver `origin/master` nos dois repositórios e confirmar que contêm `RND-20260716-009`, ADR-0006 e o charter migrado.
 
-`CHR-WP02-002` recebeu `CORRECTION_REQUIRED`. Registro: `continuity/reviews/REV-RND-20260716-007.md`.
+## Tarefas funcionais do Runner
 
-## Objetivo cross-repo
+1. `T-WP02D-01-config-controller` — controlador `run__register()` e entradas efêmeras;
+2. `T-WP02D-02-remove-legacy-register` — remover credencial/entry point legado;
+3. `T-WP02D-03-lifecycle-identity` — backup/restore sem re-registro;
+4. `T-WP02D-04-signature-fail-closed` — assinatura/chave falham fechado;
+5. `T-WP02D-05-source-self-link-redirects` — origem canônica e redirects;
+6. `T-WP02D-06-evidence-portability` — evidência canônica e portátil;
+7. `T-WP02D-07-remote-ci` — CI remoto ou bloqueio objetivo;
+8. `T-WP02D-08-integration-continuity` — integração, continuidade e síntese cross-repo.
 
-Fechar os pontos ainda não demonstrados no Runner:
+O Runner contém seams, RED/GREEN, paths, dependências e gates completos de cada tarefa.
 
-- controlador YunoHost `run__register()` e entradas efêmeras;
-- remoção da interface legada de registro;
-- backup/restore que preservem configuração e identidade sem re-registro;
-- verificação de assinatura/chave fail-closed;
-- self-link/origem/redirects;
-- índice funcional canônico e relatórios portáveis;
-- CI remoto verificável ou bloqueio objetivo.
+## Processo obrigatório
 
-## Execução
+- TDD para toda mudança comportamental;
+- backprop técnico automático;
+- challenge pré-build nas tarefas de alto impacto;
+- revisão pré-commit em Spec/Charter e Engineering/Security/Lifecycle;
+- um commit remoto por tarefa e repositório afetado;
+- sem squash, branch, PR, worktree ou force push;
+- claims separados por evidência estrutural, local, CI e lifecycle;
+- convergência por claims/gates/findings, não por confiança ou diff isolado.
 
-O charter normativo completo, DAG, critérios e pacote de revisão estão em `faleious-ai/gitlab-runner_ynh/continuity/ACTIVE_ROUND.md` no mesmo estado `READY`.
+## Fora de escopo
 
-Este coordenador deve receber apenas:
+- promoção de versão;
+- registro real ou uso da credencial histórica;
+- operação destrutiva;
+- instalação do runtime/hooks Cavekit;
+- implementação MCP nesta unidade.
 
-- síntese da implementação e riscos;
-- estado das evidências e CI;
-- status, handoff, active round, evidence index e round record;
-- mesmo `Round-ID` do Runner.
+## Gate humano
 
-## Limites
+`HG-RUN-SEC-01` permanece `UNRESOLVED_NO_AUTHORITY` e não bloqueia trabalho técnico.
 
-Não promover candidata, registrar Runner real, usar credencial histórica, criar branch/PR/worktree, usar force push ou executar operação destrutiva.
+## Definition of Done
 
-## Gate
-
-`HG-RUN-SEC-01` permanece `UNRESOLVED_NO_AUTHORITY` e não bloqueia a rodada técnica.
-
-## Saída
-
-Um commit publicado por repositório afetado. O Codex encerra em `EXECUTED_AWAITING_REVIEW` somente após sincronização remota e pacote recuperável; não declara `ACCEPTED`.
+Oito tarefas concluídas ou bloqueadas validamente, commits remotos rastreáveis, manifest sem promoção, evidência honesta e T08 publicada também neste coordenador com síntese, status, handoff e round record do mesmo Round-ID.

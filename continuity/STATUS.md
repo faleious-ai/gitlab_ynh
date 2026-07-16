@@ -3,34 +3,46 @@
 Atualizado em: 2026-07-16  
 Branch autorizada: `master`  
 Última rodada executada pelo Codex: `RND-20260716-007`  
-Última rodada do orquestrador: `RND-20260716-008`
+Última rodada do orquestrador: `RND-20260716-009`
 
 ## Fase do programa
 
-`WP02_CORRECTION_REQUIRED_CHR003_READY`
+`WP02_CHR003_READY_WITH_MAESTRO_CAVEKIT_TASK_PROTOCOL`
 
-A revisão cross-repo de `CHR-WP02-002` resultou em `CORRECTION_REQUIRED`. O Runner preserva avanços de descoberta, checksum e manifest candidato, mas precisa corrigir action, lifecycle, trust criptográfico, evidência canônica e CI remoto.
+O charter corretivo do Runner permanece funcionalmente `CHR-WP02-003`, agora decomposto em oito tarefas rastreáveis com TDD, backprop, revisão adversarial e commit remoto por tarefa.
 
-Registro: `continuity/reviews/REV-RND-20260716-007.md`.
+## Processo incorporado
+
+- ADR-0006 substitui um commit por rodada por um commit por tarefa;
+- rodada continua como autorização/baseline/veredito;
+- skills executáveis e learning ledger residem no Runner;
+- TDD é obrigatório para comportamento;
+- backprop técnico é autônomo;
+- revisão interna usa dois eixos;
+- ChatGPT mantém revisão externa independente;
+- claims distinguem observação estrutural, verificação local, CI e lifecycle.
 
 ## Unidade ativa
 
-`CHR-WP02-003 — Action, trust fail-closed e lifecycle seguro`.
-
-Estado: `READY`.
-
+`CHR-WP02-003 — Action, trust fail-closed e lifecycle seguro`  
+Estado: `READY`.  
 Repositório funcional: `faleious-ai/gitlab-runner_ynh`.
 
-## Achados impeditivos
+Tarefas: controller, remoção legada, lifecycle/identidade, assinatura fail-closed, self-link/redirects, evidência portátil, CI remoto e integração/continuidade.
 
-- config panel sem controlador `run__register()` e entradas efêmeras;
-- interface legada ainda aceita credencial em argumentos;
-- backup/restore não preservam identidade e restore depende de senha não persistida;
-- assinatura inválida pode ser classificada como limitação ambiental;
-- self-link/origem/redirects incompletos;
-- índice canônico do Runner desatualizado;
-- CI remoto não demonstrado.
+## Componentes preservados
+
+- descoberta paginada/stable-only;
+- confronto de checksums;
+- manifest candidato completo;
+- diff allowlist;
+- workflow read-only com SHA pins;
+- manifest `18.6.2~ynh1` sem promoção.
 
 ## Gate humano
 
 `HG-RUN-SEC-01` permanece `UNRESOLVED_NO_AUTHORITY`, sem bloquear a correção.
+
+## Próxima ação
+
+Codex executa `Leia AGENTS.md e continue`, lê o charter detalhado e as skills no Runner, atribui novo Round-ID e publica um commit por Task-ID. Este coordenador só recebe commits nas tarefas que realmente alterarem síntese/continuidade cross-repo, especialmente T08.
