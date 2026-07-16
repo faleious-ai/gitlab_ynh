@@ -2,102 +2,121 @@
 
 ## Identidade
 
-Formato: `RND-YYYYMMDD-NNN`.
+Formato de execução: `RND-YYYYMMDD-NNN`. Uma rodada parte de um HEAD confirmado, executa um charter autorizado e termina por commit em `master` ou por bloqueio persistido em estado seguro.
 
-Uma rodada é uma unidade de execução iniciada a partir de um HEAD confirmado e encerrada por um único commit atômico em `master`.
+## 0. ORCHESTRATE
 
-## 1. START
+Antes de `READY`, o orquestrador:
+
+1. reconcilia status, handoff, decisões, evidências e HEADs;
+2. pergunta ao Maestro Diretor tudo que possa mudar resultado, prioridade, produto, risco, custo, acesso ou irreversibilidade;
+3. decide tecnicamente questões reversíveis;
+4. preenche `ACTIVE_ROUND.md` conforme `ROUND_CHARTER_CONTRACT.md`;
+5. define DAG, frentes paralelas, outputs, critérios, validações e gates;
+6. não libera execução enquanto houver ambiguidade material.
+
+## 1. START — Codex
 
 1. confirmar repositório e branch `master`;
 2. resolver HEAD local/remoto e registrar `baseline_head`;
 3. confirmar árvore limpa ou reconciliar alterações existentes;
-4. ler `AGENTS.md`, `HANDOFF_CURRENT.md` e `STATUS.md`;
-5. identificar a unidade ativa e carregar contexto sob demanda;
-6. declarar escopo, fora de escopo, critérios de aceite, riscos e validações;
-7. não iniciar se houver conflito de autoridade ou segredo necessário ausente.
+4. ler `AGENTS.md`, `HANDOFF_CURRENT.md`, `STATUS.md` e `ACTIVE_ROUND.md`;
+5. confirmar charter `READY` e atribuir `Round-ID`;
+6. carregar contexto sob demanda;
+7. registrar orientação adicional do prompt;
+8. decompor o DAG e decidir o paralelismo seguro.
 
 ## 2. EXECUTE
 
-- Trabalhar somente na unidade autorizada e dependências inevitáveis.
-- Preferir ciclos teste-falha-correção-teste quando houver comportamento executável.
-- Registrar descobertas factuais em documentos de auditoria ou evidência, não apenas no chat.
+- Executar integralmente o charter e dependências inevitáveis.
+- Preferir ciclos teste-falha-correção-teste.
+- Registrar fatos em arquivos/evidências, não apenas no chat.
 - Decisões técnicas reversíveis podem ser tomadas autonomamente.
-- Ao detectar drift, reler somente a fonte canônica afetada.
-- Não promover plano, hipótese ou output parcial a “concluído”.
+- Não promover plano, hipótese ou output parcial a concluído.
+- Não encerrar para apresentar progresso.
+- Teste falho, pesquisa longa, primeira estratégia malsucedida e volume de trabalho não são bloqueios.
 
-## 3. VALIDATE
+## 3. PARALLELIZE
+
+Quando o DAG permitir:
+
+1. criar frentes independentes com ownership de paths/outputs;
+2. fornecer contexto mínimo a cada subagente;
+3. proibir commits e expansão de escopo pelos subagentes;
+4. exigir retorno com fatos, alterações, validações, desconhecidos e riscos;
+5. continuar frentes independentes quando outra falhar;
+6. integrar, revisar e validar centralmente.
+
+Arquivos canônicos compartilhados, decisões arquiteturais, integração final e commit permanecem sequenciais sob o executor principal.
+
+## 4. VALIDATE
 
 Aplicar validação proporcional:
 
-- documentação: consistência de links, IDs, estados e ausência de contradições;
-- pacote: lint, testes YunoHost relevantes, integridade de sources e lifecycle aplicável;
-- updater: fixtures, hashes, assets, versões, erros e idempotência;
-- MCP: schema, autenticação, paginação, rate limit, retry, idempotência, erros e isolamento destrutivo;
-- cross-repo: mesma decisão, versão e Round-ID nos repositórios afetados.
+- documentação: links, IDs, estados, cobertura e contradições;
+- pacote: lint, testes YunoHost, sources e lifecycle aplicável;
+- updater: fixtures, hashes, assets, versões, falhas, determinismo e idempotência;
+- MCP: schema, autenticação, paginação, rate limit, retry, idempotência e isolamento destrutivo;
+- cross-repo: decisões, versões, evidências e mesmo `Round-ID`.
 
-Toda alegação de conclusão deve apontar para evidência reproduzível ou ser marcada como não verificada.
+Toda alegação de conclusão aponta para evidência ou permanece `UNVERIFIED`.
 
-## 4. PERSIST
+## 5. BLOCKER SWEEP
 
-Antes do commit:
+Antes de parar por bloqueio:
 
-1. atualizar `continuity/STATUS.md` com estado factual;
-2. substituir `continuity/HANDOFF_CURRENT.md` pelo próximo ponto de entrada;
-3. atualizar `continuity/DECISIONS.md` e ADRs quando necessário;
-4. adicionar registro append-only em `continuity/rounds/`;
-5. atualizar `evidence/EVIDENCE_INDEX.md`;
-6. reconciliar o HEAD de `master`; se mudou, integrar sem force push e repetir validações impactadas;
-7. revisar diff inteiro e remover segredos, ruído e afirmações não comprovadas.
+1. identificar quais nós do DAG realmente dependem do gate;
+2. concluir todos os nós independentes;
+3. tentar alternativas técnicas razoáveis;
+4. deixar estado seguro e verificável;
+5. registrar condição, evidência, tentativas, alternativas, decisão humana exata e grafo restante.
 
-## 5. COMMIT
+Bloqueio humano é decisão/credencial/autorização/irreversibilidade/consequência prática. Limite externo de sessão ou ferramenta é interrupção ambiental, não conclusão.
 
-Exatamente um commit por rodada neste repositório.
+## 6. PERSIST
 
-Formato recomendado:
+No mesmo fechamento lógico:
+
+1. atualizar `STATUS.md`;
+2. substituir `HANDOFF_CURRENT.md`;
+3. atualizar o estado de `ACTIVE_ROUND.md`;
+4. atualizar decisões/ADRs quando necessário;
+5. adicionar round record append-only;
+6. atualizar `EVIDENCE_INDEX.md`;
+7. reconciliar novamente HEAD e repetir validações impactadas;
+8. revisar diff, segredos, ruído e claims.
+
+## 7. COMMIT
+
+Política normativa para rodadas futuras: exatamente um commit por rodada e repositório.
 
 ```text
 <type>(<scope>): <resultado observável>
 
 Round-ID: RND-YYYYMMDD-NNN
+Charter-ID: CHR-...
 Work-Package: WP-XX
 Evidence: EVD-...
 ```
 
-Tipos preferidos: `docs`, `test`, `fix`, `feat`, `refactor`, `chore`, `ci`.
+Trabalho cross-repo repete o mesmo `Round-ID`.
 
-Não usar commit genérico como `update`, `changes` ou `checkpoint` sem descrição observável.
+## 8. EXECUTOR END
 
-## 6. END
+O Codex termina somente quando:
 
-A rodada termina somente quando:
+- todas as tarefas não bloqueadas foram concluídas;
+- commit está em `master` e árvore limpa;
+- status, handoff, active round e evidência correspondem ao resultado;
+- pacote de revisão está completo;
+- estado é `EXECUTED_AWAITING_REVIEW` ou `BLOCKED_HUMAN`.
 
-- commit está em `master`;
-- working tree está limpa;
-- status e handoff correspondem ao commit;
-- evidência está indexada;
-- próxima unidade ou bloqueio está explícito.
+O Codex não marca o próprio trabalho `ACCEPTED`.
 
-O SHA resultante é obtido pelo commit que contém o arquivo de rodada. O campo `result_commit: SELF` evita um segundo commit apenas para registrar o próprio SHA.
+## 9. REVIEW
 
-## Concorrência
+O orquestrador aplica `REVIEW_PROTOCOL.md` e registra `ACCEPTED`, `CORRECTION_REQUIRED`, `HUMAN_GATE` ou `REJECTED_UNSAFE`. Após gate humano, revisa o charter e libera nova rodada vinculada ao mesmo objetivo quando aplicável.
 
-Se outro agente alterar `master` durante a rodada:
+## Concorrência externa
 
-- não sobrescrever nem forçar;
-- ler os commits novos;
-- reconciliar contratos e documentos canônicos;
-- repetir validações relevantes;
-- abortar e registrar conflito se as mudanças forem incompatíveis.
-
-## Bloqueio
-
-Um bloqueio válido deve conter:
-
-- condição exata;
-- evidência;
-- tentativas feitas;
-- alternativas descartadas e rationale;
-- decisão ou recurso humano necessário;
-- estado seguro deixado no repositório.
-
-Não é bloqueio: tarefa longa, necessidade de pesquisar, teste falhar ou primeira abordagem não funcionar.
+Se `master` mudar durante a rodada: não force; leia commits novos, reconcilie contratos, repita checks impactados e registre conflito se incompatível.
