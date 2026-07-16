@@ -2,20 +2,20 @@
 
 ## Missão
 
-Manter o pacote YunoHost do GitLab e coordenar o programa de autoupdate seguro, GitLab Runner, espelhos upstream e MCP GitLab. O repositório é a fonte de verdade; contexto de chat nunca é autoridade isolada.
+Manter o pacote YunoHost do GitLab e coordenar o programa de autoupdate seguro, GitLab Runner, espelhos upstream e MCP GitLab. O repositório remoto é a fonte de verdade operacional; contexto de chat e estado exclusivamente local nunca são autoridade isolada.
 
 ## Contrato de invocação
 
-A instrução `Leia AGENTS.md e continue` significa: leia o estado mínimo, execute integralmente o charter `READY` em `continuity/ACTIVE_ROUND.md` e só pare após concluir todas as tarefas não bloqueadas.
+A instrução `Leia AGENTS.md e continue` significa: leia o estado mínimo, execute integralmente o charter `READY` em `continuity/ACTIVE_ROUND.md` e só pare após concluir todas as tarefas não bloqueadas e persistir o resultado no `origin/master` de cada repositório afetado.
 
 Uma orientação anexada ao prompt pode esclarecer prioridade, restrição ou decisão humana. Registre-a no round record. Ela não expande silenciosamente missão, autorização ou operação irreversível.
 
 ## Papéis
 
 - **Maestro Diretor humano:** define missão, prioridade, consequências práticas, gates éticos, custos relevantes e ações irreversíveis.
-- **Orquestrador e revisor — ChatGPT:** entrevista o Maestro Diretor quando necessário, define a rodada completa, persiste o charter, revisa commits/evidências e decide aceite, correção ou escalonamento humano.
-- **Executor principal — Codex:** executa o charter completo, integra subagentes, valida e persiste o resultado. Não aprova o próprio trabalho.
-- **Subagentes:** executam frentes independentes sem autoridade de commit, integração final ou expansão de escopo.
+- **Orquestrador e revisor — ChatGPT:** entrevista o Maestro Diretor quando necessário, define a rodada completa, persiste o charter, revisa commits/evidências remotos e decide aceite, correção ou escalonamento humano.
+- **Executor principal — Codex:** executa o charter completo, integra subagentes, valida, cria o commit, publica em `origin/master` e fornece o pacote remoto de revisão. Não aprova o próprio trabalho.
+- **Subagentes:** executam frentes independentes sem autoridade de commit, integração final, push ou expansão de escopo.
 
 Detalhes: `docs/architecture/ORCHESTRATOR_EXECUTOR_MODEL.md`.
 
@@ -24,7 +24,7 @@ Detalhes: `docs/architecture/ORCHESTRATOR_EXECUTOR_MODEL.md`.
 1. Leia `continuity/HANDOFF_CURRENT.md`.
 2. Leia `continuity/STATUS.md`.
 3. Leia `continuity/ACTIVE_ROUND.md`.
-4. Resolva o HEAD atual de `master` antes de qualquer escrita.
+4. Execute `git fetch origin` e resolva os HEADs local e remoto de `master` antes de qualquer escrita.
 5. Se o charter não estiver `READY`, não implemente; siga o handoff ou registre o bloqueio.
 6. Carregue somente as rotas necessárias à unidade ativa.
 
@@ -35,7 +35,7 @@ Detalhes: `docs/architecture/ORCHESTRATOR_EXECUTOR_MODEL.md`.
 | objetivo, limites e mapa do programa | `CONTEXT.md` |
 | charter autorizado e grafo da rodada | `continuity/ACTIVE_ROUND.md` |
 | plano de longo prazo | `continuity/EXECUTION_PLAN.md` |
-| início, execução, bloqueio e commit | `continuity/ROUND_PROTOCOL.md` |
+| início, execução, bloqueio, commit e sincronização remota | `continuity/ROUND_PROTOCOL.md` |
 | revisão do trabalho executado | `continuity/REVIEW_PROTOCOL.md` |
 | rationale e decisões vigentes | `continuity/DECISIONS.md` e ADRs indicados |
 | papéis orquestrador/executor | `docs/architecture/ORCHESTRATOR_EXECUTOR_MODEL.md` |
@@ -55,19 +55,25 @@ Não carregue todos os arquivos por padrão. Amplie o contexto quando dependênc
 - Não pare para relatório de progresso, tarefa longa, teste falhando, pesquisa necessária ou primeira abordagem malsucedida.
 - Ao encontrar bloqueio em uma frente, continue todas as frentes independentes do DAG.
 - Só pare por conclusão integral, bloqueio humano válido ou impossibilidade ambiental real após persistir estado seguro.
-- Ao finalizar, marque o trabalho `EXECUTED_AWAITING_REVIEW`; somente o orquestrador pode registrar `ACCEPTED`.
+- Commit local sem push recebe `LOCAL_COMPLETE_AWAITING_SYNC`; não é entrega revisável.
+- Falha de sincronização recebe `REMOTE_SYNC_BLOCKED`, com erro, divergência, tentativas e ação necessária.
+- Use `EXECUTED_AWAITING_REVIEW` somente depois que o SHA completo estiver alcançável em `origin/master` de todos os repositórios afetados.
+- Somente o orquestrador pode registrar `ACCEPTED`.
 
 ## Paralelismo
 
-Use subagentes quando as frentes forem independentes. Defina ownership de outputs e paths, evite edição concorrente de arquivos canônicos e mantenha integração, validação final e commit sob responsabilidade do executor principal.
+Use subagentes quando as frentes forem independentes. Defina ownership de outputs e paths, evite edição concorrente de arquivos canônicos e mantenha integração, validação final, commit e push sob responsabilidade do executor principal.
 
 ## Invariantes operacionais
 
 - Trabalhe exclusivamente em `master`; não crie branches, PRs ou worktrees secundárias.
-- Cada rodada de IA termina com exatamente um commit atômico por repositório afetado, identificado por `Round-ID`.
+- Cada rodada de IA termina com exatamente um commit atômico publicado por repositório afetado, identificado por `Round-ID`.
 - Trabalho cross-repo usa o mesmo `Round-ID` nos commits.
-- Antes do commit, reconcilie o HEAD remoto; nunca use force push nem reescreva histórico.
+- Antes do commit e antes do push, reconcilie `origin/master`; nunca use force push nem reescreva histórico publicado.
+- Commit ainda não publicado pode ser recriado ou rebaseado sobre o `origin/master` mais recente para produzir fast-forward seguro, preservando um único commit final da rodada e repetindo as validações impactadas.
+- O fechamento exige `HEAD == origin/master`, árvore limpa e confirmação de que o SHA completo pode ser obtido pelo GitHub.
 - No mesmo commit da rodada, atualize implementação/documentação, `STATUS`, `HANDOFF_CURRENT`, `ACTIVE_ROUND`, `EVIDENCE_INDEX` e o registro em `continuity/rounds/`.
+- Pacotes de revisão usam SHAs completos, paths do repositório e URLs remotas; links `C:/`, caminhos locais e arquivos não publicados não contam como evidência disponível ao orquestrador.
 - Mudança incompleta só pode permanecer se segura, verificável e explicitamente marcada; caso contrário, reverta o trecho inseguro.
 - Questões técnicas reversíveis são resolvidas dentro do mandato. Gates humanos seguem `ADR-0004` e `ADR-0005`.
 - Não instale artefatos dinâmicos como `latest`; versões publicadas permanecem fixadas por URL e SHA256.
@@ -78,6 +84,8 @@ Use subagentes quando as frentes forem independentes. Defina ownership de output
 
 Um bloqueio válido precisa indicar condição, evidência, tentativas, alternativas, decisão/recurso humano exato, tarefas já concluídas e estado seguro. O usuário e o orquestrador resolvem o gate; a retomada ocorre por charter revisado e novo `Round-ID` quando necessário.
 
+Ausência de push, credencial Git para publicar ou divergência de `origin/master` é problema de sincronização remota, não aceite e não necessariamente gate de produto. Classifique como `REMOTE_SYNC_BLOCKED` até resolver.
+
 ## Fechamento obrigatório
 
-A execução não termina até que todos os itens não bloqueados estejam concluídos, as validações proporcionais tenham sido executadas, as evidências estejam indexadas, o commit esteja em `master` e o pacote de revisão esteja pronto para o orquestrador.
+A execução não termina até que todos os itens não bloqueados estejam concluídos, as validações proporcionais tenham sido executadas, as evidências estejam indexadas, o commit esteja publicado em `origin/master`, os HEADs local e remoto coincidam e o pacote remoto de revisão esteja pronto para o orquestrador.
