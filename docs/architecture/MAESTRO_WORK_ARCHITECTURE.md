@@ -1,151 +1,86 @@
-# Arquitetura MAESTRO de trabalho
+# Arquitetura MAESTRO local
 
-## Objetivo
+## Finalidade
 
-Transformar o repositório em uma superfície de trabalho legível para humanos e agentes, na qual intenção, execução, validação, decisão e memória não dependam de uma sessão específica.
+Tornar o programa GitLab/Runner/MCP uma superfície de trabalho continuável para humanos e agentes, na qual cada mudança atravessa intenção, contrato, execução, validação, revisão, persistência e aprendizagem sem depender do chat.
 
-## Princípio central
+## Princípio
 
-O modelo descreve, propõe e executa; a arquitetura de trabalho limita, verifica e persiste; o humano mantém autoridade sobre missão, risco e irreversibilidade.
+O modelo descreve e executa; contratos, testes, gates e revisor decidem promoção. Plausibilidade nunca substitui prova. Autonomia técnica é ampla dentro do mandato e limitada por consequência humana, privilégio, risco e irreversibilidade.
 
-A velocidade de geração não conta como conclusão. Uma mudança só é promovida quando é compreensível, delimitada, verificável, auditável, reversível e continuável.
+## Camadas
 
-## Camadas MAESTRO aplicadas
+1. intenção — usuário, issue ou incidente;
+2. especificação — contratos duráveis em `docs/specifications/`;
+3. contexto — `AGENTS.md` e índices de progressive disclosure;
+4. tarefa — Task-ID, seam, claims, ownership, gates e rollback;
+5. execução — TDD, implementação mínima, subagentes e backprop;
+6. validação — gates proporcionais e níveis explícitos de evidência;
+7. revisão — challenge pré-build, dois eixos internos e revisor externo;
+8. persistência — um commit remoto por tarefa, sem squash;
+9. governança — ADRs e gates humanos;
+10. memória — status, handoff, rounds, evidence index, learning ledgers e Git.
 
-### 1. Intenção
-
-Origem: usuário, issue ou incidente.
-
-Artefato: objetivo explícito e consequência desejada.
-
-Controle: nenhuma execução começa a partir de intenção ambígua que possa alterar missão ou risco.
-
-### 2. Especificação
-
-Origem: `docs/specifications/`, issue ativa e critérios de aceite.
-
-Artefato: escopo, fora de escopo, invariantes, entradas, saídas, falhas e Definition of Done.
-
-Controle: o agente não preenche silenciosamente lacunas de produto; registra pressupostos técnicos reversíveis.
-
-### 3. Contexto
-
-Origem: `AGENTS.md` roteia; `CONTEXT.md` fornece mapa estável; arquivos adicionais são lidos sob demanda.
-
-Controle: contexto mínimo suficiente. Carregar tudo é tratado como risco de ruído; carregar pouco demais é tratado como risco de cegueira.
-
-### 4. Contratos e fronteiras
-
-Origem: manifest, scripts, testes, especificações, ADRs e limites entre repositórios.
-
-Controle: superfície de mudança declarada, invariantes preservados, operações privilegiadas separadas.
-
-### 5. Execução
-
-Origem: work package ativo.
-
-Controle: unidade coerente, ciclos de tentativa-erro-aprendizado, sem branches secundárias e sem alterar áreas fora do mandato.
-
-### 6. Validação
-
-Origem: testes, lint, verificações de integridade, contract tests, inspeção de diff e evidência reproduzível.
-
-Controle: prova proporcional ao risco. Alegação não demonstrada permanece `UNVERIFIED`.
-
-### 7. Governança e decisão
-
-Origem: `continuity/DECISIONS.md`, ADRs e gates de `ADR-0004`.
-
-Controle: autonomia técnica ampla; escalonamento humano apenas por missão, risco material, segredo, irreversibilidade, custo ou publicação.
-
-### 8. Memória e continuidade
-
-Origem: status, handoff, plano, round records, evidence index e Git.
-
-Controle: todo ciclo termina com estado persistido no mesmo commit da mudança.
-
-## Máquina de estados da rodada
+## Máquina de estados
 
 ```text
-READY
-  -> SCOPED
-  -> EXECUTING
-  -> VALIDATING
-  -> PERSISTING
-  -> COMMITTED
-  -> READY
+ROUND_READY
+  → TASK_SCOPED
+  → PRE_BUILD_REVIEW?
+  → RED → GREEN
+  → VALIDATING
+  → INTERNAL_REVIEW
+  → TASK_COMMITTED_LOCAL
+  → TASK_REMOTE_VERIFIED
+  → next TASK | ROUND_INTEGRATION
+  → EXECUTED_AWAITING_REVIEW
+  → ACCEPTED | CORRECTION_REQUIRED | HUMAN_GATE | REJECTED_UNSAFE
 ```
 
-Estados de exceção:
-
-```text
-EXECUTING|VALIDATING -> BLOCKED
-EXECUTING|VALIDATING -> REVERTING -> PERSISTING
-```
-
-Regras:
-
-- `SCOPED` exige critérios de aceite e superfície de mudança.
-- `VALIDATING` exige execução real dos checks aplicáveis.
-- `PERSISTING` exige atualização das memórias canônicas.
-- `COMMITTED` exige um commit atômico em `master`.
-- `BLOCKED` exige evidência e pedido humano concreto.
-
-## Papéis
-
-### Maestro Diretor humano
-
-Define missão, valores, tolerância a risco, consequências práticas aceitáveis e gates Classe C. Não precisa decidir detalhes técnicos delegados.
-
-### Agente executor
-
-Recupera contexto, escolhe abordagem técnica, implementa, testa, registra rationale e fecha a rodada. Não aprova por conta própria uma operação Classe C.
-
-### Agente verificador
-
-Pode ser outro modelo, teste, pipeline ou a mesma IA em fase separada. Procura contradições, regressões, claims sem evidência e violações de fronteira.
-
-### Repositório/máquina
-
-Conserva contratos, histórico, testes e estado. É a memória operacional autoritativa.
+Falha inesperada retorna por backprop ao contrato/teste. Falha de sincronização produz `TASK_REMOTE_SYNC_BLOCKED`. Decisão material produz `BLOCKED_HUMAN`.
 
 ## Memória em camadas
 
-| Camada | Arquivo | Volatilidade |
-|---|---|---|
-| orientação | `AGENTS.md` | baixa |
-| contexto | `CONTEXT.md` | baixa |
-| contrato | `docs/specifications/` | média |
-| rationale | `docs/decisions/` | baixa |
-| estado | `continuity/STATUS.md` | alta |
-| retomada | `continuity/HANDOFF_CURRENT.md` | alta |
-| sequência | `continuity/EXECUTION_PLAN.md` | média |
-| prova | `evidence/EVIDENCE_INDEX.md` | append/update |
-| proveniência | `continuity/rounds/` e Git | append-only |
+| Camada | Autoridade |
+|---|---|
+| orientação | `AGENTS.md` |
+| propósito | `CONTEXT.md` |
+| contrato | `docs/specifications/` |
+| rationale | `docs/decisions/` e `continuity/DECISIONS.md` |
+| autorização/tarefas | `continuity/ACTIVE_ROUND.md` |
+| estado | `continuity/STATUS.md` |
+| retomada | `continuity/HANDOFF_CURRENT.md` |
+| prova | `evidence/EVIDENCE_INDEX.md` |
+| histórico | `continuity/rounds/` e commits Git |
+| aprendizagem funcional | ledger do repositório funcional responsável |
 
-## Política de promoção
+## Unidade de rastreabilidade
 
-- descoberta de rodada -> registro de rodada;
-- fato que altera estado -> `STATUS`;
-- próximo passo -> `HANDOFF`;
-- decisão durável -> ADR + índice;
-- contrato novo -> especificação;
-- prova -> evidence index;
-- princípio estável -> contexto ou AGENTS.
+A rodada possui Round-ID e baseline. Cada tarefa possui Task-ID e um commit por repositório afetado. O commit liga:
 
-Não duplicar o mesmo conteúdo em múltiplas autoridades. Referenciar a fonte canônica.
+`Task-ID → claims/invariantes → seam → RED/GREEN → gates → evidência → rollback`.
+
+Subagentes produzem outputs; somente o executor integra, valida, commita e publica.
+
+## Evidência
+
+- `STRUCTURALLY_OBSERVED`;
+- `LOCAL_VERIFIED`;
+- `REMOTE_CI_VERIFIED`;
+- `LIFECYCLE_VERIFIED`;
+- `UNVERIFIED`;
+- `FAILED`.
+
+Um nível não implica o seguinte. Busca textual nunca prova runtime.
+
+## Cross-repo
+
+O repositório funcional mantém implementação, testes, skills e learning ledger de sua unidade. Este coordenador mantém missão, decisões transversais, estado do programa e síntese. Uma tarefa cross-repo usa o mesmo Round-ID/Task-ID e só fecha quando todos os commits correspondentes estão remotos.
 
 ## Reversibilidade
 
-Cada commit de rodada deve poder ser revertido como unidade lógica. Mudanças de dados, permissões, credenciais ou produção requerem plano de rollback demonstrado antes da ação.
+Commit por tarefa é a unidade preferencial de reversão. Dependências são explícitas. Commits publicados não são squashados, reordenados ou reescritos. Operação irreversível continua atrás de gate humano.
 
-## Critério de maturidade desta arquitetura
+## Fechamento
 
-A arquitetura funciona quando um agente sem memória da conversa consegue:
-
-1. identificar o estado atual em menos de três leituras obrigatórias;
-2. localizar contexto adicional por rota explícita;
-3. saber o que pode decidir sozinho;
-4. executar a próxima unidade sem reconstruir rationale;
-5. demonstrar o resultado;
-6. deixar um commit e handoff coerentes para o agente seguinte.
+Cada tarefa deixa código e prova coerentes. Cada rodada deixa o programa mais fácil de continuar. Se um agente novo precisar reconstruir intenção, falhas ou prova pelo chat, a rodada não fechou corretamente.
