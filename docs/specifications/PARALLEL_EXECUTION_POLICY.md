@@ -1,64 +1,50 @@
-# Política de execução paralela e subagentes
+# Política de paralelismo e subagentes
 
-## Princípio
+## Regra
 
-Paralelizar por independência demonstrada, não por quantidade de agentes. O executor principal permanece responsável pelo resultado integrado.
+Paralelizar somente frentes com dependências, paths e outputs separáveis. O Codex permanece responsável pelo resultado integrado, pelos commits de tarefa e pela sincronização remota.
 
-## Decomposição
+## DAG mínimo
 
-Antes de delegar, construir um DAG com:
-
-- tarefa e output esperado;
-- dependências de entrada;
-- paths permitidos;
-- arquivos compartilhados proibidos;
-- validação local;
-- critério de merge;
-- risco e condição de escalonamento.
+Cada tarefa/frente declara Task-ID, dependências, entradas, claims, seam, outputs, paths autorizados, arquivos compartilhados proibidos, validação e commit que absorverá o resultado.
 
 ## Frentes adequadas
 
-Podem rodar em paralelo quando não dependem do resultado umas das outras, por exemplo:
-
-- auditorias de repositórios diferentes;
-- levantamento de manifests, scripts, testes e workflows;
-- pesquisa de upstream e documentação oficial;
-- matrizes de API por domínios independentes;
-- criação de fixtures e testes de módulos separados;
-- revisão de segurança e revisão de lifecycle sobre outputs estáveis.
+- auditoria upstream e packaging;
+- manifest/sources e matriz de assets;
+- lifecycle e service/config;
+- tokens, redaction e segurança;
+- testes/workflows;
+- API/MCP e documentação oficial;
+- síntese cross-repo, quando os inputs já estiverem estáveis.
 
 ## Frentes sequenciais
 
-Permanecem sequenciais quando envolvem:
+- decisões que redefinem contrato;
+- edição de documentos canônicos compartilhados;
+- integração cross-repo;
+- revisão adversarial final;
+- continuidade e evidências;
+- criação/publicação de commits;
+- operações reais, destrutivas ou irreversíveis.
 
-- decisão arquitetural que redefine as demais tarefas;
-- edição concorrente do mesmo arquivo canônico;
-- migração, publicação, release ou operação destrutiva;
-- integração que depende de contratos ainda não estabilizados;
-- validação final e commit.
+## Ownership
 
-## Contrato do subagente
+Subagentes não criam commit, branch, PR, worktree ou push. Não editam simultaneamente o mesmo path. O executor integra uma tarefa por vez e executa seus gates antes do commit.
 
-Cada subagente recebe contexto mínimo e retorna:
+## Retorno do subagente
 
-1. escopo executado;
-2. fatos com paths, commits ou fontes;
-3. alterações propostas ou produzidas;
-4. testes/comandos e resultados;
-5. desconhecidos, riscos e conflitos;
-6. afirmação explícita de que não cometeu nem expandiu escopo.
+Task-ID, escopo, fatos/fontes, alterações, comandos/resultados, unknowns, riscos, dead ends e confirmação de ausência de commit/expansão.
 
 ## Integração
 
-Somente o executor principal pode:
-
-- alterar documentos canônicos compartilhados;
-- resolver conflito entre subagentes;
-- declarar critérios satisfeitos;
-- executar validação integrada;
-- atualizar continuidade;
-- criar o commit da rodada.
+1. conferir ownership e dependências;
+2. integrar outputs da tarefa;
+3. executar TDD/gates no seam real;
+4. revisar Spec/Charter e Engineering;
+5. criar um commit da tarefa;
+6. publicar e verificar antes da próxima escrita.
 
 ## Falha parcial
 
-Falha de uma frente não suspende frentes independentes. O executor continua todo trabalho não bloqueado, tenta estratégias alternativas e só registra bloqueio humano depois de esgotar caminhos técnicos razoáveis e concluir o restante do DAG.
+Uma frente falha não suspende as demais. O Codex tenta alternativas, executa backprop, conclui trabalho independente e só então registra bloqueio. Falha de sincronização impede novos commits no mesmo repositório, mas não pesquisa ou trabalho independente sem escrita.

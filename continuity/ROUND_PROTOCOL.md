@@ -1,140 +1,102 @@
 # Protocolo de rodada de IA
 
-## Identidade
+Identificadores: `RND-YYYYMMDD-NNN` e `T-<NN>-<slug>`.
 
-Formato de execução: `RND-YYYYMMDD-NNN`. Uma rodada parte de um `origin/master` confirmado, executa um charter autorizado e só fica disponível para revisão quando o commit final está publicado e verificável no `origin/master` de cada repositório afetado.
-
-Commit exclusivamente local não é persistência MAESTRO e não encerra a rodada.
+A rodada é a unidade de autorização, baseline, escopo e veredito. A tarefa é a unidade de implementação, commit, sincronização e reversão. Commit exclusivamente local não é persistência MAESTRO.
 
 ## 0. ORCHESTRATE
 
 Antes de `READY`, o orquestrador:
 
 1. reconcilia status, handoff, decisões, evidências e HEADs remotos;
-2. pergunta ao Maestro Diretor tudo que possa mudar resultado, prioridade, produto, risco, custo, acesso ou irreversibilidade;
-3. decide tecnicamente questões reversíveis;
-4. preenche `ACTIVE_ROUND.md` conforme `ROUND_CHARTER_CONTRACT.md`;
-5. define DAG, frentes paralelas, outputs, critérios, validações, gates e plano de persistência remota;
+2. pergunta ao Maestro Diretor somente o que muda resultado, prioridade, produto, risco, custo, acesso ou irreversibilidade;
+3. decide questões técnicas reversíveis;
+4. define tarefas com `Task-ID`, dependências, seam, claims/invariantes, paths, TDD, gates, review e rollback;
+5. define DAG, paralelismo seguro e commits cross-repo;
 6. não libera execução enquanto houver ambiguidade material.
 
 ## 1. START — Codex
 
-1. confirmar repositório e branch `master`;
+1. confirmar repositório e `master`;
 2. executar `git fetch origin`;
-3. resolver e registrar `baseline_head = origin/master`;
-4. confirmar que o HEAD local está reconciliado e que a árvore está limpa, ou tratar alterações existentes explicitamente;
+3. registrar `baseline_head = origin/master`;
+4. confirmar HEAD reconciliado e árvore limpa;
 5. ler `AGENTS.md`, `HANDOFF_CURRENT.md`, `STATUS.md` e `ACTIVE_ROUND.md`;
-6. confirmar charter `READY` e atribuir `Round-ID`;
-7. carregar contexto sob demanda;
-8. registrar orientação adicional do prompt;
-9. decompor o DAG e decidir o paralelismo seguro.
+6. confirmar charter `READY`, atribuir `Round-ID` e registrar orientação adicional;
+7. decompor o DAG em tarefas e frentes com ownership.
 
-## 2. EXECUTE
+## 2. PRE-BUILD CHALLENGE
 
-- Executar integralmente o charter e dependências inevitáveis.
-- Preferir ciclos teste-falha-correção-teste.
-- Registrar fatos em arquivos/evidências, não apenas no chat.
-- Decisões técnicas reversíveis podem ser tomadas autonomamente.
-- Não promover plano, hipótese ou output parcial a concluído.
-- Não encerrar para apresentar progresso.
-- Teste falho, pesquisa longa, primeira estratégia malsucedida e volume de trabalho não são bloqueios.
+Mudança de alto impacto passa por tentativa de refutação antes do primeiro edit: goal real, seams, invariantes ausentes, interface drift, lifecycle, segurança, rollback e fontes externas. Lacunas técnicas reversíveis são corrigidas; decisão material vira gate humano. Registrar `GO` ou `NO_GO` com evidência.
 
-## 3. PARALLELIZE
+## 3. EXECUTE — POR TAREFA
 
-Quando o DAG permitir:
+Para cada tarefa:
 
-1. criar frentes independentes com ownership de paths/outputs;
-2. fornecer contexto mínimo a cada subagente;
-3. proibir commits, push e expansão de escopo pelos subagentes;
-4. exigir retorno com fatos, alterações, validações, desconhecidos e riscos;
-5. continuar frentes independentes quando outra falhar;
-6. integrar, revisar e validar centralmente.
+1. carregar apenas contexto e skills aplicáveis;
+2. confirmar seam público e contrato de verificação;
+3. usar RED→GREEN para qualquer mudança comportamental;
+4. implementar o mínimo necessário;
+5. executar gates do mais barato ao mais caro;
+6. em falha inesperada, classificar e executar backprop antes de retry cego;
+7. manter matriz claim → mecanismo → comando → resultado → estado de evidência;
+8. continuar tarefas independentes quando uma frente bloquear.
 
-Arquivos canônicos compartilhados, decisões arquiteturais, integração final, commit e push permanecem sequenciais sob o executor principal.
+## 4. BACKPROP
 
-## 4. VALIDATE
+Classificações mínimas: `IMPLEMENTATION_BUG`, `MISSING_CRITERION`, `INCOMPLETE_CRITERION`, `WRONG_CRITERION`, `MISSING_REQUIREMENT`, `ENVIRONMENTAL_LIMIT`, `EXTERNAL_DEPENDENCY`.
 
-Aplicar validação proporcional:
+O executor pode ajustar autonomamente critério, invariante, teste e memória quando a consequência é técnica e reversível. Alteração de produto, comportamento externo, custo, privilégio, risco ou irreversibilidade exige decisão do Maestro Diretor.
 
-- documentação: links, IDs, estados, cobertura e contradições;
-- pacote: lint, testes YunoHost, sources e lifecycle aplicável;
-- updater: fixtures, hashes, assets, versões, falhas, determinismo e idempotência;
-- MCP: schema, autenticação, paginação, rate limit, retry, idempotência e isolamento destrutivo;
-- cross-repo: decisões, versões, evidências e mesmo `Round-ID`.
+## 5. PARALLELIZE
 
-Toda alegação de conclusão aponta para evidência ou permanece `UNVERIFIED`.
+Frentes independentes recebem paths e outputs exclusivos. Subagentes não fazem commit, push, expansão de escopo ou edição concorrente de arquivos canônicos. O executor integra uma tarefa por vez, valida e publica.
 
-## 5. BLOCKER SWEEP
+## 6. INTERNAL REVIEW
 
-Antes de parar por bloqueio:
+Antes de cada commit, executar duas revisões independentes:
 
-1. identificar quais nós do DAG realmente dependem do gate;
-2. concluir todos os nós independentes;
-3. tentar alternativas técnicas razoáveis;
-4. deixar estado seguro e verificável;
-5. registrar condição, evidência, tentativas, alternativas, decisão humana exata e grafo restante.
+- **Spec/Charter:** requisitos ausentes/parciais, scope creep, interfaces e claims sem prova;
+- **Engineering:** bugs, segurança, lifecycle, compatibilidade, simplicidade, falhas negativas e reversibilidade.
 
-Bloqueio humano é decisão, credencial de produto, autorização, irreversibilidade ou consequência prática. Limite de sessão, ferramenta ou push é interrupção ambiental/sincronização, não conclusão.
+P0/P1 bloqueiam. P2/P3 são corrigidos ou justificados no pacote remoto.
 
-## 6. PERSIST LOCAL
+## 7. TASK COMMIT
 
-No mesmo fechamento lógico:
+1. executar `git fetch origin` e reconciliar apenas trabalho ainda não publicado;
+2. revisar diff, segredos, ruído, paths e claims;
+3. repetir checks impactados;
+4. criar exatamente um commit atômico por tarefa e repositório afetado;
+5. mensagem: `RND-<id> T-<id>: <resultado>`;
+6. não incluir outra tarefa independente;
+7. não criar commit separado apenas para RED; registrar RED de forma versionada e entregar teste+fix no commit coerente;
+8. não squashar ou reescrever commit publicado.
 
-1. atualizar `STATUS.md`;
-2. substituir `HANDOFF_CURRENT.md`;
-3. atualizar o estado de `ACTIVE_ROUND.md`;
-4. atualizar decisões/ADRs quando necessário;
-5. adicionar round record append-only;
-6. atualizar `EVIDENCE_INDEX.md`;
-7. executar `git fetch origin` e reconciliar novamente o HEAD;
-8. revisar diff, segredos, ruído e claims;
-9. repetir validações impactadas;
-10. criar exatamente um commit local da rodada por repositório.
+Estado local: `TASK_LOCAL_COMPLETE_AWAITING_SYNC`.
 
-Após o commit local, o estado máximo permitido é `LOCAL_COMPLETE_AWAITING_SYNC`.
-
-## 7. REMOTE SYNC
-
-Para cada repositório afetado:
+## 8. TASK REMOTE SYNC
 
 1. executar `git fetch origin`;
-2. verificar `git rev-list --left-right --count origin/master...HEAD`;
-3. quando o resultado for `0 1`, executar `git push origin master`;
-4. se `origin/master` tiver avançado, não force: rebasear ou recriar somente o commit ainda não publicado sobre o novo `origin/master`, resolver conflitos, repetir checks impactados e preservar um único commit final da rodada;
-5. se houver credencial ausente, rejeição não reconciliável ou indisponibilidade, registrar `REMOTE_SYNC_BLOCKED` com comando, erro, divergência, tentativas e ação necessária;
-6. após o push, executar novo `git fetch origin`;
-7. confirmar `git rev-parse HEAD == git rev-parse origin/master`;
-8. confirmar que o SHA completo é recuperável pelo GitHub e que os arquivos/evidências citados existem no remoto;
-9. em trabalho cross-repo, repetir para todos os repositórios antes de declarar revisão disponível.
+2. confirmar fast-forward seguro;
+3. executar `git push origin master` sem force;
+4. fazer novo fetch e confirmar `HEAD == origin/master`;
+5. confirmar SHA completo recuperável e outputs remotos;
+6. marcar `TASK_REMOTE_VERIFIED` antes da próxima tarefa que escreva nesse repositório.
 
-Nunca usar force push. Nunca considerar `git commit` suficiente sem `git push` e verificação remota.
+Falha produz `TASK_REMOTE_SYNC_BLOCKED`; não empilhar novos commits no mesmo repositório. Trabalho cross-repo usa o mesmo `Round-ID` e `Task-ID` e só fecha após todos os commits correspondentes estarem remotos.
 
-## 8. ESTADOS DE SAÍDA DO EXECUTOR
+## 9. CONVERGENCE
 
-- `LOCAL_COMPLETE_AWAITING_SYNC`: tarefas e checks concluídos, commit apenas local.
-- `REMOTE_SYNC_BLOCKED`: resultado local seguro, mas publicação remota falhou ou divergiu.
-- `BLOCKED_HUMAN`: todo trabalho independente e toda persistência possível foram concluídos, restando gate humano real.
-- `EXECUTED_AWAITING_REVIEW`: commit publicado em `origin/master` de todos os repositórios afetados, HEADs coincidentes, árvore limpa, evidências remotas e pacote de revisão completo.
+Monitorar claims demonstrados, gates, findings P0–P3, tarefas, falhas/backprop e estabilidade do diff como sinal secundário. Oscilação ou repetição indica problema de spec, validação ou ownership; não aumente iterações sem corrigir a causa.
 
-O Codex não marca o próprio trabalho `ACCEPTED`.
+## 10. ROUND CLOSE
 
-## 9. PACOTE REMOTO DE REVISÃO
+A última tarefa da rodada reconcilia `STATUS`, `HANDOFF_CURRENT`, `ACTIVE_ROUND`, decisões, evidence index e round record.
 
-Entregar:
+`EXECUTED_AWAITING_REVIEW` exige todos os commits de tarefa publicados entre `baseline_head` e `round_head`, HEADs coincidentes, árvores limpas, matriz task→commit→claim→evidência e pacote remoto completo.
 
-- nomes dos repositórios;
-- SHAs completos publicados;
-- `Round-ID` e `Charter-ID`;
-- matriz tarefa → output → evidência;
-- comandos e resultados de validação;
-- paths e URLs do GitHub, nunca links locais como `C:/...`;
-- riscos residuais e gates;
-- confirmação de `HEAD == origin/master` e árvore limpa.
+O Codex não marca `ACCEPTED`.
 
-## 10. REVIEW
+## 11. REVIEW
 
-O orquestrador aplica `REVIEW_PROTOCOL.md` somente sobre material remoto e registra `ACCEPTED`, `CORRECTION_REQUIRED`, `HUMAN_GATE` ou `REJECTED_UNSAFE`. Após gate humano, revisa o charter e libera nova rodada vinculada ao mesmo objetivo quando aplicável.
-
-## Concorrência externa
-
-Se `origin/master` mudar durante a rodada: não force. Leia os commits novos, reconcilie contratos, rebaseie ou recrie apenas o commit local ainda não publicado quando seguro, repita checks impactados e registre conflito se incompatível.
+O ChatGPT revisa cada commit de tarefa e o intervalo integrado `baseline_head...round_head`. Persiste aceite, correção, gate humano ou rejeição insegura em tarefas/commits próprios de orquestração.
