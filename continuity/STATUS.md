@@ -1,51 +1,38 @@
 # Status atual
 
-Atualizado em: 2026-07-16  
-Branch autorizada: `master`  
-Última rodada executada pelo Codex: `RND-20260716-003`  
+Atualizado em: 2026-07-16
+Branch autorizada: `master`
+Última rodada executada pelo Codex: `RND-20260716-005`
 Última rodada do orquestrador: `RND-20260716-004`
 
 ## Fase do programa
 
-`WP01_ACCEPTED_WP02_READY`
+`WP02_EXECUTED_AWAITING_REVIEW`
 
-A auditoria baseline cross-repo `CHR-WP01-001` foi revisada e aceita. O próximo charter `CHR-WP02-001` está `READY` para segurança e fundação determinística do autoupdate do Runner.
+O repositório primário `faleious-ai/gitlab-runner_ynh` concluiu o charter
+`CHR-WP02-001`. Este coordenador contém a síntese cross-repo e aguarda revisão
+independente; não declara aceite.
 
-## Veredito da revisão WP-01
+## Síntese cross-repo
 
-`ACCEPTED`.
+O Runner removeu o literal credential-like da fixture, adicionou prevenção e
+redaction, corrigiu a action `register`, centralizou o fluxo de registro e
+implementou resolver/generator determinístico para Runner + helper images. A
+fixture oficial `v19.0.1` foi resolvida em dry-run com baseline `18.6.2`, sem
+alterar a versão declarada nem publicar release.
 
-O trabalho cumpriu o charter de auditoria: produziu todos os outputs obrigatórios, usou um commit em `master` por repositório com o mesmo `Round-ID`, não alterou arquivos funcionais e distinguiu corretamente evidência estática de lifecycle não demonstrado.
-
-A revisão reproduziu os achados de maior impacto:
-
-- o manifest GitLab da fork corresponde ao snapshot upstream auditado;
-- a fixture Runner contém literal credential-like, sem reprodução do valor nos relatórios;
-- `actions.json` declara `scripts/actions/register`, target ausente;
-- o workflow GitLab herdado usa branch e base `testing`, incompatíveis com o contrato master-only;
-- package_linter e lifecycle real continuam `UNVERIFIED`, como declarado.
-
-Registro: `continuity/reviews/REV-RND-20260716-003.md`.
-
-## Unidade ativa
-
-`CHR-WP02-001 — Segurança e fundação determinística do autoupdate do Runner`.
-
-Estado: `READY`.
-
-O repositório primário é `faleious-ai/gitlab-runner_ynh`. Este coordenador recebe síntese, decisões, evidência e continuidade com o mesmo `Round-ID`.
+Outputs e comandos estão em `continuity/rounds/RND-20260716-005.md` no Runner
+e no coordenador. A matriz consolidada está no índice de evidências de cada
+repositório.
 
 ## Gate humano aberto
 
-`HG-RUN-SEC-01`: confirmar revogação, rotação ou expiração do valor histórico usado pela fixture do package_check.
+`HG-RUN-SEC-01` permanece `UNRESOLVED_NO_AUTHORITY`: o administrador do projeto
+GitLab externo usado pelo package_check deve confirmar revogação, rotação ou
+expiração do valor histórico. O valor não foi usado, validado ou reproduzido.
 
-Esse gate não impede o Codex de remover o literal da árvore atual, adicionar secret scan, corrigir o fluxo de registro e implementar/testar o updater. O executor deve concluir todo o trabalho independente antes de parar pelo gate.
+## Próximo passo
 
-## Integridade
-
-- Código funcional alterado na revisão: não.
-- Manifest/versão/source alterados na revisão: não.
-- Branch criada: não.
-- Force push: não.
-- Segredo reproduzido: não.
-- Evidência da revisão: `EVD-WP01-ORCHESTRATOR-REVIEW`.
+O orquestrador deve revisar os dois commits da rodada, distinguir limitações
+ambientais de lacunas técnicas e decidir o estado conforme
+`continuity/REVIEW_PROTOCOL.md`.

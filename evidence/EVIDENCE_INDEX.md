@@ -42,6 +42,12 @@
 - `EVD-WP02-CI-AND-REDACTION`;
 - `EVD-WP02-ORCHESTRATOR-REVIEW`.
 
+## Síntese cross-repo produzida por RND-20260716-005
+
+| ID | Estado | Round | Assunto | Localização | Resultado |
+|---|---|---|---|---|---|
+| EVD-WP02-CROSS-REPO-SYNTHESIS | VERIFIED | RND-20260716-005 | execução do Runner e coordenação | `continuity/rounds/RND-20260716-005.md`, `continuity/STATUS.md`, `continuity/HANDOFF_CURRENT.md`, `continuity/ACTIVE_ROUND.md` | síntese, limitações, gate humano e próximo passo persistidos; aceite reservado ao orquestrador |
+
 ## Convenção para outputs
 
 Registrar método/comando, ambiente, entrada/commit, resultado, limitações e risco residual em `evidence/<wp>/` quando detalhes forem necessários. Nunca reproduzir o valor credential-like histórico.
