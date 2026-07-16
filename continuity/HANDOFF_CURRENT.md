@@ -1,38 +1,25 @@
 # Handoff atual
 
-Estado: `READY_FOR_CODEX_CORRECTION_ROUND`  
-Charter ativo: `CHR-WP02-002`  
-Revisão anterior: `REV-RND-20260716-005 — CORRECTION_REQUIRED`  
+Estado: `EXECUTED_AWAITING_REVIEW`
+Round-ID: `RND-20260716-007`
+Charter: `CHR-WP02-002`
 Branch: `master`
 
-## Prompt
+## Papel do coordenador
 
-```text
-Leia AGENTS.md e continue.
-```
+O trabalho funcional foi executado em `faleious-ai/gitlab-runner_ynh`. Este repositório persiste a síntese cross-repo e aponta para os artefatos remotos do Runner. O pacote aguarda revisão independente.
 
-## Retomada mínima
+## Artefatos
 
-1. Ler `AGENTS.md`.
-2. Confirmar `master`, árvores limpas e `HEAD == origin/master` nos dois repositórios.
-3. Ler `STATUS`, `ACTIVE_ROUND` e `continuity/reviews/REV-RND-20260716-005.md`.
-4. Confirmar `CHR-WP02-002` em estado `READY`.
-5. Executar o charter detalhado no repositório `faleious-ai/gitlab-runner_ynh`.
+- `continuity/rounds/RND-20260716-007.md` neste coordenador;
+- `evidence/EVIDENCE_INDEX.md`;
+- Runner: `continuity/rounds/RND-20260716-007.md`;
+- Runner: `evidence/wp02-online-discovery.json`;
+- Runner: `evidence/wp02-checksum-trust.json`;
+- Runner: `evidence/wp02-candidate-report.json`;
+- Runner: `evidence/wp02-manifest-diff.json`;
+- Runner: `docs/decisions/ADR-0006-runner-release-provenance.md`.
 
-## Trabalho
+## Limites
 
-Completar a cadeia de confiança do updater Runner: descoberta oficial, checksums, origem, manifest candidato/diff, credencial fora de argv, contrato YunoHost e CI verificável. Este coordenador recebe apenas síntese, decisão, evidências e continuidade.
-
-## Regra de esforço
-
-Não parar para progresso, pesquisa, teste falho ou primeira estratégia malsucedida. O gate histórico externo não bloqueia o trabalho técnico. Use subagentes nas frentes independentes definidas no charter Runner.
-
-## Fechamento remoto
-
-- um commit publicado em `origin/master` por repositório afetado, mesmo novo `Round-ID`;
-- `HEAD == origin/master` e árvores limpas;
-- arquivos/evidências acessíveis pelo GitHub;
-- pacote de revisão com SHAs completos e URLs remotas;
-- estado `EXECUTED_AWAITING_REVIEW`.
-
-Não promover versão, registrar Runner real, criar branch/PR, executar ação destrutiva ou usar a credencial histórica.
+Não houve branch, PR, force push, promoção de versão, release, registro Runner real, operação destrutiva ou uso de credencial histórica. Não declarar aceite.
