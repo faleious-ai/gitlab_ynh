@@ -1,66 +1,58 @@
 # Handoff atual
 
-Estado: `READY_FOR_WP_01`  
-Round anterior: `RND-20260716-001`  
+Estado: `READY_FOR_CODEX_FULL_ROUND`  
+Charter ativo: `CHR-WP01-001`  
+Round de governança anterior: `RND-20260716-002`  
 Branch: `master`
 
-## Retomada mínima
+## Prompt de retomada
 
-1. Leia `AGENTS.md`.
-2. Confirme que o HEAD atual de `master` contém este arquivo.
-3. Leia `continuity/STATUS.md`.
-4. Leia apenas as seções `WP-01A` e `WP-01B` de `continuity/EXECUTION_PLAN.md`.
-5. Para critérios, leia `docs/specifications/WORK_BREAKDOWN.md` e `docs/specifications/GITLAB_PACKAGE_AUTOUPDATE_SPEC.md` somente onde a auditoria exigir.
+Use exatamente:
 
-## Trabalho concluído
+```text
+Leia AGENTS.md e continue.
+```
 
-A infraestrutura MAESTRO foi instalada sem alterar scripts, manifesto ou comportamento do pacote. A memória agora está dividida entre contexto estável, status atual, decisões, plano, evidências e registros append-only de rodada.
+Uma orientação adicional pode ser anexada, mas o Codex deve reconciliá-la com o charter ativo e registrá-la no round record.
 
-## Próxima unidade executável
+## Retomada mínima do Codex
 
-### WP-01A — Inventário local de `gitlab_ynh`
+1. Ler `AGENTS.md`.
+2. Confirmar HEAD de `master` nos dois repositórios.
+3. Ler `continuity/STATUS.md` e `continuity/ACTIVE_ROUND.md`.
+4. Confirmar `Charter-ID: CHR-WP01-001` e estado `READY`.
+5. Atribuir um `Round-ID` e executar integralmente o DAG.
 
-Produzir:
+## Rodada autorizada
 
-- `docs/audit/GITLAB_PACKAGE_BASELINE.md`;
-- inventário de `manifest.toml`, scripts, configurações, testes, workflows e documentação;
-- matriz CE/EE × Debian × arquitetura × versão;
-- fluxo de install/upgrade/backup/restore/change-url/remove;
-- pontos que dependem de versão e possíveis riscos de autoupdate.
+`WP-01A/B/C/D — Auditoria baseline completa dos dois instaladores`.
 
-### WP-01B — Inventário coordenado de `gitlab-runner_ynh`
+O charter define quatro frentes paralelas iniciais:
 
-Executar no repositório relacionado e produzir o conjunto local equivalente. Neste repositório, registrar apenas síntese e referência cruzada em `docs/audit/CROSS_REPO_BASELINE.md`.
+- estrutura/manifest/sources do GitLab;
+- lifecycle/testes/workflows do GitLab;
+- inventário completo do Runner;
+- upstream e divergências dos dois forks.
 
-### WP-01C — Divergência de upstream
+Após integração, executar sínteses paralelas de riscos, assurance e backlog. Não implementar updater.
 
-Comparar cada fork com seu upstream YunoHost e classificar diferenças como:
+## Regra de esforço
 
-- herdada;
-- local deliberada;
-- atualização pendente;
-- incompatibilidade;
-- documentação apenas.
+O Codex não deve parar para fornecer progresso. Deve concluir todas as tarefas não bloqueadas, tentar alternativas técnicas e continuar frentes independentes. Só pode parar após:
 
-## Condições de parada
+- conclusão integral e commits coordenados; ou
+- conclusão de todo trabalho independente e registro de bloqueio humano válido.
 
-Pare e peça decisão humana somente se ocorrer uma destas situações:
+## Subagentes
 
-- necessidade de mudar missão, licença, visibilidade ou fork network;
-- acesso a segredo ou credencial não provisionada;
-- operação destrutiva ou irreversível;
-- divergência entre upstream e fork que exija escolher uma política de produto com consequência prática relevante;
-- impossibilidade de obter fonte necessária após registrar tentativas e alternativas.
+Use subagentes para frentes independentes. Eles não fazem commit, não alteram arquivos canônicos compartilhados sem ownership e não expandem escopo. O Codex integra, verifica e valida.
 
-## Fechamento da próxima rodada
+## Estado de saída esperado
 
-O commit deve conter, no mesmo conjunto atômico:
+`EXECUTED_AWAITING_REVIEW`.
 
-- documentos de auditoria;
-- atualização de `STATUS.md`;
-- novo `HANDOFF_CURRENT.md`;
-- atualização de `EVIDENCE_INDEX.md`;
-- novo registro em `continuity/rounds/`;
-- trailer `Round-ID: RND-YYYYMMDD-NNN`.
+O Codex entrega commits, evidências, matriz tarefa-output-evidência, gaps, riscos residuais e bloqueios. Não marca `ACCEPTED`.
 
-Não crie branch nem PR.
+## Revisão
+
+O ChatGPT revisará o trabalho via repositório. Se houver lacuna técnica, definirá rodada corretiva completa. Se houver gate humano, apresentará ao usuário alternativas, consequências e recomendação, persistirá a resolução e liberará a continuação.
