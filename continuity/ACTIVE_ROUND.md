@@ -1,7 +1,8 @@
 # Rodada ativa
 
 Charter-ID: `CHR-WP01-001`  
-Estado: `READY`  
+Estado: `EXECUTED_AWAITING_REVIEW`
+Round-ID: `RND-20260716-003`
 Preparado em: 2026-07-16  
 Orquestrador: ChatGPT com o Maestro Diretor  
 Executor principal: Codex  
@@ -114,3 +115,29 @@ Somente missão/visibilidade/licença, segredo indispensável, operação irreve
 ## Pacote de revisão
 
 Entregar commits, matriz tarefa → output → evidência, comandos/métodos, gaps, riscos residuais, bloqueios e recomendação de próxima rodada. Não declarar `ACCEPTED`.
+
+## Fechamento da execução
+
+O DAG WP-01A/B/C/D foi concluído no snapshot local dos dois repositórios.
+Foram produzidos os inventários GitLab e Runner, a comparação contra os
+upstreams YunoHost-Apps, os mapas de lifecycle/risco, os gaps de autoupdate e
+o backlog derivado.
+
+Outputs deste repositório:
+
+- docs/audit/GITLAB_PACKAGE_BASELINE.md
+- docs/audit/UPSTREAM_DIVERGENCE.md
+- docs/audit/AUTOUPDATE_GAPS.md
+- docs/audit/LIFECYCLE_AND_RISK_MAP.md
+- docs/audit/CROSS_REPO_BASELINE.md
+
+O pacote funcional não foi alterado: versões, URLs, SHA256, scripts,
+templates, workflows e configurações permaneceram iguais ao HEAD de entrada.
+Validações estáticas passaram; package_linter e lifecycle YunoHost permanecem
+UNVERIFIED por limitações ambientais registradas nos relatórios.
+
+Não há bloqueio humano ativo. O achado P0 de literal com aparência de token no
+Runner é risco técnico registrado, não foi usado nem reproduzido, e deve ser
+tratado antes de promover uma release.
+
+Estado de saída: EXECUTED_AWAITING_REVIEW.

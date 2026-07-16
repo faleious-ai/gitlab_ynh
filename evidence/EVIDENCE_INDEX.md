@@ -25,6 +25,11 @@
 | EVD-BASELINE-001 | OBSERVED | pre-bootstrap | versão GitLab YNH | `manifest.toml` | baseline `19.1.0~ynh1`; auditoria pendente |
 | EVD-BASELINE-002 | OBSERVED | pre-bootstrap | versão Runner YNH | repositório relacionado `manifest.toml` | baseline `18.6.2~ynh1`; auditoria pendente |
 | EVD-BASELINE-003 | OBSERVED | pre-bootstrap | gaps de autoupdate Runner | repositório relacionado `manifest.toml` | bloco comentado/helper sem estratégia; detalhamento pendente |
+| EVD-WP01-GITLAB-INVENTORY | VERIFIED | RND-20260716-003 | inventário GitLab | `docs/audit/GITLAB_PACKAGE_BASELINE.md` | manifest, 52 source sections/104 assets, scripts, config, lifecycle e limitações documentados |
+| EVD-WP01-RUNNER-INVENTORY | VERIFIED | RND-20260716-003 | inventário Runner | `docs/audit/CROSS_REPO_BASELINE.md`; relatório no repositório relacionado | sources, helper images, Docker, tokens, ação e lifecycle documentados |
+| EVD-WP01-UPSTREAM-DIVERGENCE | VERIFIED | RND-20260716-003 | comparação upstream | `docs/audit/UPSTREAM_DIVERGENCE.md` | forks funcionalmente iguais aos snapshots YunoHost-Apps; divergência local é documental |
+| EVD-WP01-RISK-MAP | VERIFIED | RND-20260716-003 | riscos e backlog | `docs/audit/AUTOUPDATE_GAPS.md`, `docs/audit/LIFECYCLE_AND_RISK_MAP.md` | riscos priorizados, critérios e dependências derivados sem implementar correções |
+| EVD-WP01-VALIDATION | VERIFIED | RND-20260716-003 | validação estática e de fontes | relatórios de auditoria | TOML/shell/Python, forma de hashes e HEADs representativos; limites de runtime explicitados |
 
 ## Verificação de EVD-20260716-002
 
@@ -35,12 +40,8 @@
 - `PARALLEL_EXECUTION_POLICY.md` restringe ownership e commit de subagentes.
 - Nenhum manifest ou script funcional foi modificado.
 
-## Próximas evidências requeridas
+## Evidências ainda requeridas
 
-- `EVD-WP01-GITLAB-INVENTORY`;
-- `EVD-WP01-RUNNER-INVENTORY`;
-- `EVD-WP01-UPSTREAM-DIVERGENCE`;
-- `EVD-WP01-RISK-MAP`;
 - `EVD-WP01-ORCHESTRATOR-REVIEW`.
 
 ## Convenção para outputs
