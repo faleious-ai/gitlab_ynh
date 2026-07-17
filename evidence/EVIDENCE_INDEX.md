@@ -70,6 +70,7 @@
 | EVD-RND-20260717-015-GITLAB-CATALOG | STRUCTURALLY_OBSERVED | T-GITLAB-02-live-catalog | catalogo oficial GitLab CE/EE | rotas Debian/bookworm observadas sem promocao |
 | EVD-RND-20260717-015-MCP-API-INVENTORY | STRUCTURALLY_OBSERVED | T-MCP-02-api-inventory | inventario REST/GraphQL oficial | superficie de leitura catalogada; disponibilidade por instancia permanece descoberta |
 | EVD-RND-20260717-015-ASSURANCE | LOCAL_VERIFIED | T-ASSURANCE-01-maintenance | gates proporcionais | 17/17 acceptance; Bash/parsing/secret scan/dry-run; limites ambientais e CI falho preservados |
+| EVD-RND-20260717-015-FINAL-CONTINUITY | LOCAL_VERIFIED | T-GOV-03-final-continuity | pacote remoto de revisÃ£o | round record, handoff, status, active round e matriz cross-repo reconciliados; Runner SHA `b25c63727921c511c78aed32dcdb7a71a45667d7` |
 
 ## Convenção
 

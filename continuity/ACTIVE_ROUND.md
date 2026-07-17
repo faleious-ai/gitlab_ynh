@@ -1,7 +1,7 @@
 # Rodada ativa
 
 Charter-ID: `CHR-GOV-AUTONOMY-001`  
-Estado: `READY`  
+Estado: `EXECUTED_AWAITING_REVIEW`
 Preparado em: 2026-07-17  
 Executor principal: Codex  
 Unidade: `fila técnica contínua orientada por acceptance tests`
@@ -79,5 +79,7 @@ Itens sem acceptance protegido podem avançar por pesquisa, fixture, modelagem e
 - o Executor não declara `ACCEPTED`.
 
 ## Fechamento
+
+Execução concluída em `RND-20260717-015`. Todas as tarefas não bloqueadas estão `completed` na fila canônica; os commits foram publicados sem force push; os HEADs locais e remotos serão confirmados no fechamento. Claims de CI, lifecycle e sibling remoto permanecem explicitamente limitados. Estado final: `EXECUTED_AWAITING_REVIEW`; o Executor não escreve `ACCEPTED`.
 
 Entregar os acceptance results, matriz task→commit→claim→evidência, prova de lanes paralelas ou justificativa objetiva, fila migrada, HEADs reconciliados e estado remoto retomável. O estado final é `EXECUTED_AWAITING_REVIEW` ou checkpoint explícito de fila ainda em execução.

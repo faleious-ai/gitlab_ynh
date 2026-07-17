@@ -117,7 +117,7 @@
     {
       "id": "T-ASSURANCE-01-maintenance",
       "work_package": "WP-ASSURANCE",
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "reversible": true,
       "operation_class": "test_harness",
@@ -128,7 +128,7 @@
     {
       "id": "T-GOV-03-final-continuity",
       "work_package": "WP-GOVERNANCE",
-      "status": "ready",
+      "status": "completed",
       "dependencies": ["T-ASSURANCE-01-maintenance"],
       "reversible": true,
       "operation_class": "documentation",

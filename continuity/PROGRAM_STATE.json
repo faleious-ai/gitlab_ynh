@@ -15,7 +15,11 @@
     {"task_id": "T-RUN-02-observability", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "9d2ef34201688749a547bf5625bca03ecc16f369", "evidence_state": "FAILED_REMOTE_CI_WITH_LIVE_TRUST_VERIFIED"},
     {"task_id": "T-GOV-02-process-adoption", "repository": "faleious-ai/gitlab_ynh", "commit": "2930173e5f2cfa94d9b0a7e94bb6bbf39fe7379c", "evidence_state": "LOCAL_VERIFIED"},
     {"task_id": "T-GOV-02-process-adoption", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "46df2283985206b266967209ba3c6c3daffb7953", "evidence_state": "LOCAL_VERIFIED"},
-    {"task_id": "T-RUN-03-process-adoption", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "8a40e1d1bbaab33fb44a7779160855cdc1d374e9", "evidence_state": "LOCAL_VERIFIED"}
+    {"task_id": "T-RUN-03-process-adoption", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "8a40e1d1bbaab33fb44a7779160855cdc1d374e9", "evidence_state": "LOCAL_VERIFIED"},
+    {"task_id": "T-RUN-04-ci-alpine-oracle", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "b3f752f4c5b8ace5a224263454eb9fc6220b71a1", "evidence_state": "LOCAL_VERIFIED"},
+    {"task_id": "T-GITLAB-02-live-catalog", "repository": "faleious-ai/gitlab_ynh", "commit": "466ff70d222e2e4e178791e9400a615770c0491a", "evidence_state": "STRUCTURALLY_OBSERVED"},
+    {"task_id": "T-MCP-02-api-inventory", "repository": "faleious-ai/gitlab_ynh", "commit": "2e42939ccf8daac538c977c912b3d57bfcec1118", "evidence_state": "STRUCTURALLY_OBSERVED"},
+    {"task_id": "T-ASSURANCE-01-maintenance", "repository": "faleious-ai/gitlab_ynh", "commit": "b1c083cf59d7dc903c08905ec6e0be643805bc87", "evidence_state": "LOCAL_VERIFIED"}
   ],
   "blocks": [
     {"task_id": "T-MCP-01-foundation", "class": "sibling_repository_not_available", "state": "PACKAGE_PREPARED_WITHOUT_REMOTE_CREATION"},
@@ -34,6 +38,13 @@
       "event": "start",
       "state": "READY",
       "observed_at": "2026-07-17T12:46:11Z"
+    },
+    {
+      "round_id": "RND-20260717-015",
+      "event": "final_continuity",
+      "state": "EXECUTED_AWAITING_REVIEW",
+      "runner_head": "b25c63727921c511c78aed32dcdb7a71a45667d7",
+      "observed_at": "2026-07-17T13:31:00Z"
     }
   ]
 }
