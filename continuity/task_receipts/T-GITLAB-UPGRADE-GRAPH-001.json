@@ -1,0 +1,66 @@
+{
+  "acceptance": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python tests/test_gitlab_upgrade_graph.py -v && PYTHONDONTWRITEBYTECODE=1 python tests/acceptance/test_gitlab_autoupdate_objective.py -v && PYTHONDONTWRITEBYTECODE=1 python tests/test_gitlab_live_catalog.py -v",
+    "result": "pass"
+  },
+  "changed_paths": [
+    "evidence/gitlab/upgrade-graph/RND-20260717-017-required-stop-graph.json",
+    "evidence/gitlab/upgrade-graph/RND-20260717-017-upgrade-graph-engineering-review.md",
+    "evidence/gitlab/upgrade-graph/RND-20260717-017-upgrade-graph-spec-review.md",
+    "evidence/gitlab/upgrade-graph/validate_gitlab_upgrade_graph.py",
+    "tests/test_gitlab_upgrade_graph.py"
+  ],
+  "commit_binding": "SELF",
+  "evidence_paths": [
+    "evidence/gitlab/upgrade-graph/RND-20260717-017-required-stop-graph.json",
+    "evidence/gitlab/upgrade-graph/RND-20260717-017-upgrade-graph-engineering-review.md",
+    "evidence/gitlab/upgrade-graph/RND-20260717-017-upgrade-graph-spec-review.md"
+  ],
+  "gates": [
+    {
+      "name": "official-policy-source:pass",
+      "result": "pass"
+    },
+    {
+      "name": "positive-paths:pass",
+      "result": "pass"
+    },
+    {
+      "name": "negative-paths:pass",
+      "result": "pass"
+    },
+    {
+      "name": "resolver-contract:pass",
+      "result": "pass"
+    },
+    {
+      "name": "py-compile:pass",
+      "result": "pass"
+    },
+    {
+      "name": "secret-scan:pass",
+      "result": "pass"
+    },
+    {
+      "name": "lane-wave:pass",
+      "result": "pass"
+    },
+    {
+      "name": "spec-review:pass",
+      "result": "pass"
+    },
+    {
+      "name": "engineering-review:pass",
+      "result": "pass"
+    },
+    {
+      "name": "real-diff-validation:pass",
+      "result": "pass"
+    }
+  ],
+  "prepared_at": "2026-07-17T19:59:03.596626Z",
+  "program_id": "gitlab-ynh-mcp-program",
+  "repository": "coordinator",
+  "schema_version": 2,
+  "task_id": "T-GITLAB-UPGRADE-GRAPH-001"
+}

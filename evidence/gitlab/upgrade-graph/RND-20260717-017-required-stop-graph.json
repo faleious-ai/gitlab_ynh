@@ -1,0 +1,67 @@
+{
+  "artifact_id": "EVD-RND-20260717-017-GITLAB-UPGRADE-GRAPH",
+  "artifact_kind": "gitlab-required-stop-graph",
+  "schema_version": 1,
+  "round_id": "RND-20260717-017",
+  "charter_id": "CHR-PROGRAM-V2-CONTINUE-001",
+  "task_id": "T-GITLAB-UPGRADE-GRAPH-001",
+  "observed_at": "2026-07-17T19:48:00Z",
+  "source": {
+    "url": "https://docs.gitlab.com/update/upgrade_paths/",
+    "upgrade_notes_18": "https://docs.gitlab.com/update/versions/gitlab_18_changes/",
+    "upgrade_notes_19": "https://docs.gitlab.com/update/versions/gitlab_19_changes/",
+    "policy": "Scheduled required stops are x.2, x.5, x.8 and x.11 for GitLab 17.5 and later; older documented exact patch stops are retained separately."
+  },
+  "required_stops": {
+    "16": [
+      {"version": "16.0.10", "condition": "large users table or large pipeline variable history"},
+      {"version": "16.1.8", "condition": "NPM package registry or other documented affected instances"},
+      {"version": "16.2.11", "condition": "large pipeline variables history"},
+      {"version": "16.3.9", "condition": "scheduled/general"},
+      {"version": "16.7.10", "condition": "scheduled/general"},
+      {"version": "16.11.10", "condition": "scheduled/general"}
+    ],
+    "17": [
+      {"version": "17.1.8", "condition": "large ci_pipeline_messages tables"},
+      {"version": "17.3.7", "condition": "scheduled/general"},
+      {"version": "17.5.5", "condition": "scheduled/general"},
+      {"version": "17.8.7", "condition": "scheduled/general"},
+      {"version": "17.11.7", "condition": "scheduled/general"}
+    ],
+    "18": [
+      {"minor": "18.2", "patch_policy": "latest_available_patch"},
+      {"minor": "18.5", "patch_policy": "latest_available_patch"},
+      {"minor": "18.8", "patch_policy": "latest_available_patch"},
+      {"minor": "18.11", "patch_policy": "latest_available_patch"}
+    ],
+    "19": [
+      {"minor": "19.2", "patch_policy": "latest_available_patch"},
+      {"minor": "19.5", "patch_policy": "latest_available_patch"},
+      {"minor": "19.8", "patch_policy": "latest_available_patch"},
+      {"minor": "19.11", "patch_policy": "latest_available_patch"}
+    ]
+  },
+  "examples": [
+    {
+      "kind": "positive",
+      "current": "17.8.7",
+      "target": "19.12.0",
+      "required_stop_minors": ["17.11", "18.2", "18.5", "18.8", "18.11", "19.2", "19.5", "19.8", "19.11"]
+    },
+    {
+      "kind": "positive",
+      "current": "18.8.10",
+      "target": "18.11.7",
+      "required_stop_minors": []
+    },
+    {
+      "kind": "negative",
+      "current": "19.2.0",
+      "target": "18.11.7",
+      "expected_error": "DOWNGRADE_NOT_SUPPORTED"
+    }
+  ],
+  "result": "policy_graph_recorded",
+  "promotion": {"promoted": false, "manifest_changed": false}
+}
+
