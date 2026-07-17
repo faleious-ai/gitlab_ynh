@@ -61,7 +61,7 @@
     {
       "id": "T-GOV-02-process-adoption",
       "work_package": "WP-GOVERNANCE",
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": ["T-GOV-01-program-engine"],
       "reversible": true,
       "operation_class": "documentation",
@@ -72,13 +72,25 @@
     {
       "id": "T-RUN-03-process-adoption",
       "work_package": "WP-RUNNER-GOVERNANCE",
-      "status": "ready",
+      "status": "completed",
       "dependencies": ["T-GOV-01-program-engine"],
       "reversible": true,
       "operation_class": "documentation",
       "paths": ["AGENTS.md", "continuity/ROUND_PROTOCOL.md", "docs/architecture/MAESTRO_WORK_ARCHITECTURE.md"],
       "priority": 85,
       "acceptance_command": "maestro_program plan against canonical queue plus Runner drift checks"
+    },
+    {
+      "id": "T-RUN-04-ci-alpine-oracle",
+      "work_package": "WP-RUNNER",
+      "repository": "faleious-ai/gitlab-runner_ynh",
+      "status": "in_progress",
+      "dependencies": [],
+      "reversible": true,
+      "operation_class": "correction",
+      "paths": ["tests/test_config_controller.py"],
+      "priority": 125,
+      "acceptance_command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_config_controller.ConfigControllerTests.test_panel_declares_ephemeral_inputs_and_register_button -v"
     },
     {
       "id": "T-GITLAB-02-live-catalog",

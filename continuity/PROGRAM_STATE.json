@@ -12,7 +12,10 @@
     {"task_id": "T-RUN-01-supported-docker-default", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "40e3a0854da387ed51320afa15416abb1747009f", "evidence_state": "LOCAL_VERIFIED"},
     {"task_id": "T-GITLAB-01-autoupdate-engine", "repository": "faleious-ai/gitlab_ynh", "commit": "50401610110e35a4c114e2127f799dca7989be2a", "evidence_state": "LOCAL_VERIFIED"},
     {"task_id": "T-MCP-01-foundation", "repository": "faleious-ai/gitlab_ynh", "commit": "c88fc281de66060023f3c8c6c3425a2827e5df20", "evidence_state": "LOCAL_VERIFIED"},
-    {"task_id": "T-RUN-02-observability", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "9d2ef34201688749a547bf5625bca03ecc16f369", "evidence_state": "FAILED_REMOTE_CI_WITH_LIVE_TRUST_VERIFIED"}
+    {"task_id": "T-RUN-02-observability", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "9d2ef34201688749a547bf5625bca03ecc16f369", "evidence_state": "FAILED_REMOTE_CI_WITH_LIVE_TRUST_VERIFIED"},
+    {"task_id": "T-GOV-02-process-adoption", "repository": "faleious-ai/gitlab_ynh", "commit": "2930173e5f2cfa94d9b0a7e94bb6bbf39fe7379c", "evidence_state": "LOCAL_VERIFIED"},
+    {"task_id": "T-GOV-02-process-adoption", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "46df2283985206b266967209ba3c6c3daffb7953", "evidence_state": "LOCAL_VERIFIED"},
+    {"task_id": "T-RUN-03-process-adoption", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "8a40e1d1bbaab33fb44a7779160855cdc1d374e9", "evidence_state": "LOCAL_VERIFIED"}
   ],
   "blocks": [
     {"task_id": "T-MCP-01-foundation", "class": "sibling_repository_not_available", "state": "PACKAGE_PREPARED_WITHOUT_REMOTE_CREATION"},
