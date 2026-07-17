@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "round_id": "RND-20260717-015",
+  "baseline_heads": {
+    "coordinator": "e6e0a4c201cdfc1106fa0c060b502c7bc0a5135a",
+    "runner": "7e19fe35922425b294629958853709934c0c3086"
+  },
+  "baseline_head": "e6e0a4c201cdfc1106fa0c060b502c7bc0a5135a",
+  "reviews": [],
+  "blocks": [
+    {
+      "task_id": "T-RUN-02-observability",
+      "class": "environmental_observation_pending",
+      "state": "UNVERIFIED"
+    },
+    {
+      "task_id": "T-MCP-01-foundation",
+      "class": "sibling_repository_not_available",
+      "state": "UNVERIFIED"
+    }
+  ],
+  "lanes": [],
+  "history": [
+    {
+      "round_id": "RND-20260717-015",
+      "event": "start",
+      "state": "READY",
+      "observed_at": "2026-07-17T12:46:11Z"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "mission": "complete all authorized technical work until a real human dependency",
+  "authority": {
+    "executor": "Codex",
+    "reviewer": "Orchestrator",
+    "acceptance_owner": "Orchestrator"
+  },
+  "protected_paths": [
+    "docs/specifications/AUTONOMOUS_PROGRAM_EXECUTION_SPEC.md",
+    "tests/acceptance/test_autonomous_program_execution.py",
+    "docs/specifications/GITLAB_AUTOUPDATE_ACCEPTANCE.md",
+    "tests/acceptance/test_gitlab_autoupdate_objective.py",
+    "docs/specifications/GITLAB_MCP_FOUNDATION_ACCEPTANCE.md",
+    "tests/acceptance/test_gitlab_mcp_foundation.py"
+  ],
+  "human_gate_classes": [
+    "credential_required",
+    "external_authorization",
+    "financial_cost",
+    "legal_or_ethical_decision",
+    "product_consequence",
+    "irreversible_operation",
+    "destructive_production_action"
+  ],
+  "review": {
+    "machine_green_allows_reversible_dependents": true,
+    "orchestrator_acceptance_required_for": [
+      "release",
+      "deploy",
+      "promotion",
+      "destructive",
+      "irreversible",
+      "production_credential"
+    ]
+  },
+  "parallelism": {
+    "minimum_lanes_when_independent": 2,
+    "preparation": "parallel_isolated",
+    "integration": "serial",
+    "overlap_evidence_required": true
+  },
+  "prohibitions": [
+    "release",
+    "deploy",
+    "promotion",
+    "real_credentials",
+    "destructive_production_action",
+    "force_push",
+    "branch_or_pull_request"
+  ]
+}

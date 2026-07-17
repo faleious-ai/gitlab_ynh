@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "round_id": "RND-20260717-015",
+  "charter_id": "CHR-GOV-AUTONOMY-001",
+  "tasks": [
+    {
+      "id": "T-GOV-01-program-engine",
+      "work_package": "WP-GOVERNANCE",
+      "status": "machine_green_awaiting_review",
+      "dependencies": [],
+      "reversible": true,
+      "operation_class": "implementation",
+      "paths": ["scripts/maestro_program.py", "continuity/PROGRAM_MANDATE.json", "continuity/PROGRAM_QUEUE.json", "continuity/PROGRAM_STATE.json"],
+      "priority": 120,
+      "acceptance_command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests.acceptance.test_autonomous_program_execution -v"
+    },
+    {
+      "id": "T-RUN-01-supported-docker-default",
+      "work_package": "WP-RUNNER",
+      "status": "ready",
+      "dependencies": [],
+      "reversible": true,
+      "operation_class": "correction",
+      "paths": ["manifest.toml", "config_panel.toml"],
+      "priority": 115,
+      "acceptance_command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests.acceptance.test_supported_docker_default -v"
+    },
+    {
+      "id": "T-GITLAB-01-autoupdate-engine",
+      "work_package": "WP-GITLAB-AUTOUPDATE",
+      "status": "ready",
+      "dependencies": [],
+      "reversible": true,
+      "operation_class": "implementation",
+      "paths": ["scripts/gitlab_autoupdate.py"],
+      "priority": 110,
+      "acceptance_command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests.acceptance.test_gitlab_autoupdate_objective -v"
+    },
+    {
+      "id": "T-MCP-01-foundation",
+      "work_package": "WP-GITLAB-MCP",
+      "status": "ready",
+      "dependencies": [],
+      "reversible": true,
+      "operation_class": "test_harness",
+      "paths": ["docs/specifications/GITLAB_MCP_CAPABILITY_SPEC.md", "evidence/mcp/"],
+      "priority": 100,
+      "acceptance_command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests.acceptance.test_gitlab_mcp_foundation -v"
+    },
+    {
+      "id": "T-RUN-02-observability",
+      "work_package": "WP-RUNNER-ASSURANCE",
+      "status": "blocked_environment",
+      "dependencies": [],
+      "reversible": true,
+      "operation_class": "observation",
+      "paths": ["evidence/"],
+      "priority": 95,
+      "acceptance_command": "read-only official release and CI observation"
+    },
+    {
+      "id": "T-GOV-02-process-adoption",
+      "work_package": "WP-GOVERNANCE",
+      "status": "ready",
+      "dependencies": ["T-GOV-01-program-engine"],
+      "reversible": true,
+      "operation_class": "documentation",
+      "paths": ["AGENTS.md", "continuity/ROUND_PROTOCOL.md", "docs/architecture/MAESTRO_WORK_ARCHITECTURE.md"],
+      "priority": 90,
+      "acceptance_command": "maestro_program plan against canonical queue plus drift checks"
+    },
+    {
+      "id": "T-RUN-03-process-adoption",
+      "work_package": "WP-RUNNER-GOVERNANCE",
+      "status": "ready",
+      "dependencies": ["T-GOV-01-program-engine"],
+      "reversible": true,
+      "operation_class": "documentation",
+      "paths": ["AGENTS.md", "continuity/ROUND_PROTOCOL.md", "docs/architecture/MAESTRO_WORK_ARCHITECTURE.md"],
+      "priority": 85,
+      "acceptance_command": "maestro_program plan against canonical queue plus Runner drift checks"
+    },
+    {
+      "id": "T-GITLAB-02-live-catalog",
+      "work_package": "WP-GITLAB-AUTOUPDATE",
+      "status": "ready",
+      "dependencies": ["T-GITLAB-01-autoupdate-engine"],
+      "reversible": true,
+      "operation_class": "research",
+      "paths": ["evidence/gitlab/"],
+      "priority": 80,
+      "acceptance_command": "read-only official package catalog observation"
+    },
+    {
+      "id": "T-MCP-02-api-inventory",
+      "work_package": "WP-GITLAB-MCP",
+      "status": "ready",
+      "dependencies": ["T-MCP-01-foundation"],
+      "reversible": true,
+      "operation_class": "research",
+      "paths": ["docs/research/", "evidence/mcp/"],
+      "priority": 70,
+      "acceptance_command": "official REST and GraphQL inventory"
+    },
+    {
+      "id": "T-ASSURANCE-01-maintenance",
+      "work_package": "WP-ASSURANCE",
+      "status": "ready",
+      "dependencies": [],
+      "reversible": true,
+      "operation_class": "test_harness",
+      "paths": ["evidence/", "docs/audit/"],
+      "priority": 60,
+      "acceptance_command": "proportional assurance and maintenance checks"
+    }
+  ]
+}
