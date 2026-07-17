@@ -24,54 +24,28 @@
 | EVD-WP02C-CROSS-REPO-SYNTHESIS | LOCAL_VERIFIED | RND-20260716-007 | síntese | commits e continuidade reconciliados |
 | EVD-WP02C-ORCHESTRATOR-REVIEW | LOCAL_VERIFIED | RND-20260716-008 | revisão independente | `CORRECTION_REQUIRED` |
 
-## Evidências de RND-20260716-009
+## Evolução do processo
 
-| ID | Estado | Task | Assunto | Resultado |
+| ID | Estado | Round | Assunto | Resultado |
 |---|---|---|---|---|
-| EVD-PROC-ADR006 | LOCAL_VERIFIED | T-01 | commits por tarefa e decisões D1–D5 | ADR/protocolos publicados cross-repo |
-| EVD-PROC-CAVEKIT-RESEARCH | LOCAL_VERIFIED | T-02 | análise skill por skill | `docs/research/CAVEKIT_TO_MAESTRO_ADAPTATION.md` |
-| EVD-PROC-SKILL-SUITE | STRUCTURALLY_OBSERVED | T-03..T-14 | skills locais no Runner | eficácia exercitada em RND-20260716-010 e retropropagada em RND-20260717-011 |
-| EVD-PROC-LEARNING-LEDGER | LOCAL_VERIFIED | T-15 | memória de aprendizagem | ledger append-only publicado no Runner |
-| EVD-PROC-ARCHITECTURE | LOCAL_VERIFIED | T-16 | MAESTRO por tarefa | máquina de estados e papéis reconciliados nos dois repositórios |
-| EVD-PROC-CHR003-MIGRATION | LOCAL_VERIFIED | T-17 | charter executável | oito Task-IDs com seams, TDD, gates e dependências |
+| EVD-PROC-ADR006 | LOCAL_VERIFIED | RND-20260716-009 | commits por tarefa | política cross-repo publicada |
+| EVD-PROC-SKILL-SUITE | STRUCTURALLY_OBSERVED | RND-20260716-009 | skills MAESTRO | suíte inicial publicada e exercitada |
+| EVD-WP02D-ORCHESTRATOR-REVIEW | LOCAL_VERIFIED | RND-20260717-011 | revisão integrada | `CORRECTION_REQUIRED` |
+| EVD-WP02E-INTEGRATION | LOCAL_VERIFIED | RND-20260717-012 | integração Runner | gates locais e manifest inalterado |
+| EVD-RND-20260717-015-GITLAB-CATALOG | STRUCTURALLY_OBSERVED | RND-20260717-015 | catálogo GitLab | rotas oficiais observadas sem promoção |
+| EVD-RND-20260717-015-MCP-API-INVENTORY | STRUCTURALLY_OBSERVED | RND-20260717-015 | inventário REST/GraphQL | superfície inicial catalogada |
+| EVD-RND-20260717-015-ASSURANCE | LOCAL_VERIFIED | RND-20260717-015 | assurance | acceptance 17/17; limitações preservadas |
+| EVD-RND-20260717-015-FINAL-CONTINUITY | LOCAL_VERIFIED | RND-20260717-015 | pacote de revisão | continuidade cross-repo reconciliada |
 
-## Evidências de CHR-WP02-003 — revisão final
+## Arquitetura v2
 
-| ID | Estado | Task/round | Resultado cross-repo |
+| ID | Estado | Round/Task | Resultado |
 |---|---|---|---|
-| EVD-WP02D-YUNOHOST-RUN-CONTROLLER | LOCAL_VERIFIED | T-WP02D-01 / RND-20260716-010 | Runner `ada6b78ca4db00c1dcacda4eb01736f123f6040b`; controlador e inputs efêmeros, sem host real |
-| EVD-WP02D-NO-LEGACY-ARGV | LOCAL_VERIFIED | T-WP02D-02 / RND-20260716-010 | Runner `79fb763c6c2d20f9bb1b76e42a266da1b41e8ad9`; interface legada removida |
-| EVD-WP02D-LIFECYCLE-IDENTITY | LOCAL_VERIFIED | T-WP02D-03 / RND-20260716-010 | Runner `2f0185cbf8b630f94d9618c9d7afe56cabc434b3`; harness local, lifecycle real não observado |
-| EVD-WP02D-SIGNATURE-FAIL-CLOSED | LOCAL_VERIFIED | T-WP02D-04 / RND-20260716-010 | lógica adversarial local passa; transport live da chave falha na revisão integrada |
-| EVD-WP02D-SELF-LINK-REDIRECTS | LOCAL_VERIFIED | T-WP02D-05 / RND-20260716-010 | release/download limitados; redirect oficial da chave não coberto |
-| EVD-WP02D-CANONICAL-EVIDENCE | FAILED | T-WP02D-06 / RND-20260716-010 | artefato histórico recebeu `key_validity=valid` sem nova observação |
-| EVD-WP02D-LOCAL-TESTS | LOCAL_VERIFIED | T-WP02D-01..07 / RND-20260716-010 | 32 testes e gates locais passaram |
-| EVD-WP02D-REMOTE-CI | UNVERIFIED | T-WP02D-07 / RND-20260716-010 | nenhum run/status remoto recuperado |
-| EVD-WP02D-CROSS-REPO-SYNTHESIS | FAILED | T-WP02D-08 / RND-20260716-010 | commits existem; continuidade manteve referências pré-publicação |
-| EVD-WP02D-ORCHESTRATOR-REVIEW | LOCAL_VERIFIED | RND-20260717-011 | `continuity/reviews/REV-RND-20260716-010.md`; verdict `CORRECTION_REQUIRED`; coordinator review commit `bece03b10d2ba56caa8bea55c1d032f38fcd7a9c` |
-
-## Evidências finais de RND-20260717-012
-
-| ID | Estado | Round/Task | Resultado cross-repo |
-|---|---|---|---|
-| EVD-WP02E-KEY-TRANSPORT | LOCAL_VERIFIED | T01 / RND-20260717-012 | Runner `6fb500ec3474c07137fcb8962512ed0adc59a9bb`; cadeia capturada e adversários fail-closed |
-| EVD-WP02E-LIVE-TRUST | UNVERIFIED | T02 / RND-20260717-012 | `evidence/wp02e-live-trust-observation.json`; falha antes da chave/GPG |
-| EVD-WP02E-HISTORICAL-PROVENANCE | LOCAL_VERIFIED | T03 / RND-20260717-012 | Runner `ea9774001fbf181b5fc210a17fad6a1208a83d4c`; hashes pré-T06 e supersessão |
-| EVD-WP02E-DOCKER-DEFAULT | LOCAL_VERIFIED | T04 / RND-20260717-012 | Runner `2563fc31e1b71db89315fd8c707235ed98659962`; `alpine:3.20` consistente |
-| EVD-WP02E-REMOTE-CI | UNVERIFIED | T05 / RND-20260717-012 | `workflow_runs=[]`, `statuses=[]`, `gh` ausente; gates locais separados |
-| EVD-WP02E-INTEGRATION | LOCAL_VERIFIED | T06 / RND-20260717-012 | Runner `08563cbd2c957e6cca16ae6535a56ef9b2d52b9e`; integração local e manifest inalterado |
-| EVD-WP02E-FINAL-CONTINUITY | LOCAL_VERIFIED | T07 / RND-20260717-012 | Runner `652c24819bc778eed04fb9eebe4836ab5ad016f2` + este commit; síntese reconciliada |
-| EVD-WP02E-PROCESS-BACKPROP | LOCAL_VERIFIED | RND-20260717-011 | Runner `4cefe926732c95344c3d7d129aa9dbe110dcae72` |
-
-## Evidencias de RND-20260717-015
-
-| ID | Estado | Task | Assunto | Resultado |
-|---|---|---|---|---|
-| EVD-RND-20260717-015-GITLAB-CATALOG | STRUCTURALLY_OBSERVED | T-GITLAB-02-live-catalog | catalogo oficial GitLab CE/EE | rotas Debian/bookworm observadas sem promocao |
-| EVD-RND-20260717-015-MCP-API-INVENTORY | STRUCTURALLY_OBSERVED | T-MCP-02-api-inventory | inventario REST/GraphQL oficial | superficie de leitura catalogada; disponibilidade por instancia permanece descoberta |
-| EVD-RND-20260717-015-ASSURANCE | LOCAL_VERIFIED | T-ASSURANCE-01-maintenance | gates proporcionais | 17/17 acceptance; Bash/parsing/secret scan/dry-run; limites ambientais e CI falho preservados |
-| EVD-RND-20260717-015-FINAL-CONTINUITY | LOCAL_VERIFIED | T-GOV-03-final-continuity | pacote remoto de revisÃ£o | round record, handoff, status, active round e matriz cross-repo reconciliados; Runner SHA `b25c63727921c511c78aed32dcdb7a71a45667d7` |
+| EVD-ARCH-V2-COORDINATOR | LOCAL_VERIFIED | RND-20260717-016 / T-GOV-ARCHITECTURE-V2 | backlog integral, máquina, receipts, findings, proteção e stop semântico publicados em `dc2f1166b27c0f41958c69906c8df65a9001e762` |
+| EVD-ARCH-V2-RUNNER | LOCAL_VERIFIED | RND-20260717-016 / T-RUN-ARCHITECTURE-V2 | consumer, contratos e suíte Runner publicados em `7dc24ccb8b539c052966eee4d22820e51e418433` |
+| EVD-ARCH-V2-HARDEN-RUNNER | LOCAL_VERIFIED | RND-20260717-016 / T-GOV-ARCHITECTURE-V2-HARDEN | correction tasks dinâmicas e skills v2 em `dafcac9a26e56d8c3731fae66e9e4cc5f5a0d015` |
+| EVD-ARCH-V2-HARDEN-COORDINATOR | LOCAL_VERIFIED | RND-20260717-016 / T-GOV-ARCHITECTURE-V2-HARDEN | workspaces, artifacts, identidade/baseline, hashes protegidos e testes 7/7 em `f2b8dc62801c4a2fbddcd28f0a000890b9b94f6f` |
 
 ## Convenção
 
-O Runner é a fonte funcional. Claims sem prova permanecem estruturais ou unverified. Fixture não prova freshness. Busca textual não prova runtime. Evidência observada é semanticamente imutável. Nunca reproduzir a credencial histórica. Aceite pertence ao orquestrador.
+Claims sem prova permanecem estruturais ou unverified. Fixture não prova freshness. Busca textual não prova runtime. Evidência observada é semanticamente imutável. O Runner é a fonte funcional de sua unidade; o coordenador é a autoridade do programa. Aceite pertence ao Orquestrador.

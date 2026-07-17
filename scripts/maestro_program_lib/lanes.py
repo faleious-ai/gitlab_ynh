@@ -44,7 +44,15 @@ def append_journal_event(path: Path, event: dict[str, Any]) -> dict[str, Any]:
     return event
 
 
-def lane_start(journal: Path, task_id: str, lane_id: str, worker_id: str, baseline: str, paths: list[str], workspace: str) -> dict[str, Any]:
+def lane_start(
+    journal: Path,
+    task_id: str,
+    lane_id: str,
+    worker_id: str,
+    baseline: str,
+    paths: list[str],
+    workspace: str,
+) -> dict[str, Any]:
     events = journal_events(journal)
     if any(event.get("lane_id") == lane_id and event.get("event") == "start" for event in events):
         raise ContractError("LANE_ALREADY_STARTED")
@@ -53,7 +61,20 @@ def lane_start(journal: Path, task_id: str, lane_id: str, worker_id: str, baseli
         raise ContractError("LANE_WORKSPACE_REQUIRED")
     if not task_id or not worker_id or not baseline:
         raise ContractError("LANE_IDENTITY_REQUIRED")
-    return append_journal_event(journal, {"event": "start", "event_id": str(uuid.uuid4()), "lane_id": lane_id, "task_id": task_id, "worker_id": worker_id, "workspace": str(workspace_path), "baseline": baseline, "paths": sorted(normalize_path(path) for path in paths), "started_at": utc_now()})
+    return append_journal_event(
+        journal,
+        {
+            "event": "start",
+            "event_id": str(uuid.uuid4()),
+            "lane_id": lane_id,
+            "task_id": task_id,
+            "worker_id": worker_id,
+            "workspace": str(workspace_path),
+            "baseline": baseline,
+            "paths": sorted(normalize_path(path) for path in paths),
+            "started_at": utc_now(),
+        },
+    )
 
 
 def _inside(path: Path, root: Path) -> bool:
@@ -92,7 +113,20 @@ def lane_finish(journal: Path, lane_id: str, worker_id: str, artifacts: list[str
         raise ContractError("LANE_COMMAND_LOG_OUTSIDE_WORKSPACE")
     if not log.is_file() or log.stat().st_size == 0:
         raise ContractError("LANE_COMMAND_LOG_REQUIRED")
-    return append_journal_event(journal, {"event": "finish", "event_id": str(uuid.uuid4()), "lane_id": lane_id, "worker_id": worker_id, "workspace": str(workspace), "finished_at": utc_now(), "artifacts": artifact_records, "command_log": {"path": str(log), "sha256": sha256_file(log), "size": log.stat().st_size}, "result": result})
+    return append_journal_event(
+        journal,
+        {
+            "event": "finish",
+            "event_id": str(uuid.uuid4()),
+            "lane_id": lane_id,
+            "worker_id": worker_id,
+            "workspace": str(workspace),
+            "finished_at": utc_now(),
+            "artifacts": artifact_records,
+            "command_log": {"path": str(log), "sha256": sha256_file(log), "size": log.stat().st_size},
+            "result": result,
+        },
+    )
 
 
 def validate_wave(plan: dict[str, Any], journal: Path) -> dict[str, Any]:
@@ -147,7 +181,7 @@ def validate_wave(plan: dict[str, Any], journal: Path) -> dict[str, Any]:
         intervals.append((lane_id, str(start.get("worker_id")), workspace, started_at, finished_at))
     overlap = False
     for index, left in enumerate(intervals):
-        for right in intervals[index + 1:]:
+        for right in intervals[index + 1 :]:
             if left[1] == right[1] or left[2] == right[2]:
                 continue
             if left[3] < right[4] and right[3] < left[4]:
