@@ -1,36 +1,83 @@
 # Rodada ativa
 
-Charter-ID: `CHR-WP02-004`
-Estado: `EXECUTED_AWAITING_REVIEW`
-Round-ID: `RND-20260717-012`
-Unidade: `WP-02E — confiança live, proveniência e fechamento consistente`
-Repositório funcional: `faleious-ai/gitlab-runner_ynh`
-Runner T07: `652c24819bc778eed04fb9eebe4836ab5ad016f2`
-Coordenador T07: `this task commit`
+Charter-ID: `CHR-GOV-AUTONOMY-001`  
+Estado: `READY`  
+Preparado em: 2026-07-17  
+Executor principal: Codex  
+Unidade: `fila técnica contínua orientada por acceptance tests`
 
-## Papel
+## Baseline
 
-Este coordenador mantém a síntese cross-repo, o estado, a revisão e o handoff. A implementação e os artefatos funcionais pertencem ao Runner.
+- coordenador: `f6dd35b0b30cb72505a6e4a6d7eb0e2b689566a8`;
+- Runner: `17be5e890010c2eb96d857713f2bc0164092b943`.
 
-## Resultado da rodada
+Resolver novamente `origin/master` no START e admitir commits posteriores legítimos.
 
-| Task-ID | SHA Runner | Estado do claim |
-|---|---|---|
-| T-WP02E-01 | `6fb500ec3474c07137fcb8962512ed0adc59a9bb` | transport oficial capturado; `LOCAL_VERIFIED` |
-| T-WP02E-02 | `8c0c52592d2ccd3f9ebd706d56e63f9b12410f69` | falha antes da chave/GPG; trust `UNVERIFIED` |
-| T-WP02E-03 | `ea9774001fbf181b5fc210a17fad6a1208a83d4c` | provenance histórica reparada; `LOCAL_VERIFIED` |
-| T-WP02E-04 | `2563fc31e1b71db89315fd8c707235ed98659962` | default Docker consistente; `LOCAL_VERIFIED` |
-| T-WP02E-05 | `978ec18218e38920a169aa15490ec0cab4399133` | CI remoto não observado; `UNVERIFIED` |
-| T-WP02E-06 | `08563cbd2c957e6cca16ae6535a56ef9b2d52b9e` | gates locais integrados; `LOCAL_VERIFIED` |
-| T-WP02E-07 | `652c24819bc778eed04fb9eebe4836ab5ad016f2` | continuidade Runner reconciliada; `LOCAL_VERIFIED` |
+## Autorização
 
-## Invariantes
+`Leia AGENTS.md e continue` autoriza todas as tarefas técnicas, reversíveis e sem efeito externo desta rodada. Cada tarefa concluída gera commit remoto próprio. O Executor continua pelas dependências elegíveis e só encerra depois de concluir ou classificar todo trabalho independente deste charter.
 
-- `manifest.toml` permanece `18.6.2~ynh1`, sem promoção;
-- CI remoto permanece `UNVERIFIED` e lifecycle real não observado;
-- nenhum registro real, credencial histórica, download de pacote ou operação destrutiva foi usado;
-- `HG-RUN-SEC-01` permanece `UNRESOLVED_NO_AUTHORITY`, não bloqueante.
+## Especificações executáveis protegidas
+
+O Executor executa, mas não reduz nem remove:
+
+- `docs/specifications/AUTONOMOUS_PROGRAM_EXECUTION_SPEC.md`;
+- `tests/acceptance/test_autonomous_program_execution.py`;
+- `docs/specifications/GITLAB_AUTOUPDATE_ACCEPTANCE.md`;
+- `tests/acceptance/test_gitlab_autoupdate_objective.py`;
+- `docs/specifications/GITLAB_MCP_FOUNDATION_ACCEPTANCE.md`;
+- `tests/acceptance/test_gitlab_mcp_foundation.py`;
+- Runner `tests/acceptance/test_supported_docker_default.py`.
+
+Divergência real produz `TEST_CONTRACT_CHALLENGE`; as demais tarefas continuam.
+
+## Onda paralela inicial
+
+Executar em ambientes isolados e integrar serialmente:
+
+1. `T-GOV-01-program-engine`: implementar `scripts/maestro_program.py` e os arquivos canônicos de mandato, fila e estado até o acceptance do motor ficar GREEN.
+2. `T-RUN-01-supported-docker-default`: tornar GREEN o acceptance Alpine usando tag patch observada e ainda suportada.
+3. `T-GITLAB-01-autoupdate-engine`: implementar `scripts/gitlab_autoupdate.py` até o acceptance do updater ficar GREEN, sem promover manifest.
+4. `T-MCP-01-foundation`: preparar o servidor GitLab MCP separado em test mode até o acceptance de fundação ficar GREEN ou produzir pacote publicável quando o repositório remoto não puder ser criado pelo ambiente.
+5. `T-RUN-02-observability`: continuar diagnóstico read-only de confiança live e CI, preservando estados não observados.
+
+Quando houver duas ou mais frentes independentes, iniciar no mínimo duas lanes e registrar `Lane-ID`, ownership, baseline, início, término, RED/GREEN e output. A integração, o commit e o push permanecem seriais.
+
+## Integração do processo
+
+Após T-GOV-01:
+
+- atualizar `AGENTS.md`, protocolos, arquitetura e políticas dos dois repositórios;
+- fazer a invocação carregar a fila canônica, em vez de depender apenas de um charter isolado;
+- migrar os work packages restantes para o DAG;
+- fazer findings criarem tarefas corretivas prioritárias;
+- permitir que tarefas reversíveis independentes continuem enquanto uma revisão está pendente;
+- rejeitar parada por limitação meramente técnica quando existir trabalho independente.
+
+## Fila inicial mínima
+
+A fila canônica deve incluir:
+
+- correção Alpine;
+- nova observação da confiança Runner;
+- observação de CI por SHA;
+- autoupdate GitLab CE/EE e required stops;
+- catálogo live GitLab sem promoção;
+- foundation GitLab MCP;
+- inventário REST/GraphQL;
+- harnesses das próximas ondas;
+- assurance e manutenção.
+
+Itens sem acceptance protegido podem avançar por pesquisa, fixture, modelagem e harness, mas não declarar o objetivo funcional concluído.
+
+## Limites
+
+- somente trabalho técnico reversível e não operacional;
+- sem release, deploy ou promoção;
+- sem alteração de ambiente real;
+- sem branch, PR, worktree, squash, force push ou reescrita;
+- o Executor não declara `ACCEPTED`.
 
 ## Fechamento
 
-O pacote cross-repo está `EXECUTED_AWAITING_REVIEW` e pronto para revisão independente. O executor não declara `ACCEPTED`.
+Entregar os acceptance results, matriz task→commit→claim→evidência, prova de lanes paralelas ou justificativa objetiva, fila migrada, HEADs reconciliados e estado remoto retomável. O estado final é `EXECUTED_AWAITING_REVIEW` ou checkpoint explícito de fila ainda em execução.

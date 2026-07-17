@@ -1,31 +1,36 @@
 # Handoff atual
 
-Estado: `EXECUTED_AWAITING_REVIEW`
-Charter: `CHR-WP02-004`
-Round-ID: `RND-20260717-012`
+Estado: `READY_FOR_CODEX_CONTINUOUS_ROUND`  
+Charter: `CHR-GOV-AUTONOMY-001`  
 Branch: `master`
-Runner HEAD final: `652c24819bc778eed04fb9eebe4836ab5ad016f2`
-Coordenador HEAD: `this task commit`
 
-## Síntese
+## Prompt
 
-O Runner executou T01–T07 em commits atômicos publicados no `master`. A matriz completa está em `continuity/ACTIVE_ROUND.md` e no round record da rodada.
+```text
+Leia AGENTS.md e continue.
+```
 
-- confiança live: `UNVERIFIED`; T02 falhou no fetch de `release.sha256` antes da chave/GPG;
-- CI remoto: `UNVERIFIED`; T05 registrou `workflow_runs=[]`, `statuses=[]` e `gh` ausente;
-- lifecycle: harness local passou, host YunoHost/Docker real não observado;
-- manifest: `18.6.2~ynh1`, sem promoção;
-- segurança: nenhuma credencial histórica, registro real, download de pacote ou operação destrutiva.
+## Entrada
 
-## Evidências
+1. Reconciliar `origin/master` do coordenador e Runner.
+2. Confirmar o charter `READY` em `continuity/ACTIVE_ROUND.md`.
+3. Ler os quatro acceptance packs publicados pelo Orquestrador.
+4. Atribuir novo `Round-ID`.
+5. Iniciar no mínimo duas lanes independentes e registrar ownership/tempos.
+6. Integrar e publicar uma tarefa por vez.
+7. Após o motor ficar GREEN, migrar e consumir a fila canônica enquanto houver trabalho elegível.
 
-O índice cross-repo aponta para os artefatos funcionais no Runner:
+## Baselines de preparação
 
-- `evidence/wp02e-live-trust-observation.json`;
-- `evidence/wp02e-remote-ci-observation.json`;
-- `evidence/wp02e-integration-gates.json`;
-- `continuity/STATUS.md`, `continuity/HANDOFF_CURRENT.md` e `continuity/rounds/RND-20260717-012.md`.
+- coordinator acceptance head antes do charter: `f6dd35b0b30cb72505a6e4a6d7eb0e2b689566a8`;
+- Runner acceptance head antes do charter: `17be5e890010c2eb96d857713f2bc0164092b943`.
 
-## Revisão
+## Prioridade
 
-O pacote está pronto para revisão independente do orquestrador. O executor não declara `ACCEPTED`.
+1. motor de execução contínua;
+2. default Alpine suportado;
+3. autoupdate GitLab;
+4. foundation MCP;
+5. trust/CI Runner e migração do backlog.
+
+Não alterar os acceptance tests do Orquestrador. Não declarar `ACCEPTED`.
