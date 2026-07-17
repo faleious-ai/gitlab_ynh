@@ -62,6 +62,51 @@
       "source_task_id": "T-MCP-FOUNDATION-FIXTURE-001",
       "state": "open",
       "summary": "MCP foundation has no GitLab transport"
+    },
+    {
+      "actionable": true,
+      "correction_task": {
+        "auto_activate": true,
+        "dependencies": [],
+        "id": "T-GOV-ARCHITECTURE-V2-READONLY-CONSUMER",
+        "operation_class": "correction",
+        "output": "read-only Runner consumer with temporary planner queue, protected mandate hash and cross-repository receipt/evidence",
+        "paths": [
+          "scripts/program_consumer.py",
+          "tests/acceptance/test_program_queue_consumer.py",
+          "continuity/PROGRAM_MANDATE.json",
+          "continuity/PROGRAM_FINDINGS.json",
+          "continuity/PROGRAM_STATE.json",
+          "continuity/task_receipts",
+          "evidence",
+          "continuity/rounds",
+          "continuity/HANDOFF_CURRENT.md",
+          "continuity/STATUS.md",
+          "continuity/ACTIVE_ROUND.md",
+          "evidence/EVIDENCE_INDEX.md"
+        ],
+        "priority": 10000,
+        "repositories": [
+          "runner",
+          "coordinator"
+        ],
+        "reversible": true,
+        "work_package": "WP-00"
+      },
+      "correction_task_id": "T-GOV-ARCHITECTURE-V2-READONLY-CONSUMER",
+      "evidence": [
+        "scripts/program_consumer.py",
+        "tests/acceptance/test_program_queue_consumer.py",
+        "RND-20260717-017 temporary planner observation"
+      ],
+      "id": "F-RUN-CONSUMER-READONLY-001",
+      "registered_at": "2026-07-17T19:11:30.007129Z",
+      "resolved_at": "2026-07-17T19:20:44Z",
+      "resolution": "consumer now sends one TemporaryDirectory queue to refresh-queue, doctor and plan; the tracked queue remained byte-identical in the behavioral test and post-run verification",
+      "severity": "P1",
+      "source_task_id": "T-RUN-ARCHITECTURE-V2",
+      "state": "resolved",
+      "summary": "program_consumer.py mutates the tracked coordinator queue because planner commands omit an explicit temporary --queue"
     }
   ],
   "program_id": "gitlab-ynh-mcp-program",

@@ -1,0 +1,39 @@
+{
+  "schema_version": 2,
+  "program_id": "gitlab-ynh-mcp-program",
+  "task_id": "T-GOV-ARCHITECTURE-V2-READONLY-CONSUMER",
+  "repository": "coordinator",
+  "commit_binding": "SELF",
+  "acceptance": {
+    "command": "temporary queue: refresh-queue, doctor and plan; coordinator tracked queue byte-identity check",
+    "result": "pass"
+  },
+  "gates": [
+    {"name": "temporary-planner-queue", "result": "pass"},
+    {"name": "protected-inventory-reconciliation", "result": "pass"},
+    {"name": "lane-wave", "result": "pass"},
+    {"name": "spec-review", "result": "pass"},
+    {"name": "engineering-review", "result": "pass"},
+    {"name": "real-diff-authorized-protected-path-review", "result": "pass"}
+  ],
+  "evidence_paths": [
+    "evidence/rnd-20260717-017-consumer-readonly.json",
+    "evidence/rnd-20260717-017-consumer-readonly-spec-review.md",
+    "evidence/rnd-20260717-017-consumer-readonly-engineering-review.md",
+    "continuity/rounds/RND-20260717-017.md"
+  ],
+  "changed_paths": [
+    "continuity/PROGRAM_FINDINGS.json",
+    "continuity/PROGRAM_MANDATE.json",
+    "continuity/PROGRAM_STATE.json",
+    "continuity/HANDOFF_CURRENT.md",
+    "continuity/STATUS.md",
+    "continuity/ACTIVE_ROUND.md",
+    "continuity/rounds/RND-20260717-017.md",
+    "continuity/task_receipts/T-GOV-ARCHITECTURE-V2-READONLY-CONSUMER.json",
+    "evidence/EVIDENCE_INDEX.md",
+    "evidence/rnd-20260717-017-consumer-readonly.json",
+    "evidence/rnd-20260717-017-consumer-readonly-spec-review.md",
+    "evidence/rnd-20260717-017-consumer-readonly-engineering-review.md"
+  ]
+}

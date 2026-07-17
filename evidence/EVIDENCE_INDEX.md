@@ -45,6 +45,7 @@
 | EVD-ARCH-V2-RUNNER | LOCAL_VERIFIED | RND-20260717-016 / T-RUN-ARCHITECTURE-V2 | consumer, contratos e suíte Runner publicados em `7dc24ccb8b539c052966eee4d22820e51e418433` |
 | EVD-ARCH-V2-HARDEN-RUNNER | LOCAL_VERIFIED | RND-20260717-016 / T-GOV-ARCHITECTURE-V2-HARDEN | correction tasks dinâmicas e skills v2 em `dafcac9a26e56d8c3731fae66e9e4cc5f5a0d015` |
 | EVD-ARCH-V2-HARDEN-COORDINATOR | LOCAL_VERIFIED | RND-20260717-016 / T-GOV-ARCHITECTURE-V2-HARDEN | workspaces, artifacts, identidade/baseline, hashes protegidos e testes 7/7 em `f2b8dc62801c4a2fbddcd28f0a000890b9b94f6f` |
+| EVD-RND-20260717-017-CONSUMER-READONLY | LOCAL_VERIFIED | RND-20260717-017 / T-GOV-ARCHITECTURE-V2-READONLY-CONSUMER | temporary planner queue, sentinel preservation, protected inventory reconciliation and cross-repository evidence; receipt is SELF-bound |
 
 ## Convenção
 

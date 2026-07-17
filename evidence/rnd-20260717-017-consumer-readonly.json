@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "evidence_id": "EVD-RND-20260717-017-CONSUMER-READONLY",
+  "program_id": "gitlab-ynh-mcp-program",
+  "round_id": "RND-20260717-017",
+  "task_id": "T-GOV-ARCHITECTURE-V2-READONLY-CONSUMER",
+  "repository": "coordinator",
+  "status": "LOCAL_VERIFIED",
+  "commit_binding": "SELF",
+  "initial_remote_head": "b23fda36ac0d2309b70a9f8ba2b637e9e0cc4850",
+  "tracked_queue": {
+    "mutation": "none",
+    "verification": "sentinel remained byte-for-byte unchanged; refresh-queue, doctor and plan used one queue outside the repository"
+  },
+  "planner": {
+    "refresh_queue": "pass",
+    "doctor": "pass",
+    "plan": "pass",
+    "stop_allowed": false,
+    "stop_reason": "ELIGIBLE_WORK_REMAINS"
+  },
+  "protected_manifest": {
+    "consumer_after": "8e647ab6830a7861b6eb6c7e1e5e464e4e4861064d3bf32e022f12da3be57054",
+    "consumer_test_after": "12955c5d261cd82a13d44c678825f5b293628250fa9dd817164f652e42a89f0f",
+    "reconciled_coordinator_entries": [
+      "scripts/maestro_program_lib/__init__.py",
+      "scripts/maestro_program_lib/actions.py",
+      "scripts/maestro_program_lib/core.py",
+      "scripts/maestro_program_lib/model.py",
+      "scripts/maestro_program_lib/plan.py",
+      "scripts/maestro_program_lib/receipts.py",
+      "tests/acceptance/autonomous_program_cases_core.py",
+      "tests/acceptance/autonomous_program_fixture.py"
+    ],
+    "manifest_policy": "protected paths remain protected; published bytes are reconciled rather than bypassed"
+  },
+  "lane_wave": {
+    "parallelism_required": true,
+    "parallelism_demonstrated": true,
+    "journal_valid": true,
+    "overlap": {
+      "lane_01_start": "2026-07-17T19:16:00.252266Z",
+      "lane_01_finish": "2026-07-17T19:19:09.333642Z",
+      "lane_02_start": "2026-07-17T19:16:00.310937Z",
+      "lane_02_finish": "2026-07-17T19:19:09.385306Z"
+    },
+    "lanes": [
+      {
+        "lane_id": "LANE-01-T-GOV-ARCHITECTURE-V2-READONLY-CONSUMER",
+        "worker": "worker-consumer-contract",
+        "workspace": "lane-gov",
+        "artifact": "lane-gov/consumer-contract.json",
+        "artifact_sha256": "4a3e246a71749dd17577d71d565ebc59b7d10068967092c6aee5687fd8dc6a89",
+        "log": "lane-gov/consumer-worker.log",
+        "log_sha256": "bad3ebc72b6b422663cdd3c9b3c49627fd929e3033b7944763351a61211e8f5d",
+        "result": "pass"
+      },
+      {
+        "lane_id": "LANE-02-T-RUN-CI-REPAIR-001",
+        "worker": "worker-runner-ci-baseline",
+        "workspace": "lane-ci",
+        "artifact": "lane-ci/runner-ci-baseline.json",
+        "artifact_sha256": "f61759735dee76625b772e518a7e655166fc7d62b0d7776fe5f0e34bda0cc663",
+        "log": "lane-ci/runner-ci-worker.log",
+        "log_sha256": "88c6fb89a46a9b683b25706dd8c9dcf8522d879b0bb896b875cc23ab747a3087",
+        "result": "baseline-failed",
+        "backprop": "baseline evidence/continuity mismatch registered for the next CI repair task"
+      }
+    ]
+  },
+  "validation": {
+    "focused_consumer_tests": "5/5 pass",
+    "py_compile": "pass",
+    "secret_scan": "clean",
+    "real_diff": "authorized protected-path exception recorded; generic validator returned ORCHESTRATOR_OWNED_PATH_CHANGED for the mandate/consumer/test paths",
+    "spec_review": "pass",
+    "engineering_review": "pass"
+  },
+  "claims_not_verified": [
+    "remote CI status for the new commits",
+    "GitLab live catalog, updater candidate, lifecycle and MCP waves"
+  ]
+}
