@@ -1,0 +1,30 @@
+{
+  "artifact_id": "EVD-RND-20260717-015-MCP-API-INVENTORY",
+  "artifact_kind": "official-api-inventory",
+  "schema_version": 1,
+  "round_id": "RND-20260717-015",
+  "charter_id": "CHR-GOV-AUTONOMY-001",
+  "task_id": "T-MCP-02-api-inventory",
+  "observed_at": "2026-07-17T13:18:00Z",
+  "producer": "Codex documentation research",
+  "sources": [
+    {"kind": "rest", "url": "https://docs.gitlab.com/api/rest/", "facts": ["versioned /api/v4 surface", "HTTP and JSON semantics", "page and keyset pagination guidance"]},
+    {"kind": "graphql", "url": "https://docs.gitlab.com/api/graphql/", "facts": ["versionless /api/graphql endpoint", "query and mutation scope distinction", "connection limits and complexity controls"]}
+  ],
+  "inventory": {
+    "rest_read_operations": 9,
+    "graphql_mode": "schema-discovered read queries",
+    "risk_default": "R0_READ",
+    "client_page_limit": 100,
+    "writes_enabled": false,
+    "arbitrary_urls_enabled": false
+  },
+  "result": "official_transport_inventory_recorded",
+  "evidence_state": "STRUCTURALLY_OBSERVED",
+  "promotion": {"promoted": false, "manifest_changed": false},
+  "limitations": [
+    "No target instance, credentials, mutation or API response was used.",
+    "Edition, license, version and per-operation availability require instance discovery.",
+    "The inventory is a bounded planning slice, not a complete GitLab API catalog or compatibility proof."
+  ]
+}

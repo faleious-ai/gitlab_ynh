@@ -106,7 +106,7 @@
     {
       "id": "T-MCP-02-api-inventory",
       "work_package": "WP-GITLAB-MCP",
-      "status": "ready",
+      "status": "in_progress",
       "dependencies": ["T-MCP-01-foundation"],
       "reversible": true,
       "operation_class": "research",
