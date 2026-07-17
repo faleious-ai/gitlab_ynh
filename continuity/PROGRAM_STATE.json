@@ -1,7 +1,7 @@
 {
   "baseline_heads": {
-    "coordinator": "9fbcd366da07324a7adad95e5006a8da007d99e5",
-    "runner": "b25c63727921c511c78aed32dcdb7a71a45667d7"
+    "coordinator": "dc2f1166b27c0f41958c69906c8df65a9001e762",
+    "runner": "7dc24ccb8b539c052966eee4d22820e51e418433"
   },
   "environment_blocks": [],
   "history": [
@@ -9,18 +9,21 @@
       "event": "architecture_v2_started",
       "observed_at": "2026-07-17T00:00:00Z",
       "round_id": "RND-20260717-016"
+    },
+    {
+      "coordinator_commit": "dc2f1166b27c0f41958c69906c8df65a9001e762",
+      "event": "architecture_v2_activated",
+      "observed_at": "2026-07-17T00:00:00Z",
+      "round_id": "RND-20260717-016",
+      "runner_commit": "7dc24ccb8b539c052966eee4d22820e51e418433"
     }
   ],
   "human_gates": [
     {
       "condition": "the task creates or promotes an external resource and is outside reversible technical preparation",
-      "evidence": [
-        "all independent preparation remains represented in the backlog"
-      ],
+      "evidence": ["all independent preparation remains represented in the backlog"],
       "external_authority": true,
-      "fallbacks_attempted": [
-        "continue research, fixtures, tests and package preparation without external mutation"
-      ],
+      "fallbacks_attempted": ["continue research, fixtures, tests and package preparation without external mutation"],
       "reason_class": "external_authorization",
       "requested_human_action": "authorize creation/synchronization of the GitLab upstream mirror",
       "resume": "create the mirror and validate read-only sync",
@@ -30,13 +33,9 @@
     },
     {
       "condition": "the task creates or promotes an external resource and is outside reversible technical preparation",
-      "evidence": [
-        "all independent preparation remains represented in the backlog"
-      ],
+      "evidence": ["all independent preparation remains represented in the backlog"],
       "external_authority": true,
-      "fallbacks_attempted": [
-        "continue research, fixtures, tests and package preparation without external mutation"
-      ],
+      "fallbacks_attempted": ["continue research, fixtures, tests and package preparation without external mutation"],
       "reason_class": "external_authorization",
       "requested_human_action": "authorize creation/synchronization of the Runner upstream mirror",
       "resume": "create the mirror and validate read-only sync",
@@ -46,13 +45,9 @@
     },
     {
       "condition": "the task creates or promotes an external resource and is outside reversible technical preparation",
-      "evidence": [
-        "all independent preparation remains represented in the backlog"
-      ],
+      "evidence": ["all independent preparation remains represented in the backlog"],
       "external_authority": true,
-      "fallbacks_attempted": [
-        "continue research, fixtures, tests and package preparation without external mutation"
-      ],
+      "fallbacks_attempted": ["continue research, fixtures, tests and package preparation without external mutation"],
       "reason_class": "external_authorization",
       "requested_human_action": "authorize creation of faleious-ai/gitlab-mcp and authority migration",
       "resume": "create repository and migrate prepared package",
@@ -62,13 +57,9 @@
     },
     {
       "condition": "the task creates or promotes an external resource and is outside reversible technical preparation",
-      "evidence": [
-        "all independent preparation remains represented in the backlog"
-      ],
+      "evidence": ["all independent preparation remains represented in the backlog"],
       "external_authority": true,
-      "fallbacks_attempted": [
-        "continue research, fixtures, tests and package preparation without external mutation"
-      ],
+      "fallbacks_attempted": ["continue research, fixtures, tests and package preparation without external mutation"],
       "reason_class": "product_consequence",
       "requested_human_action": "approve the exact package versions and release/promotion action",
       "resume": "execute release gates and publish",
@@ -82,56 +73,20 @@
   "schema_version": 2,
   "task_overrides": {
     "T-BASELINE-INSTALLERS-001": {
-      "commits": {
-        "coordinator": "23729a7284b2970116e1f1fc968735a12e1bc6ea",
-        "runner": "9da54f246018808c13dfea2dd0c5a92e0b1da970"
-      },
+      "commits": {"coordinator": "23729a7284b2970116e1f1fc968735a12e1bc6ea", "runner": "9da54f246018808c13dfea2dd0c5a92e0b1da970"},
       "review": "historical orchestrator acceptance",
       "state": "accepted"
     },
-    "T-GITLAB-RESOLVER-FIXTURE-001": {
-      "commit": "50401610110e35a4c114e2127f799dca7989be2a",
-      "review": "fixture-backed component accepted; live catalog remains open",
-      "state": "accepted"
-    },
-    "T-GOV-ARCHITECTURE-V2": {
-      "review": "orchestrator implementation in current round",
-      "state": "in_progress"
-    },
-    "T-GOV-BOOTSTRAP-001": {
-      "commit": "23729a7284b2970116e1f1fc968735a12e1bc6ea",
-      "review": "historical orchestrator acceptance",
-      "state": "accepted"
-    },
-    "T-MCP-FOUNDATION-FIXTURE-001": {
-      "commit": "c88fc281de66060023f3c8c6c3425a2827e5df20",
-      "review": "fixture-only protocol component accepted; real transport remains open",
-      "state": "accepted"
-    },
-    "T-MCP-REPO-CREATE-001": {
-      "state": "blocked_human"
-    },
-    "T-MIRROR-GITLAB-001": {
-      "state": "blocked_human"
-    },
-    "T-MIRROR-RUNNER-001": {
-      "state": "blocked_human"
-    },
-    "T-RELEASE-PACKAGES-001": {
-      "state": "blocked_human"
-    },
-    "T-RUN-ARCHITECTURE-V2": {
-      "state": "ready"
-    },
-    "T-RUN-DOCKER-DEFAULT-001": {
-      "commit": "40e3a0854da387ed51320afa15416abb1747009f",
-      "review": "component accepted; broader Runner WP remains open",
-      "state": "accepted"
-    },
-    "T-RUN-TRUST-OBSERVATION-001": {
-      "commit": "9d2ef34201688749a547bf5625bca03ecc16f369",
-      "review": "live trust observation accepted; CI remained failed",
-      "state": "accepted"
-    }
+    "T-GITLAB-RESOLVER-FIXTURE-001": {"commit": "50401610110e35a4c114e2127f799dca7989be2a", "review": "fixture-backed component accepted; live catalog remains open", "state": "accepted"},
+    "T-GOV-ARCHITECTURE-V2": {"commit": "dc2f1166b27c0f41958c69906c8df65a9001e762", "review": "ORCHESTRATOR_ACCEPTED_ARCHITECTURE_V2_LOCAL_AND_REMOTE_STRUCTURE", "state": "accepted"},
+    "T-GOV-BOOTSTRAP-001": {"commit": "23729a7284b2970116e1f1fc968735a12e1bc6ea", "review": "historical orchestrator acceptance", "state": "accepted"},
+    "T-MCP-FOUNDATION-FIXTURE-001": {"commit": "c88fc281de66060023f3c8c6c3425a2827e5df20", "review": "fixture-only protocol component accepted; real transport remains open", "state": "accepted"},
+    "T-MCP-REPO-CREATE-001": {"state": "blocked_human"},
+    "T-MIRROR-GITLAB-001": {"state": "blocked_human"},
+    "T-MIRROR-RUNNER-001": {"state": "blocked_human"},
+    "T-RELEASE-PACKAGES-001": {"state": "blocked_human"},
+    "T-RUN-ARCHITECTURE-V2": {"commit": "7dc24ccb8b539c052966eee4d22820e51e418433", "review": "ORCHESTRATOR_ACCEPTED_RUNNER_CONSUMER_AND_PROTOCOL_V2", "state": "accepted"},
+    "T-RUN-DOCKER-DEFAULT-001": {"commit": "40e3a0854da387ed51320afa15416abb1747009f", "review": "component accepted; broader Runner WP remains open", "state": "accepted"},
+    "T-RUN-TRUST-OBSERVATION-001": {"commit": "9d2ef34201688749a547bf5625bca03ecc16f369", "review": "live trust observation accepted; CI remained failed", "state": "accepted"}
   }
 }
