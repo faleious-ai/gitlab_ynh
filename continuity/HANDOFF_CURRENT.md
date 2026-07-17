@@ -1,9 +1,8 @@
 # Handoff atual
 
-Estado: `EXECUTED_AWAITING_REVIEW`
-Charter ativo: `CHR-WP02-003`  
-Revisão anterior: `REV-RND-20260716-007 — CORRECTION_REQUIRED`  
-Processo vigente: `ADR-0006`  
+Estado: `READY_FOR_CODEX_FULL_ROUND`  
+Charter ativo: `CHR-WP02-004`  
+Revisão anterior: `REV-RND-20260716-010 — CORRECTION_REQUIRED`  
 Branch: `master`
 
 ## Prompt
@@ -12,35 +11,26 @@ Branch: `master`
 Leia AGENTS.md e continue.
 ```
 
-## Resultado persistido
+## Retomada
 
-`RND-20260716-010` executou T01–T07 no Runner e T08 nos dois repositórios, com o mesmo Charter-ID e commits remotos por tarefa afetada. O Runner terminou em `221634780ecca490ce86c9a0703a21f5b4c53e95`; este coordenador recebe a síntese T08 neste commit.
-
-Gates finais do Runner: 32 testes locais, secret scan limpo, parsers JSON/TOML, Bash, dry-run e allowlist passam; `manifest.toml` permanece `18.6.2~ynh1`. CI remoto não foi recuperado pelo ambiente disponível e permanece `UNVERIFIED`; lifecycle YunoHost real também não foi observado.
-
-Para revisão, usar `continuity/rounds/RND-20260716-010.md`, `evidence/EVIDENCE_INDEX.md` e o intervalo remoto completo. O executor não declara `ACCEPTED`.
+1. Reconciliar `origin/master` deste coordenador e do Runner.
+2. Confirmar `CHR-WP02-004 READY` nos dois repositórios.
+3. Ler o contrato detalhado no Runner.
+4. Atribuir novo `Round-ID` e executar T01–T07.
+5. Publicar o commit Runner de continuidade antes do commit correspondente neste coordenador.
 
 ## Direção
 
-Corrigir no Runner:
+Resolver exclusivamente:
 
-- controlador YunoHost e entradas efêmeras;
-- interface legada de token;
-- backup/restore da identidade;
-- trust criptográfico fail-closed;
-- self-link/redirects;
-- evidência portátil;
-- CI remoto ou bloqueio objetivo.
+- entrega/redirect da chave oficial;
+- nova observação live pelo commit corrigido;
+- reparação de evidência histórica sem promoção retrospectiva;
+- default Docker consistente;
+- CI honesto e continuidade com SHAs publicados.
 
-## Processo
-
-- TDD RED→GREEN em seam público;
-- backprop técnico automático;
-- challenge pré-build para alto impacto;
-- revisão pré-commit em dois eixos;
-- sem squash, branch, PR, worktree ou force push;
-- próximo commit somente após sincronização do anterior no mesmo repositório.
+Preservar controller, credencial fora do argv, remoção legada, backup/restore sem re-registro, fail-closed, self-link/assets, diff allowlist e ausência de promoção.
 
 ## Gate
 
-`HG-RUN-SEC-01` permanece risco histórico externo. Não usar/testar o valor antigo e não interromper trabalho técnico por esse gate.
+`HG-RUN-SEC-01` permanece risco histórico externo, não bloqueante. Nenhuma decisão humana está pendente.

@@ -30,39 +30,38 @@
 |---|---|---|---|---|
 | EVD-PROC-ADR006 | LOCAL_VERIFIED | T-01 | commits por tarefa e decisões D1–D5 | ADR/protocolos publicados cross-repo |
 | EVD-PROC-CAVEKIT-RESEARCH | LOCAL_VERIFIED | T-02 | análise skill por skill | `docs/research/CAVEKIT_TO_MAESTRO_ADAPTATION.md` |
-| EVD-PROC-SKILL-SUITE | STRUCTURALLY_OBSERVED | T-03..T-14 | skills locais no Runner | 12 skills publicadas individualmente; eficácia será avaliada na próxima execução |
+| EVD-PROC-SKILL-SUITE | STRUCTURALLY_OBSERVED | T-03..T-14 | skills locais no Runner | eficácia exercitada em RND-20260716-010 e retropropagada em RND-20260717-011 |
 | EVD-PROC-LEARNING-LEDGER | LOCAL_VERIFIED | T-15 | memória de aprendizagem | ledger append-only publicado no Runner |
 | EVD-PROC-ARCHITECTURE | LOCAL_VERIFIED | T-16 | MAESTRO por tarefa | máquina de estados e papéis reconciliados nos dois repositórios |
 | EVD-PROC-CHR003-MIGRATION | LOCAL_VERIFIED | T-17 | charter executável | oito Task-IDs com seams, TDD, gates e dependências |
 
-## Evidências requeridas para CHR-WP02-003
-
-- controlador YunoHost e inputs efêmeros;
-- ausência de entry point legado/token em argv;
-- lifecycle/identidade;
-- assinatura fail-closed;
-- self-link/redirects;
-- evidência canônica/portátil;
-- testes locais;
-- CI remoto;
-- síntese cross-repo;
-- revisão externa.
-
-## Evidências de CHR-WP02-003 — RND-20260716-010
+## Evidências de CHR-WP02-003 — revisão final
 
 | ID | Estado | Task/round | Resultado cross-repo |
 |---|---|---|---|
-| EVD-WP02D-YUNOHOST-RUN-CONTROLLER | LOCAL_VERIFIED | T-WP02D-01 / RND-20260716-010 | Runner `ada6b78ca4db00c1dcacda4eb01736f123f6040b`; controlador e inputs efêmeros verificados localmente, sem host YunoHost real |
-| EVD-WP02D-NO-LEGACY-ARGV | LOCAL_VERIFIED | T-WP02D-02 / RND-20260716-010 | Runner `79fb763c6c2d20f9bb1b76e42a266da1b41e8ad9`; interface legada removida, sem token em argv ativo |
-| EVD-WP02D-LIFECYCLE-IDENTITY | LOCAL_VERIFIED | T-WP02D-03 / RND-20260716-010 | Runner `2f0185cbf8b630f94d9618c9d7afe56cabc434b3`; harness backup/restore preserva identidade sem re-registro; lifecycle real não observado |
-| EVD-WP02D-SIGNATURE-FAIL-CLOSED | LOCAL_VERIFIED | T-WP02D-04 / RND-20260716-010 | Runner `35e8e44dd9fb39b47ad71e6dfb06e854c0029618`; falhas criptográficas adversas fecham; chave/assinatura real não usada |
-| EVD-WP02D-SELF-LINK-REDIRECTS | LOCAL_VERIFIED | T-WP02D-05 / RND-20260716-010 | Runner `51dbb98a7e6de477c4f3234b1c7d40b4ac1a54ac`; self-link, paths e redirects limitados verificados em adapters falsos |
-| EVD-WP02D-CANONICAL-EVIDENCE | LOCAL_VERIFIED | T-WP02D-06 / RND-20260716-010 | Runner `2acc1a3ec1a6c42a81eacea02f7ae093131070de`; JSONs portáveis, índice task→SHA e validade observada |
-| EVD-WP02D-LOCAL-TESTS | LOCAL_VERIFIED | T-WP02D-01..07 / RND-20260716-010 | Runner `2d9cb41f41f292f3b4bd19513b91ca66720457d6`; 32 testes, scanner, parsers, Bash e dry-run finais passaram |
-| EVD-WP02D-REMOTE-CI | UNVERIFIED | T-WP02D-07 / RND-20260716-010 | workflow read-only e actions fixadas; run/status remoto do SHA funcional não foi recuperado neste ambiente |
-| EVD-WP02D-CROSS-REPO-SYNTHESIS | LOCAL_VERIFIED | T-WP02D-08 / RND-20260716-010 | Runner `221634780ecca490ce86c9a0703a21f5b4c53e95` reconciliado com este coordenador; matriz, manifest e continuidade fechados |
-| EVD-WP02D-ORCHESTRATOR-REVIEW | UNVERIFIED | T-WP02D-08 / RND-20260716-010 | revisão independente e aceite pertencem ao ChatGPT; não declarar `ACCEPTED` |
+| EVD-WP02D-YUNOHOST-RUN-CONTROLLER | LOCAL_VERIFIED | T-WP02D-01 / RND-20260716-010 | Runner `ada6b78ca4db00c1dcacda4eb01736f123f6040b`; controlador e inputs efêmeros, sem host real |
+| EVD-WP02D-NO-LEGACY-ARGV | LOCAL_VERIFIED | T-WP02D-02 / RND-20260716-010 | Runner `79fb763c6c2d20f9bb1b76e42a266da1b41e8ad9`; interface legada removida |
+| EVD-WP02D-LIFECYCLE-IDENTITY | LOCAL_VERIFIED | T-WP02D-03 / RND-20260716-010 | Runner `2f0185cbf8b630f94d9618c9d7afe56cabc434b3`; harness local, lifecycle real não observado |
+| EVD-WP02D-SIGNATURE-FAIL-CLOSED | LOCAL_VERIFIED | T-WP02D-04 / RND-20260716-010 | lógica adversarial local passa; transport live da chave falha na revisão integrada |
+| EVD-WP02D-SELF-LINK-REDIRECTS | LOCAL_VERIFIED | T-WP02D-05 / RND-20260716-010 | release/download limitados; redirect oficial da chave não coberto |
+| EVD-WP02D-CANONICAL-EVIDENCE | FAILED | T-WP02D-06 / RND-20260716-010 | artefato histórico recebeu `key_validity=valid` sem nova observação |
+| EVD-WP02D-LOCAL-TESTS | LOCAL_VERIFIED | T-WP02D-01..07 / RND-20260716-010 | 32 testes e gates locais passaram |
+| EVD-WP02D-REMOTE-CI | UNVERIFIED | T-WP02D-07 / RND-20260716-010 | nenhum run/status remoto recuperado |
+| EVD-WP02D-CROSS-REPO-SYNTHESIS | FAILED | T-WP02D-08 / RND-20260716-010 | commits existem; continuidade manteve referências pré-publicação |
+| EVD-WP02D-ORCHESTRATOR-REVIEW | LOCAL_VERIFIED | RND-20260717-011 | `continuity/reviews/REV-RND-20260716-010.md`; verdict `CORRECTION_REQUIRED`; coordinator review commit `bece03b10d2ba56caa8bea55c1d032f38fcd7a9c` |
+
+## Findings e próxima unidade
+
+| ID | Estado | Finding | Próxima tarefa Runner |
+|---|---|---|---|
+| EVD-WP02E-KEY-TRANSPORT | FAILED | entrega oficial da chave é recusada antes do GPG | T01 |
+| EVD-WP02E-LIVE-TRUST | UNVERIFIED | código corrigido ainda não produziu observação live | T02 |
+| EVD-WP02E-HISTORICAL-PROVENANCE | FAILED | promoção retrospectiva de evidência | T03 |
+| EVD-WP02E-DOCKER-DEFAULT | FAILED | `latest` diverge do default versionado | T04 |
+| EVD-WP02E-REMOTE-CI | UNVERIFIED | run/status remoto pendente | T05 |
+| EVD-WP02E-FINAL-CONTINUITY | FAILED | referências pré-publicação | T07 |
+| EVD-WP02E-PROCESS-BACKPROP | LOCAL_VERIFIED | imutabilidade/proveniência e transport seam incorporados no Runner | `4cefe926732c95344c3d7d129aa9dbe110dcae72` |
 
 ## Convenção
 
-O Runner é a fonte funcional. Claims sem prova permanecem estruturais ou unverified. Fixture não prova freshness. Busca textual não prova runtime. Nunca reproduzir a credencial histórica. Aceite pertence ao orquestrador.
+O Runner é a fonte funcional. Claims sem prova permanecem estruturais ou unverified. Fixture não prova freshness. Busca textual não prova runtime. Evidência observada é semanticamente imutável. Nunca reproduzir a credencial histórica. Aceite pertence ao orquestrador.
