@@ -25,6 +25,16 @@ Antes de `READY`, o orquestrador:
 6. confirmar charter `READY`, atribuir `Round-ID` e registrar orientação adicional;
 7. decompor o DAG em tarefas e frentes com ownership.
 
+## Fila canônica após o motor
+
+Quando `T-GOV-01-program-engine` estiver remoto e GREEN, a continuidade executável passa a ser a combinação de `PROGRAM_MANDATE.json`, `PROGRAM_QUEUE.json` e `PROGRAM_STATE.json`. O comando de retomada é:
+
+```text
+python3 scripts/maestro_program.py plan --mandate continuity/PROGRAM_MANDATE.json --queue continuity/PROGRAM_QUEUE.json --state continuity/PROGRAM_STATE.json
+```
+
+O resultado `eligible_tasks` orienta a próxima tarefa. `machine_green_awaiting_review` satisfaz dependências reversíveis; gate, release, deploy, promoção, produção e destruição continuam protegidos. A fila e o estado são atualizados por tarefa, com integração, commit e push seriais.
+
 ## 2. PRE-BUILD CHALLENGE
 
 Mudança de alto impacto passa por tentativa de refutação antes do primeiro edit: goal real, seams, invariantes ausentes, interface drift, lifecycle, segurança, rollback e fontes externas. Lacunas técnicas reversíveis são corrigidas; decisão material vira gate humano. Registrar `GO` ou `NO_GO` com evidência.

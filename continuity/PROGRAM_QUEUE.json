@@ -6,7 +6,7 @@
     {
       "id": "T-GOV-01-program-engine",
       "work_package": "WP-GOVERNANCE",
-      "status": "machine_green_awaiting_review",
+      "status": "completed",
       "dependencies": [],
       "reversible": true,
       "operation_class": "implementation",
@@ -17,7 +17,7 @@
     {
       "id": "T-RUN-01-supported-docker-default",
       "work_package": "WP-RUNNER",
-      "status": "ready",
+      "status": "completed",
       "dependencies": [],
       "reversible": true,
       "operation_class": "correction",
@@ -28,7 +28,7 @@
     {
       "id": "T-GITLAB-01-autoupdate-engine",
       "work_package": "WP-GITLAB-AUTOUPDATE",
-      "status": "ready",
+      "status": "completed",
       "dependencies": [],
       "reversible": true,
       "operation_class": "implementation",
@@ -39,7 +39,7 @@
     {
       "id": "T-MCP-01-foundation",
       "work_package": "WP-GITLAB-MCP",
-      "status": "ready",
+      "status": "completed",
       "dependencies": [],
       "reversible": true,
       "operation_class": "test_harness",
@@ -50,7 +50,7 @@
     {
       "id": "T-RUN-02-observability",
       "work_package": "WP-RUNNER-ASSURANCE",
-      "status": "blocked_environment",
+      "status": "completed",
       "dependencies": [],
       "reversible": true,
       "operation_class": "observation",
@@ -61,7 +61,7 @@
     {
       "id": "T-GOV-02-process-adoption",
       "work_package": "WP-GOVERNANCE",
-      "status": "ready",
+      "status": "in_progress",
       "dependencies": ["T-GOV-01-program-engine"],
       "reversible": true,
       "operation_class": "documentation",

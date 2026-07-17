@@ -26,6 +26,7 @@ Orientação adicional pode esclarecer prioridade, restrição ou decisão human
 5. Se o charter não estiver `READY`, não implemente.
 6. Carregue somente as rotas necessárias à unidade ativa.
 7. Quando executar desenvolvimento, carregue as skills locais do repositório funcional indicado pelo charter.
+8. Depois que `T-GOV-01-program-engine` estiver remoto, carregue `continuity/PROGRAM_MANDATE.json`, `continuity/PROGRAM_QUEUE.json` e `continuity/PROGRAM_STATE.json` e execute o planner; continue pela primeira tarefa elegível, sem espera implícita de revisão.
 
 ## Roteamento sob demanda
 

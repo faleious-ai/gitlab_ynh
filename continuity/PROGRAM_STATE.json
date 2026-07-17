@@ -7,19 +7,24 @@
   },
   "baseline_head": "e6e0a4c201cdfc1106fa0c060b502c7bc0a5135a",
   "reviews": [],
-  "blocks": [
-    {
-      "task_id": "T-RUN-02-observability",
-      "class": "environmental_observation_pending",
-      "state": "UNVERIFIED"
-    },
-    {
-      "task_id": "T-MCP-01-foundation",
-      "class": "sibling_repository_not_available",
-      "state": "UNVERIFIED"
-    }
+  "completed_tasks": [
+    {"task_id": "T-GOV-01-program-engine", "repository": "faleious-ai/gitlab_ynh", "commit": "1a5c447d3903375bb20180f62e3787368fd92d73", "evidence_state": "LOCAL_VERIFIED"},
+    {"task_id": "T-RUN-01-supported-docker-default", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "40e3a0854da387ed51320afa15416abb1747009f", "evidence_state": "LOCAL_VERIFIED"},
+    {"task_id": "T-GITLAB-01-autoupdate-engine", "repository": "faleious-ai/gitlab_ynh", "commit": "50401610110e35a4c114e2127f799dca7989be2a", "evidence_state": "LOCAL_VERIFIED"},
+    {"task_id": "T-MCP-01-foundation", "repository": "faleious-ai/gitlab_ynh", "commit": "c88fc281de66060023f3c8c6c3425a2827e5df20", "evidence_state": "LOCAL_VERIFIED"},
+    {"task_id": "T-RUN-02-observability", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "9d2ef34201688749a547bf5625bca03ecc16f369", "evidence_state": "FAILED_REMOTE_CI_WITH_LIVE_TRUST_VERIFIED"}
   ],
-  "lanes": [],
+  "blocks": [
+    {"task_id": "T-MCP-01-foundation", "class": "sibling_repository_not_available", "state": "PACKAGE_PREPARED_WITHOUT_REMOTE_CREATION"},
+    {"task_id": "T-RUN-02-observability", "class": "remote_ci_failed_and_logs_unavailable", "state": "FAILED", "evidence": "evidence/rnd-20260717-015-remote-ci-observation.json"}
+  ],
+  "lanes": [
+    {"lane_id": "LANE-GOV-015", "task_ids": ["T-GOV-01-program-engine"], "owner": "Codex", "baseline": "e6e0a4c201cdfc1106fa0c060b502c7bc0a5135a", "started_at": "2026-07-17T12:46:11.4369276Z", "finished_at": "2026-07-17T12:46:11.6275761Z", "result": "GREEN"},
+    {"lane_id": "LANE-RUN-015", "task_ids": ["T-RUN-01-supported-docker-default"], "owner": "Codex", "baseline": "7e19fe35922425b294629958853709934c0c3086", "started_at": "2026-07-17T12:45:59.3649276Z", "finished_at": "2026-07-17T12:45:59.5688031Z", "result": "GREEN"},
+    {"lane_id": "LANE-UPDATER-015", "task_ids": ["T-GITLAB-01-autoupdate-engine"], "owner": "Codex", "baseline": "e6e0a4c201cdfc1106fa0c060b502c7bc0a5135a", "started_at": "2026-07-17T12:46:11.4435599Z", "finished_at": "2026-07-17T12:46:11.6568031Z", "result": "GREEN"},
+    {"lane_id": "LANE-MCP-015", "task_ids": ["T-MCP-01-foundation"], "owner": "Codex", "baseline": "e6e0a4c201cdfc1106fa0c060b502c7bc0a5135a", "started_at": "2026-07-17T12:46:11.4435599Z", "finished_at": "2026-07-17T12:46:11.5956721Z", "result": "GREEN"},
+    {"lane_id": "LANE-RUN-OBS-015", "task_ids": ["T-RUN-02-observability"], "owner": "Codex", "baseline": "7e19fe35922425b294629958853709934c0c3086", "started_at": "2026-07-17T12:46:11.4435599Z", "finished_at": "2026-07-17T12:56:33.0785528Z", "result": "LIVE_TRUST_VERIFIED_REMOTE_CI_FAILED"}
+  ],
   "history": [
     {
       "round_id": "RND-20260717-015",

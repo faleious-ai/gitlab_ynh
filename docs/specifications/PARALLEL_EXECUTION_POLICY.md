@@ -45,6 +45,10 @@ Task-ID, escopo, fatos/fontes, alterações, comandos/resultados, unknowns, risc
 5. criar um commit da tarefa;
 6. publicar e verificar antes da próxima escrita.
 
+## Planejamento canônico
+
+Depois do motor de execução ficar GREEN, `scripts/maestro_program.py plan` é a fonte executável para `eligible_tasks`, `blocked_tasks`, lanes e `integration_order`. A preparação de lanes pode sobrepor intervalos em paths separados, mas cada tarefa continua com commit e push próprios, em ordem serial.
+
 ## Falha parcial
 
 Uma frente falha não suspende as demais. O Codex tenta alternativas, executa backprop, conclui trabalho independente e só então registra bloqueio. Falha de sincronização impede novos commits no mesmo repositório, mas não pesquisa ou trabalho independente sem escrita.

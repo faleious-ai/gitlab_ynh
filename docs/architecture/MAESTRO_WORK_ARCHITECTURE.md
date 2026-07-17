@@ -77,6 +77,10 @@ Um nível não implica o seguinte. Busca textual nunca prova runtime.
 
 O repositório funcional mantém implementação, testes, skills e learning ledger de sua unidade. Este coordenador mantém missão, decisões transversais, estado do programa e síntese. Uma tarefa cross-repo usa o mesmo Round-ID/Task-ID e só fecha quando todos os commits correspondentes estão remotos.
 
+## Motor e fila de continuidade
+
+Após o motor de execução ficar GREEN, `continuity/PROGRAM_MANDATE.json` define autoridade e proibições, `PROGRAM_QUEUE.json` define o DAG de tarefas e `PROGRAM_STATE.json` preserva observações, bloqueios e lanes. `scripts/maestro_program.py plan` é o seam determinístico que decide elegibilidade e ordem de integração. Revisão pendente não bloqueia trabalho técnico reversível independente; o planner só permite parada quando não há trabalho elegível seguro ou existe gate humano válido.
+
 ## Reversibilidade
 
 Commit por tarefa é a unidade preferencial de reversão. Dependências são explícitas. Commits publicados não são squashados, reordenados ou reescritos. Operação irreversível continua atrás de gate humano.
