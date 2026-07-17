@@ -1,25 +1,7 @@
-# Política de paralelismo substantivo
+# Substantive parallel execution contract
 
-## Separabilidade
+Task paths are normalized and compared by ancestry. Parent and descendant paths conflict.
 
-Paths são normalizados e comparados por ancestralidade. `evidence/` conflita com `evidence/mcp/`; strings diferentes não bastam. Tarefas no mesmo repositório só são paralelas quando seus ownerships são disjuntos por prefixo. Tarefas em repositórios diferentes continuam sujeitas a outputs compartilhados declarados.
+A lane start record contains the planner lane ID, task ID, baseline, owned paths, worker identity and an isolated workspace. A lane finish record contains at least one nonempty artifact and one nonempty command log inside that workspace, with hashes and sizes. Wave validation confirms task, baseline, path ownership, distinct workers, distinct workspaces and real overlap.
 
-## Lanes
-
-O planner gera lanes para tarefas elegíveis. Para cada lane, o Executor usa:
-
-```text
-python scripts/maestro_program.py lane-start ...
-python scripts/maestro_program.py lane-finish ...
-python scripts/maestro_program.py validate-wave ...
-```
-
-O journal é hash-chained. A validação exige workers distintos, overlap, artifact e command log hashados. Timestamps manuais em Markdown não são prova suficiente.
-
-## Subagentes
-
-Subagentes trabalham em cópias/snapshots isolados, sem commit, push, edição de arquivos canônicos ou expansão de escopo. Entregam patch/artifact, log, testes, unknowns e dead ends. O Executor integra uma tarefa por vez.
-
-## Integração
-
-Commits e pushes permanecem seriais. Antes de cada commit, o Executor reconcilia o remoto, valida ownership, oracles, gates e receipt.
+Lane outputs are preparation artifacts. Canonical integration, acceptance, receipt creation and publication remain serial per task and repository.

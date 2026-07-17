@@ -1,0 +1,1 @@
+{"artifact_kind":"architecture-hardening-evidence","round_id":"RND-20260717-016","task_id":"T-GOV-ARCHITECTURE-V2-HARDEN","repository":"coordinator","lane_acceptance":"7/7 passed","python_compile":"passed","workspace_identity":"verified","artifact_requirement":"verified","baseline_identity":"verified","runner_dynamic_findings":"verified"}

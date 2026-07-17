@@ -4,23 +4,27 @@ from tests.acceptance.autonomous_program_fixture import *
 
 
 class AutonomousProgramExecutionStateTests(AutonomousProgramFixture):
-    def test_parallelism_requires_distinct_workers_overlap_and_hashed_outputs(self) -> None:
+    def test_parallelism_requires_distinct_workers_workspaces_overlap_and_hashed_outputs(self) -> None:
         plan = {
             "parallelism_required": True,
             "lanes": [
-                {"lane_id": "LANE-A", "paths": ["src/a/"]},
-                {"lane_id": "LANE-B", "paths": ["src/b/"]},
+                {"lane_id": "LANE-A", "task_ids": ["T-A"], "paths": ["src/a/"], "baseline_heads": {"coordinator": "abc"}},
+                {"lane_id": "LANE-B", "task_ids": ["T-B"], "paths": ["src/b/"], "baseline_heads": {"coordinator": "abc"}},
             ],
         }
         plan_path = self.work / "plan.json"
         plan_path.write_text(json.dumps(plan), encoding="utf-8")
         journal = self.work / "lanes.jsonl"
-        self._run("lane-start", "--journal", str(journal), "--task-id", "T-A", "--lane-id", "LANE-A", "--worker-id", "worker-a", "--baseline", "abc", "--path", "src/a/")
-        self._run("lane-start", "--journal", str(journal), "--task-id", "T-B", "--lane-id", "LANE-B", "--worker-id", "worker-b", "--baseline", "abc", "--path", "src/b/")
-        artifact_a = self.work / "a.patch"
-        artifact_b = self.work / "b.patch"
-        log_a = self.work / "a.log"
-        log_b = self.work / "b.log"
+        workspace_a = self.work / "worker-a"
+        workspace_b = self.work / "worker-b"
+        workspace_a.mkdir()
+        workspace_b.mkdir()
+        self._run("lane-start", "--journal", str(journal), "--task-id", "T-A", "--lane-id", "LANE-A", "--worker-id", "worker-a", "--workspace", str(workspace_a), "--baseline", "abc", "--path", "src/a/")
+        self._run("lane-start", "--journal", str(journal), "--task-id", "T-B", "--lane-id", "LANE-B", "--worker-id", "worker-b", "--workspace", str(workspace_b), "--baseline", "abc", "--path", "src/b/")
+        artifact_a = workspace_a / "a.patch"
+        artifact_b = workspace_b / "b.patch"
+        log_a = workspace_a / "a.log"
+        log_b = workspace_b / "b.log"
         artifact_a.write_text("patch-a", encoding="utf-8")
         artifact_b.write_text("patch-b", encoding="utf-8")
         log_a.write_text("command-a", encoding="utf-8")
@@ -33,6 +37,37 @@ class AutonomousProgramExecutionStateTests(AutonomousProgramFixture):
         artifact_b.write_text("tampered", encoding="utf-8")
         invalid = self._run("validate-wave", "--plan", str(plan_path), "--journal", str(journal), expected=2)
         self.assertIn("LANE_ARTIFACT_HASH_INVALID:LANE-B", invalid["reasons"])
+
+    def test_lane_finish_requires_artifact_inside_isolated_workspace(self) -> None:
+        journal = self.work / "lanes.jsonl"
+        workspace = self.work / "worker"
+        workspace.mkdir()
+        log = workspace / "commands.log"
+        log.write_text("command", encoding="utf-8")
+        outside = self.work / "outside.patch"
+        outside.write_text("patch", encoding="utf-8")
+        self._run("lane-start", "--journal", str(journal), "--task-id", "T-A", "--lane-id", "LANE-A", "--worker-id", "worker-a", "--workspace", str(workspace), "--baseline", "abc", "--path", "src/a/")
+        missing = self._run("lane-finish", "--journal", str(journal), "--lane-id", "LANE-A", "--worker-id", "worker-a", "--log", str(log), "--result", "ready", expected=2)
+        self.assertIn("LANE_ARTIFACT_REQUIRED", missing["reasons"])
+        outside_result = self._run("lane-finish", "--journal", str(journal), "--lane-id", "LANE-A", "--worker-id", "worker-a", "--artifact", str(outside), "--log", str(log), "--result", "ready", expected=2)
+        self.assertTrue(any(reason.startswith("LANE_ARTIFACT_OUTSIDE_WORKSPACE") for reason in outside_result["reasons"]))
+
+    def test_wave_rejects_task_and_baseline_mismatch(self) -> None:
+        plan = {"parallelism_required": False, "lanes": [{"lane_id": "LANE-A", "task_ids": ["T-EXPECTED"], "paths": ["src/a/"], "baseline_heads": {"coordinator": "expected"}}]}
+        plan_path = self.work / "plan.json"
+        plan_path.write_text(json.dumps(plan), encoding="utf-8")
+        journal = self.work / "lanes.jsonl"
+        workspace = self.work / "worker"
+        workspace.mkdir()
+        artifact = workspace / "a.patch"
+        log = workspace / "a.log"
+        artifact.write_text("patch", encoding="utf-8")
+        log.write_text("command", encoding="utf-8")
+        self._run("lane-start", "--journal", str(journal), "--task-id", "T-WRONG", "--lane-id", "LANE-A", "--worker-id", "worker-a", "--workspace", str(workspace), "--baseline", "wrong", "--path", "src/a/")
+        self._run("lane-finish", "--journal", str(journal), "--lane-id", "LANE-A", "--worker-id", "worker-a", "--artifact", str(artifact), "--log", str(log), "--result", "ready")
+        result = self._run("validate-wave", "--plan", str(plan_path), "--journal", str(journal), expected=2)
+        self.assertIn("LANE_TASK_ID_MISMATCH:LANE-A", result["reasons"])
+        self.assertIn("LANE_BASELINE_MISMATCH:LANE-A", result["reasons"])
 
     def test_task_completion_is_derived_only_from_published_self_bound_receipt(self) -> None:
         self.state["task_overrides"] = {}

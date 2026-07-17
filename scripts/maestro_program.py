@@ -54,6 +54,7 @@ def parser() -> argparse.ArgumentParser:
     start.add_argument("--task-id", required=True)
     start.add_argument("--lane-id", required=True)
     start.add_argument("--worker-id", required=True)
+    start.add_argument("--workspace", required=True)
     start.add_argument("--baseline", required=True)
     start.add_argument("--path", action="append", default=[])
 
@@ -87,17 +88,9 @@ def main(argv: list[str] | None = None) -> int:
             result = validate_wave(read_json(Path(args.plan)), Path(args.journal).resolve())
             return emit(result, 0 if result["valid"] else 2)
         if args.command == "lane-start":
-            return emit(
-                lane_start(
-                    Path(args.journal).resolve(), args.task_id, args.lane_id, args.worker_id, args.baseline, args.path
-                )
-            )
+            return emit(lane_start(Path(args.journal).resolve(), args.task_id, args.lane_id, args.worker_id, args.baseline, args.path, args.workspace))
         if args.command == "lane-finish":
-            return emit(
-                lane_finish(
-                    Path(args.journal).resolve(), args.lane_id, args.worker_id, args.artifact, args.log, args.result
-                )
-            )
+            return emit(lane_finish(Path(args.journal).resolve(), args.lane_id, args.worker_id, args.artifact, args.log, args.result))
         files = resolve_files(args.root, args)
         mandate, backlog, state, findings = load_program(files)
         repo_map = parse_repo_map(getattr(args, "repo", []), files.root, mandate)
@@ -116,22 +109,11 @@ def main(argv: list[str] | None = None) -> int:
                 return emit(snapshot, 0 if plan_result["valid"] else 2)
             return emit(plan_result, 0 if plan_result["valid"] else 2)
         if args.command == "prepare-receipt":
-            receipt = prepare_receipt(
-                files,
-                mandate,
-                backlog,
-                findings,
-                args.task_id,
-                args.repo_id,
-                Path(args.repo_root).resolve(),
-                args.acceptance_command,
-                args.evidence,
-                args.gate,
-            )
+            receipt = prepare_receipt(files, mandate, backlog, findings, args.task_id, args.repo_id, Path(args.repo_root).resolve(), args.acceptance_command, args.evidence, args.gate)
             return emit(receipt)
         if args.command == "register-finding":
             payload = read_json(Path(args.payload).resolve())
-            new_backlog, new_state, new_findings = register_finding(backlog, state, findings, payload)
+            _new_backlog, new_state, new_findings = register_finding(backlog, state, findings, payload)
             atomic_write_json(files.state, new_state)
             atomic_write_json(files.findings, new_findings)
             return emit({"valid": True, "finding_id": payload["id"], "correction_task_id": payload["correction_task"]["id"]})
