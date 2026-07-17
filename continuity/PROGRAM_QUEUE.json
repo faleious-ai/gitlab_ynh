@@ -84,7 +84,7 @@
       "id": "T-RUN-04-ci-alpine-oracle",
       "work_package": "WP-RUNNER",
       "repository": "faleious-ai/gitlab-runner_ynh",
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": [],
       "reversible": true,
       "operation_class": "correction",
@@ -95,7 +95,7 @@
     {
       "id": "T-GITLAB-02-live-catalog",
       "work_package": "WP-GITLAB-AUTOUPDATE",
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": ["T-GITLAB-01-autoupdate-engine"],
       "reversible": true,
       "operation_class": "research",
@@ -106,7 +106,7 @@
     {
       "id": "T-MCP-02-api-inventory",
       "work_package": "WP-GITLAB-MCP",
-      "status": "in_progress",
+      "status": "completed",
       "dependencies": ["T-MCP-01-foundation"],
       "reversible": true,
       "operation_class": "research",
@@ -117,13 +117,24 @@
     {
       "id": "T-ASSURANCE-01-maintenance",
       "work_package": "WP-ASSURANCE",
-      "status": "ready",
+      "status": "in_progress",
       "dependencies": [],
       "reversible": true,
       "operation_class": "test_harness",
       "paths": ["evidence/", "docs/audit/"],
       "priority": 60,
       "acceptance_command": "proportional assurance and maintenance checks"
+    },
+    {
+      "id": "T-GOV-03-final-continuity",
+      "work_package": "WP-GOVERNANCE",
+      "status": "ready",
+      "dependencies": ["T-ASSURANCE-01-maintenance"],
+      "reversible": true,
+      "operation_class": "documentation",
+      "paths": ["continuity/STATUS.md", "continuity/HANDOFF_CURRENT.md", "continuity/ACTIVE_ROUND.md", "continuity/EVIDENCE_INDEX.md", "continuity/rounds/"],
+      "priority": 50,
+      "acceptance_command": "published task matrix, final continuity and HEAD equality across repositories"
     }
   ]
 }

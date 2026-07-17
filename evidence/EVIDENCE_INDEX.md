@@ -63,6 +63,14 @@
 | EVD-WP02E-FINAL-CONTINUITY | LOCAL_VERIFIED | T07 / RND-20260717-012 | Runner `652c24819bc778eed04fb9eebe4836ab5ad016f2` + este commit; síntese reconciliada |
 | EVD-WP02E-PROCESS-BACKPROP | LOCAL_VERIFIED | RND-20260717-011 | Runner `4cefe926732c95344c3d7d129aa9dbe110dcae72` |
 
+## Evidencias de RND-20260717-015
+
+| ID | Estado | Task | Assunto | Resultado |
+|---|---|---|---|---|
+| EVD-RND-20260717-015-GITLAB-CATALOG | STRUCTURALLY_OBSERVED | T-GITLAB-02-live-catalog | catalogo oficial GitLab CE/EE | rotas Debian/bookworm observadas sem promocao |
+| EVD-RND-20260717-015-MCP-API-INVENTORY | STRUCTURALLY_OBSERVED | T-MCP-02-api-inventory | inventario REST/GraphQL oficial | superficie de leitura catalogada; disponibilidade por instancia permanece descoberta |
+| EVD-RND-20260717-015-ASSURANCE | LOCAL_VERIFIED | T-ASSURANCE-01-maintenance | gates proporcionais | 17/17 acceptance; Bash/parsing/secret scan/dry-run; limites ambientais e CI falho preservados |
+
 ## Convenção
 
 O Runner é a fonte funcional. Claims sem prova permanecem estruturais ou unverified. Fixture não prova freshness. Busca textual não prova runtime. Evidência observada é semanticamente imutável. Nunca reproduzir a credencial histórica. Aceite pertence ao orquestrador.
