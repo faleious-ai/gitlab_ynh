@@ -1,0 +1,152 @@
+{
+  "artifact_id": "EVD-RND-20260717-017-GITLAB-LIVE-CATALOG",
+  "artifact_kind": "gitlab-package-catalog-live",
+  "schema_version": 1,
+  "round_id": "RND-20260717-017",
+  "charter_id": "CHR-PROGRAM-V2-CONTINUE-001",
+  "task_id": "T-GITLAB-LIVE-CATALOG-001",
+  "observed_at": "2026-07-17T19:37:37Z",
+  "producer": "Codex read-only probe",
+  "source": {
+    "provider": "GitLab Package Registry",
+    "index_pattern": "https://packages.gitlab.com/gitlab/{gitlab-ce|gitlab-ee}/debian/{distribution}/dists/{distribution}/main/binary-{architecture}/Packages",
+    "package_host": "https://packages.gitlab.com",
+    "method": "Read Debian Packages metadata and record fixed Filename, SHA256 and Size fields; package payloads were not downloaded."
+  },
+  "release_scope": "latest_observed_fixed_release",
+  "required_stops": {},
+  "releases": [
+    {
+      "version": "18.11.7",
+      "packages": [
+        {
+          "edition": "ce",
+          "distribution": "bullseye",
+          "architecture": "amd64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/bullseye/pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_amd64.deb/download.deb",
+          "sha256": "f53a2d0e4b2d7f52ad45b749bac38a771b9ebdbe3dd2902d677b95ae4e57c6ee",
+          "size_bytes": 1440067418,
+          "filename": "pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_amd64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/bullseye/dists/bullseye/main/binary-amd64/Packages"
+        },
+        {
+          "edition": "ce",
+          "distribution": "bullseye",
+          "architecture": "arm64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/bullseye/pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_arm64.deb/download.deb",
+          "sha256": "b77ff8f7aceb2dc8bbd91663fe4682b5bbffd38f8300bb4c3e630ba3b03d97bc",
+          "size_bytes": 1389392798,
+          "filename": "pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_arm64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/bullseye/dists/bullseye/main/binary-arm64/Packages"
+        },
+        {
+          "edition": "ce",
+          "distribution": "bookworm",
+          "architecture": "amd64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/bookworm/pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_amd64.deb/download.deb",
+          "sha256": "df524635759bc167f960b32698efddb1987199e9327cf95465b315cf8c036ba1",
+          "size_bytes": 1438859438,
+          "filename": "pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_amd64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/bookworm/dists/bookworm/main/binary-amd64/Packages"
+        },
+        {
+          "edition": "ce",
+          "distribution": "bookworm",
+          "architecture": "arm64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/bookworm/pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_arm64.deb/download.deb",
+          "sha256": "5b221b6b7e404c5a23f9f3b6c0073d9841c0ec5cd8979931fe42ddb7442ca018",
+          "size_bytes": 1388420146,
+          "filename": "pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_arm64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/bookworm/dists/bookworm/main/binary-arm64/Packages"
+        },
+        {
+          "edition": "ce",
+          "distribution": "trixie",
+          "architecture": "amd64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/trixie/pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_amd64.deb/download.deb",
+          "sha256": "247cd6467778458f8330f2b3538b9cddda7c3a934200df529f151c6d7ead02be",
+          "size_bytes": 1441016958,
+          "filename": "pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_amd64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/trixie/dists/trixie/main/binary-amd64/Packages"
+        },
+        {
+          "edition": "ce",
+          "distribution": "trixie",
+          "architecture": "arm64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/trixie/pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_arm64.deb/download.deb",
+          "sha256": "bcab1c355bedd45870ad7e109b937744d4df60cfd1faacd70bfe422f299b75cd",
+          "size_bytes": 1387702466,
+          "filename": "pool/main/g/gitlab-ce/gitlab-ce_18.11.7-ce.0_arm64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/trixie/dists/trixie/main/binary-arm64/Packages"
+        },
+        {
+          "edition": "ee",
+          "distribution": "bullseye",
+          "architecture": "amd64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/bullseye/pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_amd64.deb/download.deb",
+          "sha256": "28580a4a90171f7b6ea82e1f05887ca2ad2fc088e21917b0f92a369fe1a94114",
+          "size_bytes": 1548138650,
+          "filename": "pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_amd64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/bullseye/dists/bullseye/main/binary-amd64/Packages"
+        },
+        {
+          "edition": "ee",
+          "distribution": "bullseye",
+          "architecture": "arm64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/bullseye/pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_arm64.deb/download.deb",
+          "sha256": "090247ccc0fc77f15102ecea20a75c5fda0b457f27eb7056f87587d07c5c2b70",
+          "size_bytes": 1486556190,
+          "filename": "pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_arm64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/bullseye/dists/bullseye/main/binary-arm64/Packages"
+        },
+        {
+          "edition": "ee",
+          "distribution": "bookworm",
+          "architecture": "amd64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/bookworm/pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_amd64.deb/download.deb",
+          "sha256": "2d466aa6adb637105debcb5464ef588728d8c71652774009fa8b3ca31b4ed391",
+          "size_bytes": 1545509198,
+          "filename": "pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_amd64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/bookworm/dists/bookworm/main/binary-amd64/Packages"
+        },
+        {
+          "edition": "ee",
+          "distribution": "bookworm",
+          "architecture": "arm64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/bookworm/pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_arm64.deb/download.deb",
+          "sha256": "2e2213917100bafc06256e292a70000b38fdf639c35e19e373b5000c5a73350e",
+          "size_bytes": 1484685682,
+          "filename": "pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_arm64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/bookworm/dists/bookworm/main/binary-arm64/Packages"
+        },
+        {
+          "edition": "ee",
+          "distribution": "trixie",
+          "architecture": "amd64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/trixie/pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_amd64.deb/download.deb",
+          "sha256": "e30123c32174163a992ab0ff71ebc04cf96d4860341ed5377e4a902497d0365b",
+          "size_bytes": 1546513270,
+          "filename": "pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_amd64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/trixie/dists/trixie/main/binary-amd64/Packages"
+        },
+        {
+          "edition": "ee",
+          "distribution": "trixie",
+          "architecture": "arm64",
+          "url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/trixie/pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_arm64.deb/download.deb",
+          "sha256": "3f7435c15a46c10a71fbca7b407e782cdfc7aeb1d391de4fae7909d75f0c584c",
+          "size_bytes": 1484972694,
+          "filename": "pool/main/g/gitlab-ee/gitlab-ee_18.11.7-ee.0_arm64.deb",
+          "metadata_url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/trixie/dists/trixie/main/binary-arm64/Packages"
+        }
+      ]
+    }
+  ],
+  "result": "complete_fixed_matrix",
+  "promotion": {
+    "promoted": false,
+    "manifest_changed": false,
+    "payload_downloaded": false
+  }
+}
+

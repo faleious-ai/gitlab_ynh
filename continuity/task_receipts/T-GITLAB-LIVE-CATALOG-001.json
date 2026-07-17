@@ -1,0 +1,61 @@
+{
+  "acceptance": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python tests/acceptance/test_gitlab_autoupdate_objective.py -v && PYTHONDONTWRITEBYTECODE=1 python tests/test_gitlab_live_catalog.py -v",
+    "result": "pass"
+  },
+  "changed_paths": [
+    "evidence/gitlab/catalog/RND-20260717-017-live-catalog-engineering-review.md",
+    "evidence/gitlab/catalog/RND-20260717-017-live-catalog-spec-review.md",
+    "evidence/gitlab/catalog/RND-20260717-017-live-package-catalog.json",
+    "tests/test_gitlab_live_catalog.py"
+  ],
+  "commit_binding": "SELF",
+  "evidence_paths": [
+    "evidence/gitlab/catalog/RND-20260717-017-live-catalog-engineering-review.md",
+    "evidence/gitlab/catalog/RND-20260717-017-live-catalog-spec-review.md",
+    "evidence/gitlab/catalog/RND-20260717-017-live-package-catalog.json"
+  ],
+  "gates": [
+    {
+      "name": "official-metadata-matrix:pass",
+      "result": "pass"
+    },
+    {
+      "name": "fixed-candidate-generation:pass",
+      "result": "pass"
+    },
+    {
+      "name": "focused-tests:pass",
+      "result": "pass"
+    },
+    {
+      "name": "py-compile:pass",
+      "result": "pass"
+    },
+    {
+      "name": "secret-scan:pass",
+      "result": "pass"
+    },
+    {
+      "name": "lane-wave:pass",
+      "result": "pass"
+    },
+    {
+      "name": "spec-review:pass",
+      "result": "pass"
+    },
+    {
+      "name": "engineering-review:pass",
+      "result": "pass"
+    },
+    {
+      "name": "real-diff-validation:pass",
+      "result": "pass"
+    }
+  ],
+  "prepared_at": "2026-07-17T19:43:26.309833Z",
+  "program_id": "gitlab-ynh-mcp-program",
+  "repository": "coordinator",
+  "schema_version": 2,
+  "task_id": "T-GITLAB-LIVE-CATALOG-001"
+}
