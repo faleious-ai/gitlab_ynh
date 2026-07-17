@@ -1,0 +1,26 @@
+{
+  "artifact_id": "EVD-RND-20260717-015-GITLAB-CATALOG",
+  "artifact_kind": "package-catalog-observation",
+  "schema_version": 1,
+  "round_id": "RND-20260717-015",
+  "charter_id": "CHR-GOV-AUTONOMY-001",
+  "task_id": "T-GITLAB-02-live-catalog",
+  "observed_at": "2026-07-17T13:10:20Z",
+  "producer": "Codex read-only probe",
+  "sources": [
+    {"edition": "ce", "url": "https://packages.gitlab.com/gitlab/gitlab-ce", "http": 200, "bytes": 1174},
+    {"edition": "ee", "url": "https://packages.gitlab.com/gitlab/gitlab-ee", "http": 200, "bytes": 1174},
+    {"edition": "ce", "distribution": "debian", "url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/", "http": 200, "bytes": 1072},
+    {"edition": "ee", "distribution": "debian", "url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/", "http": 200, "bytes": 1072},
+    {"edition": "ce", "distribution": "bookworm", "url": "https://packages.gitlab.com/gitlab/gitlab-ce/debian/bookworm/", "http": 200, "bytes": 510, "links": ["dists/", "pool/"]},
+    {"edition": "ee", "distribution": "bookworm", "url": "https://packages.gitlab.com/gitlab/gitlab-ee/debian/bookworm/", "http": 200, "bytes": 507, "links": ["dists/", "pool/"]}
+  ],
+  "result": "catalog_routes_observed",
+  "evidence_state": "STRUCTURALLY_OBSERVED",
+  "promotion": {"promoted": false, "manifest_changed": false},
+  "limitations": [
+    "The directory routes prove official catalog reachability and CE/EE separation, not a complete package matrix or checksum verification.",
+    "No mutable latest target was selected, no package was downloaded and no manifest was generated or promoted.",
+    "A complete catalog release record requires a separate fixed-version package observation per edition, distribution and architecture."
+  ]
+}

@@ -95,7 +95,7 @@
     {
       "id": "T-GITLAB-02-live-catalog",
       "work_package": "WP-GITLAB-AUTOUPDATE",
-      "status": "ready",
+      "status": "in_progress",
       "dependencies": ["T-GITLAB-01-autoupdate-engine"],
       "reversible": true,
       "operation_class": "research",
