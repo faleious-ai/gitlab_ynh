@@ -1,50 +1,21 @@
-# Modelo de orquestração e execução
+# Modelo Orquestrador–Executor v2
 
-## Papéis
+## Maestro Diretor
 
-- **Maestro Diretor humano:** missão, prioridade, consequências práticas, gates éticos, custos relevantes, acesso privilegiado e operações irreversíveis.
-- **ChatGPT — orquestrador e revisor externo:** reconcilia estado remoto, resolve perguntas materiais, especifica rodadas/tarefas, revisa cada commit e o resultado integrado e decide aceite, correção ou gate humano.
-- **Codex — executor principal:** executa integralmente o charter `READY`, coordena subagentes, integra, valida, cria um commit por tarefa, publica e prepara evidências. Não aprova o próprio resultado.
-- **Subagentes:** frentes independentes sem commit, push, integração final, edição concorrente ou expansão de escopo.
-- **Revisores internos:** contextos separados nos eixos Spec/Charter e Engineering/Security/Lifecycle antes de cada commit.
+Define missão, prioridade, consequência prática, risco aceito, custo, privilégio e irreversibilidade.
 
-## Unidades
+## ChatGPT Orquestrador/Revisor
 
-- rodada: autorização, baseline, escopo, DAG, gates e veredito;
-- tarefa: resultado atômico, seam, claims, TDD, commit, sincronização e rollback;
-- commit: versão remota e reversível da tarefa;
-- evidência: prova de claim em nível estrutural, local, CI ou lifecycle.
+Mantém mandato, backlog, acceptance tests e decisões. Escreve o oracle do objetivo, revisa receipts/commits e registra `accepted`, `correction_required`, gate ou rejeição. Não executa produção em nome do usuário.
 
-## Invocação
+## Codex Executor
 
-`Leia AGENTS.md e continue` executa o charter ativo, tarefa por tarefa, e só para após concluir tudo que não esteja bloqueado por decisão humana real ou interrupção ambiental persistida.
+Atualiza os dois repositórios por fast-forward, executa `doctor`, consome o planner, abre lanes reais, usa TDD, integra serialmente, prepara receipts, publica um commit por tarefa e continua até stop/checkpoint válido. Não altera oracles, não edita tarefa para “completed” e não se aceita.
 
-## Fluxo
+## Subagentes
 
-```text
-Maestro Diretor
-  → ChatGPT/orquestrador
-  → charter READY + Task-IDs
-  → Codex/subagentes
-  → RED/GREEN + gates + revisão interna
-  → commit remoto por tarefa
-  → pacote baseline...round_head
-  → ChatGPT/revisor externo
-  → ACCEPTED | CORRECTION_REQUIRED | HUMAN_GATE | REJECTED_UNSAFE
-```
+Produzem artifacts e logs em snapshots isolados. Workers distintos e overlap são verificados. Não fazem commit/push nem editam memória canônica.
 
-## Autonomia
+## Revisão pendente
 
-Orquestrador e executor decidem escolhas técnicas reversíveis e backprop técnico. O humano é acionado apenas quando a escolha altera missão, produto, compatibilidade prometida, custo relevante, risco aceito, privilégio, publicação ou irreversibilidade.
-
-## Revisão
-
-A autoria não valida a própria conclusão. O executor realiza checks e revisão interna, mas termina em `EXECUTED_AWAITING_REVIEW`. O ChatGPT revisa material remoto, cada Task-ID e o intervalo integrado. Claims sem prova permanecem unverified.
-
-## Bloqueio
-
-Em gate humano, o executor conclui tarefas independentes, publica tudo que for seguro e registra condição, tentativas, alternativas, decisão exata e grafo restante. Falha de push é `TASK_REMOTE_SYNC_BLOCKED`, não gate de produto.
-
-## Autoridade cross-repo
-
-`gitlab_ynh` coordena o programa e decisões transversais. `gitlab-runner_ynh` mantém autoridade sobre Runner, helper images, tokens, Docker, updater, skills de execução e lifecycle. Futuro `gitlab-mcp` manterá a implementação MCP quando criado.
+`task_remote_verified` satisfaz dependências técnicas reversíveis. Release, deploy, promoção, credenciais e destruição continuam bloqueados até aceite/gate apropriado.

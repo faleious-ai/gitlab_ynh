@@ -1,0 +1,69 @@
+{
+  "findings": [
+    {
+      "actionable": true,
+      "correction_task_id": "T-GOV-ARCHITECTURE-V2",
+      "id": "F-ARCH-V1-STOP-001",
+      "resolution": "backlog-authoritative semantic stop in architecture v2",
+      "severity": "P1",
+      "state": "resolved",
+      "summary": "queue emptiness produced false stop"
+    },
+    {
+      "actionable": true,
+      "correction_task_id": "T-GOV-ARCHITECTURE-V2",
+      "id": "F-ARCH-V1-PARALLEL-001",
+      "resolution": "hash-chained lane journal with workers, artifacts and logs",
+      "severity": "P1",
+      "state": "resolved",
+      "summary": "timestamps proved only nominal overlap"
+    },
+    {
+      "actionable": true,
+      "correction_task_id": "T-GOV-ARCHITECTURE-V2",
+      "id": "F-ARCH-V1-ORACLE-001",
+      "resolution": "real Git diff plus SHA-256 inventory",
+      "severity": "P1",
+      "state": "resolved",
+      "summary": "oracle protection trusted caller-supplied paths"
+    },
+    {
+      "actionable": true,
+      "correction_task_id": "T-RUN-CI-REPAIR-001",
+      "evidence": [
+        "RND-20260717-015 assurance: 34/38 and remote CI failure"
+      ],
+      "id": "F-RUN-FULL-SUITE-001",
+      "severity": "P1",
+      "source_task_id": "T-RUN-TRUST-OBSERVATION-001",
+      "state": "open",
+      "summary": "Runner full suite and remote CI are not green"
+    },
+    {
+      "actionable": true,
+      "correction_task_id": "T-GITLAB-LIVE-CATALOG-001",
+      "evidence": [
+        "fixture-backed acceptance only"
+      ],
+      "id": "F-GITLAB-LIVE-CATALOG-001",
+      "severity": "P1",
+      "source_task_id": "T-GITLAB-RESOLVER-FIXTURE-001",
+      "state": "open",
+      "summary": "GitLab updater consumes synthetic catalog/hashes rather than discovering live fixed assets"
+    },
+    {
+      "actionable": true,
+      "correction_task_id": "T-MCP-CLIENT-CORE-001",
+      "evidence": [
+        "in-memory projects and fixture-only server"
+      ],
+      "id": "F-MCP-FIXTURE-ONLY-001",
+      "severity": "P1",
+      "source_task_id": "T-MCP-FOUNDATION-FIXTURE-001",
+      "state": "open",
+      "summary": "MCP foundation has no GitLab transport"
+    }
+  ],
+  "program_id": "gitlab-ynh-mcp-program",
+  "schema_version": 2
+}

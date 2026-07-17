@@ -1,22 +1,16 @@
-# Handoff atual
+# Handoff atual v2
 
-Estado: `EXECUTED_AWAITING_REVIEW`
-Charter: `CHR-GOV-AUTONOMY-001`
-Round: `RND-20260717-015`
+Estado: `READY_FOR_EXECUTOR`
+Charter: `CHR-PROGRAM-V2-CONTINUE-001`
 Branch: `master`
 
-## Pacote remoto
+## Retomada
 
-- Coordenador: `faleious-ai/gitlab_ynh`.
-- Runner: `faleious-ai/gitlab-runner_ynh`.
-- Round record: `continuity/rounds/RND-20260717-015.md` em ambos os repositórios.
-- Auditoria da assurance: `docs/audit/RND-20260717-015_ASSURANCE.md`.
-- Evidências: `evidence/EVIDENCE_INDEX.md` no Runner e no coordenador.
+1. fast-forward coordenador e Runner;
+2. confirmar árvores limpas;
+3. executar refresh-queue, doctor e plan;
+4. iniciar lanes exigidas;
+5. integrar/commitar/push por task com receipt;
+6. repetir até stop/checkpoint válido.
 
-## Resultado
-
-Os acceptance packs protegidos passaram 17/17; o dry-run do updater não promoveu nem alterou o manifest; o Runner manteve `18.6.2~ynh1`; Bash, parsing e secret scan passaram. A suíte Runner completa e o CI remoto têm limitações explicitamente classificadas no relatório de assurance.
-
-## Revisão
-
-Revisar os SHAs completos publicados, a matriz task→commit→claim→evidência e os paths remotos. O Executor encerra como `EXECUTED_AWAITING_REVIEW`; somente o Orquestrador pode registrar `ACCEPTED`.
+O backlog já contém work packages, tarefas pendentes e gates humanos. Não reconstruir o plano pelo chat nem pela issue.

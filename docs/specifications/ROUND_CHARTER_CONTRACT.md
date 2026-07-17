@@ -1,65 +1,38 @@
-# Contrato de rodada completa
+# Contrato de charter e tarefa — arquitetura v2
 
-`continuity/ACTIVE_ROUND.md` é a autorização executável. A rodada define baseline, escopo, DAG, gates e intervalo de revisão. Cada tarefa é a unidade atômica de implementação, commit, sincronização e reversão.
+## Autoridade
 
-## Estados
+`ACTIVE_ROUND.md` autoriza uma janela de execução. O escopo completo e a próxima tarefa vêm do backlog e do planner. O charter não pode reduzir silenciosamente o programa nem transformar queue derivada em autoridade.
 
-- `DRAFT`, `READY`, `IN_PROGRESS`;
-- `TASK_LOCAL_COMPLETE_AWAITING_SYNC`;
-- `TASK_REMOTE_SYNC_BLOCKED`;
-- `BLOCKED_HUMAN`;
-- `EXECUTED_AWAITING_REVIEW`;
-- `ACCEPTED`, `CORRECTION_REQUIRED`, `SUPERSEDED`.
+## Tarefa
 
-## Conteúdo obrigatório da rodada
+Cada tarefa do backlog declara:
 
-- Charter-ID, objetivo, estado e baseline remoto;
-- decisões humanas e técnicas vigentes;
-- escopo, fora de escopo e repositórios autorizados;
-- DAG de tarefas e ondas paralelas;
-- gates, riscos, rollback e Definition of Done integrada;
-- plano de persistência remota e pacote de revisão.
+- `Task-ID`, work package e repositórios;
+- dependências e prioridade;
+- reversibilidade e classe de operação;
+- ownership prefix-aware de paths;
+- seam/acceptance e evidências esperadas;
+- output e rollback.
 
-## Conteúdo obrigatório de cada tarefa
+## Ciclo
 
-- `Task-ID` único e citado no commit;
-- resultado verificável e reversível;
-- dependências;
-- seam público;
-- claims/invariantes e interfaces tocadas;
-- paths autorizados e ownership;
-- contrato RED→GREEN quando houver mudança comportamental;
-- comandos/gates e nível de evidência esperado;
-- revisão Spec/Charter e Engineering;
-- condição de commit e rollback;
-- commits correspondentes nos repositórios afetados.
+1. `doctor` e `refresh-queue`;
+2. `plan` e seleção das lanes;
+3. challenge quando aplicável;
+4. RED→GREEN no seam público;
+5. reviews Spec e Engineering;
+6. `prepare-receipt` no repositório da tarefa;
+7. commit único contendo mudança, prova e receipt;
+8. push, fetch e `HEAD == origin/master`;
+9. novo `plan`, que deriva `task_remote_verified` pelo receipt publicado;
+10. próxima tarefa elegível.
 
-Tarefa que não cabe em um commit coerente deve ser dividida antes do primeiro edit.
+## Fechamento
 
-## TDD
+O Executor pode terminar a invocação somente quando o planner retornar:
 
-Toda mudança comportamental deve ser observável por seam público. O executor registra teste/comando red-capable, RED antes do fix, implementação mínima, GREEN e regressão proporcional. Busca textual, teste tautológico ou acoplamento a detalhe interno não satisfaz o contrato.
+- `stop_allowed=true`; ou
+- `checkpoint_allowed=true`, registrando claramente que não é conclusão do programa.
 
-## Backprop
-
-Falha inesperada gera classificação, causa, critério/invariante quando necessário, teste de regressão e memória. Lacuna técnica reversível é corrigida autonomamente; alteração material de comportamento ou consequência volta ao Maestro Diretor.
-
-## Revisão pré-commit
-
-Toda tarefa recebe passagens independentes de conformidade Spec/Charter e Engineering/Security/Lifecycle. P0/P1 bloqueiam; demais findings são corrigidos ou justificados.
-
-## Persistência
-
-- um commit por tarefa concluída e por repositório afetado;
-- push e verificação remota antes da próxima escrita no mesmo repositório;
-- sem squash, branch, PR, worktree, force push ou reescrita publicada;
-- última tarefa da rodada reconcilia continuidade e evidências;
-- revisão recebe a lista completa entre `baseline_head` e `round_head`.
-
-## Preparação
-
-O ChatGPT pergunta ao usuário apenas o que altera comportamento, compatibilidade, ambiente, custo, segurança, privilégio, publicação ou irreversibilidade. Questões técnicas reversíveis são decididas e justificadas pelo orquestrador.
-
-## Saída
-
-O Codex encerra conforme o estado real. Somente o orquestrador registra `ACCEPTED` após revisar cada commit e o resultado integrado.
+`EXECUTED_AWAITING_REVIEW` significa commits remotos e receipts verificáveis, não aceite.

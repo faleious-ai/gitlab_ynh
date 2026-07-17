@@ -1,54 +1,25 @@
-# Política de paralelismo e subagentes
+# Política de paralelismo substantivo
 
-## Regra
+## Separabilidade
 
-Paralelizar somente frentes com dependências, paths e outputs separáveis. O Codex permanece responsável pelo resultado integrado, pelos commits de tarefa e pela sincronização remota.
+Paths são normalizados e comparados por ancestralidade. `evidence/` conflita com `evidence/mcp/`; strings diferentes não bastam. Tarefas no mesmo repositório só são paralelas quando seus ownerships são disjuntos por prefixo. Tarefas em repositórios diferentes continuam sujeitas a outputs compartilhados declarados.
 
-## DAG mínimo
+## Lanes
 
-Cada tarefa/frente declara Task-ID, dependências, entradas, claims, seam, outputs, paths autorizados, arquivos compartilhados proibidos, validação e commit que absorverá o resultado.
+O planner gera lanes para tarefas elegíveis. Para cada lane, o Executor usa:
 
-## Frentes adequadas
+```text
+python scripts/maestro_program.py lane-start ...
+python scripts/maestro_program.py lane-finish ...
+python scripts/maestro_program.py validate-wave ...
+```
 
-- auditoria upstream e packaging;
-- manifest/sources e matriz de assets;
-- lifecycle e service/config;
-- tokens, redaction e segurança;
-- testes/workflows;
-- API/MCP e documentação oficial;
-- síntese cross-repo, quando os inputs já estiverem estáveis.
+O journal é hash-chained. A validação exige workers distintos, overlap, artifact e command log hashados. Timestamps manuais em Markdown não são prova suficiente.
 
-## Frentes sequenciais
+## Subagentes
 
-- decisões que redefinem contrato;
-- edição de documentos canônicos compartilhados;
-- integração cross-repo;
-- revisão adversarial final;
-- continuidade e evidências;
-- criação/publicação de commits;
-- operações reais, destrutivas ou irreversíveis.
-
-## Ownership
-
-Subagentes não criam commit, branch, PR, worktree ou push. Não editam simultaneamente o mesmo path. O executor integra uma tarefa por vez e executa seus gates antes do commit.
-
-## Retorno do subagente
-
-Task-ID, escopo, fatos/fontes, alterações, comandos/resultados, unknowns, riscos, dead ends e confirmação de ausência de commit/expansão.
+Subagentes trabalham em cópias/snapshots isolados, sem commit, push, edição de arquivos canônicos ou expansão de escopo. Entregam patch/artifact, log, testes, unknowns e dead ends. O Executor integra uma tarefa por vez.
 
 ## Integração
 
-1. conferir ownership e dependências;
-2. integrar outputs da tarefa;
-3. executar TDD/gates no seam real;
-4. revisar Spec/Charter e Engineering;
-5. criar um commit da tarefa;
-6. publicar e verificar antes da próxima escrita.
-
-## Planejamento canônico
-
-Depois do motor de execução ficar GREEN, `scripts/maestro_program.py plan` é a fonte executável para `eligible_tasks`, `blocked_tasks`, lanes e `integration_order`. A preparação de lanes pode sobrepor intervalos em paths separados, mas cada tarefa continua com commit e push próprios, em ordem serial.
-
-## Falha parcial
-
-Uma frente falha não suspende as demais. O Codex tenta alternativas, executa backprop, conclui trabalho independente e só então registra bloqueio. Falha de sincronização impede novos commits no mesmo repositório, mas não pesquisa ou trabalho independente sem escrita.
+Commits e pushes permanecem seriais. Antes de cada commit, o Executor reconcilia o remoto, valida ownership, oracles, gates e receipt.

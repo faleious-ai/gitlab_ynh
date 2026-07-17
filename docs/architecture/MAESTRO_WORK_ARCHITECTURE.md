@@ -1,90 +1,36 @@
-# Arquitetura MAESTRO local
-
-## Finalidade
-
-Tornar o programa GitLab/Runner/MCP uma superfície de trabalho continuável para humanos e agentes, na qual cada mudança atravessa intenção, contrato, execução, validação, revisão, persistência e aprendizagem sem depender do chat.
+# Arquitetura MAESTRO de trabalho — v2
 
 ## Princípio
 
-O modelo descreve e executa; contratos, testes, gates e revisor decidem promoção. Plausibilidade nunca substitui prova. Autonomia técnica é ampla dentro do mandato e limitada por consequência humana, privilégio, risco e irreversibilidade.
+O backlog define tudo que existe para fazer; receipts e Git demonstram o que foi entregue; estado do Orquestrador decide aceite e gates; queue é somente uma projeção.
 
 ## Camadas
 
-1. intenção — usuário, issue ou incidente;
-2. especificação — contratos duráveis em `docs/specifications/`;
-3. contexto — `AGENTS.md` e índices de progressive disclosure;
-4. tarefa — Task-ID, seam, claims, ownership, gates e rollback;
-5. execução — TDD, implementação mínima, subagentes e backprop;
-6. validação — gates proporcionais e níveis explícitos de evidência;
-7. revisão — challenge pré-build, dois eixos internos e revisor externo;
-8. persistência — um commit remoto por tarefa, sem squash;
-9. governança — ADRs e gates humanos;
-10. memória — status, handoff, rounds, evidence index, learning ledgers e Git.
+1. missão e limites — `PROGRAM_MANDATE.json`;
+2. escopo integral — `PROGRAM_BACKLOG.json`;
+3. decisões/gates — `PROGRAM_STATE.json`;
+4. findings — `PROGRAM_FINDINGS.json`;
+5. projeção — `PROGRAM_QUEUE.json`;
+6. execução — planner, lanes, TDD e receipts;
+7. prova — commits, evidence index e CI/lifecycle;
+8. revisão — Orquestrador;
+9. memória — status, handoff, rounds e Git.
 
-## Máquina de estados
+## Máquina efetiva
 
 ```text
-ROUND_READY
-  → TASK_SCOPED
-  → PRE_BUILD_REVIEW?
+planned/auto-activatable
+  → ready (derivado por dependências)
+  → lane running
   → RED → GREEN
-  → VALIDATING
-  → INTERNAL_REVIEW
-  → TASK_COMMITTED_LOCAL
-  → TASK_REMOTE_VERIFIED
-  → next TASK | ROUND_INTEGRATION
-  → EXECUTED_AWAITING_REVIEW
-  → ACCEPTED | CORRECTION_REQUIRED | HUMAN_GATE | REJECTED_UNSAFE
+  → receipt SELF preparado
+  → task commit publicado
+  → task_remote_verified (derivado)
+  → accepted | correction_required (Orquestrador)
 ```
 
-Falha inesperada retorna por backprop ao contrato/teste. Falha de sincronização produz `TASK_REMOTE_SYNC_BLOCKED`. Decisão material produz `BLOCKED_HUMAN`.
+Bloqueios são `blocked_environment` ou `blocked_human`; somente o segundo pode produzir `stop_allowed=true`, com gate completo e nenhuma tarefa independente.
 
-## Memória em camadas
+## Conclusão
 
-| Camada | Autoridade |
-|---|---|
-| orientação | `AGENTS.md` |
-| propósito | `CONTEXT.md` |
-| contrato | `docs/specifications/` |
-| rationale | `docs/decisions/` e `continuity/DECISIONS.md` |
-| autorização/tarefas | `continuity/ACTIVE_ROUND.md` |
-| estado | `continuity/STATUS.md` |
-| retomada | `continuity/HANDOFF_CURRENT.md` |
-| prova | `evidence/EVIDENCE_INDEX.md` |
-| histórico | `continuity/rounds/` e commits Git |
-| aprendizagem funcional | ledger do repositório funcional responsável |
-
-## Unidade de rastreabilidade
-
-A rodada possui Round-ID e baseline. Cada tarefa possui Task-ID e um commit por repositório afetado. O commit liga:
-
-`Task-ID → claims/invariantes → seam → RED/GREEN → gates → evidência → rollback`.
-
-Subagentes produzem outputs; somente o executor integra, valida, commita e publica.
-
-## Evidência
-
-- `STRUCTURALLY_OBSERVED`;
-- `LOCAL_VERIFIED`;
-- `REMOTE_CI_VERIFIED`;
-- `LIFECYCLE_VERIFIED`;
-- `UNVERIFIED`;
-- `FAILED`.
-
-Um nível não implica o seguinte. Busca textual nunca prova runtime.
-
-## Cross-repo
-
-O repositório funcional mantém implementação, testes, skills e learning ledger de sua unidade. Este coordenador mantém missão, decisões transversais, estado do programa e síntese. Uma tarefa cross-repo usa o mesmo Round-ID/Task-ID e só fecha quando todos os commits correspondentes estão remotos.
-
-## Motor e fila de continuidade
-
-Após o motor de execução ficar GREEN, `continuity/PROGRAM_MANDATE.json` define autoridade e proibições, `PROGRAM_QUEUE.json` define o DAG de tarefas e `PROGRAM_STATE.json` preserva observações, bloqueios e lanes. `scripts/maestro_program.py plan` é o seam determinístico que decide elegibilidade e ordem de integração. Revisão pendente não bloqueia trabalho técnico reversível independente; o planner só permite parada quando não há trabalho elegível seguro ou existe gate humano válido.
-
-## Reversibilidade
-
-Commit por tarefa é a unidade preferencial de reversão. Dependências são explícitas. Commits publicados não são squashados, reordenados ou reescritos. Operação irreversível continua atrás de gate humano.
-
-## Fechamento
-
-Cada tarefa deixa código e prova coerentes. Cada rodada deixa o programa mais fácil de continuar. Se um agente novo precisar reconstruir intenção, falhas ou prova pelo chat, a rodada não fechou corretamente.
+`PROGRAM_COMPLETE` exige todos os tasks `accepted`/`superseded`. Review ou ambiente pendente gera checkpoint, nunca conclusão.

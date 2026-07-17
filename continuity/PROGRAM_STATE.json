@@ -1,50 +1,137 @@
 {
-  "schema_version": 1,
-  "round_id": "RND-20260717-015",
   "baseline_heads": {
-    "coordinator": "e6e0a4c201cdfc1106fa0c060b502c7bc0a5135a",
-    "runner": "7e19fe35922425b294629958853709934c0c3086"
+    "coordinator": "9fbcd366da07324a7adad95e5006a8da007d99e5",
+    "runner": "b25c63727921c511c78aed32dcdb7a71a45667d7"
   },
-  "baseline_head": "e6e0a4c201cdfc1106fa0c060b502c7bc0a5135a",
-  "reviews": [],
-  "completed_tasks": [
-    {"task_id": "T-GOV-01-program-engine", "repository": "faleious-ai/gitlab_ynh", "commit": "1a5c447d3903375bb20180f62e3787368fd92d73", "evidence_state": "LOCAL_VERIFIED"},
-    {"task_id": "T-RUN-01-supported-docker-default", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "40e3a0854da387ed51320afa15416abb1747009f", "evidence_state": "LOCAL_VERIFIED"},
-    {"task_id": "T-GITLAB-01-autoupdate-engine", "repository": "faleious-ai/gitlab_ynh", "commit": "50401610110e35a4c114e2127f799dca7989be2a", "evidence_state": "LOCAL_VERIFIED"},
-    {"task_id": "T-MCP-01-foundation", "repository": "faleious-ai/gitlab_ynh", "commit": "c88fc281de66060023f3c8c6c3425a2827e5df20", "evidence_state": "LOCAL_VERIFIED"},
-    {"task_id": "T-RUN-02-observability", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "9d2ef34201688749a547bf5625bca03ecc16f369", "evidence_state": "FAILED_REMOTE_CI_WITH_LIVE_TRUST_VERIFIED"},
-    {"task_id": "T-GOV-02-process-adoption", "repository": "faleious-ai/gitlab_ynh", "commit": "2930173e5f2cfa94d9b0a7e94bb6bbf39fe7379c", "evidence_state": "LOCAL_VERIFIED"},
-    {"task_id": "T-GOV-02-process-adoption", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "46df2283985206b266967209ba3c6c3daffb7953", "evidence_state": "LOCAL_VERIFIED"},
-    {"task_id": "T-RUN-03-process-adoption", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "8a40e1d1bbaab33fb44a7779160855cdc1d374e9", "evidence_state": "LOCAL_VERIFIED"},
-    {"task_id": "T-RUN-04-ci-alpine-oracle", "repository": "faleious-ai/gitlab-runner_ynh", "commit": "b3f752f4c5b8ace5a224263454eb9fc6220b71a1", "evidence_state": "LOCAL_VERIFIED"},
-    {"task_id": "T-GITLAB-02-live-catalog", "repository": "faleious-ai/gitlab_ynh", "commit": "466ff70d222e2e4e178791e9400a615770c0491a", "evidence_state": "STRUCTURALLY_OBSERVED"},
-    {"task_id": "T-MCP-02-api-inventory", "repository": "faleious-ai/gitlab_ynh", "commit": "2e42939ccf8daac538c977c912b3d57bfcec1118", "evidence_state": "STRUCTURALLY_OBSERVED"},
-    {"task_id": "T-ASSURANCE-01-maintenance", "repository": "faleious-ai/gitlab_ynh", "commit": "b1c083cf59d7dc903c08905ec6e0be643805bc87", "evidence_state": "LOCAL_VERIFIED"}
-  ],
-  "blocks": [
-    {"task_id": "T-MCP-01-foundation", "class": "sibling_repository_not_available", "state": "PACKAGE_PREPARED_WITHOUT_REMOTE_CREATION"},
-    {"task_id": "T-RUN-02-observability", "class": "remote_ci_failed_and_logs_unavailable", "state": "FAILED", "evidence": "evidence/rnd-20260717-015-remote-ci-observation.json"}
-  ],
-  "lanes": [
-    {"lane_id": "LANE-GOV-015", "task_ids": ["T-GOV-01-program-engine"], "owner": "Codex", "baseline": "e6e0a4c201cdfc1106fa0c060b502c7bc0a5135a", "started_at": "2026-07-17T12:46:11.4369276Z", "finished_at": "2026-07-17T12:46:11.6275761Z", "result": "GREEN"},
-    {"lane_id": "LANE-RUN-015", "task_ids": ["T-RUN-01-supported-docker-default"], "owner": "Codex", "baseline": "7e19fe35922425b294629958853709934c0c3086", "started_at": "2026-07-17T12:45:59.3649276Z", "finished_at": "2026-07-17T12:45:59.5688031Z", "result": "GREEN"},
-    {"lane_id": "LANE-UPDATER-015", "task_ids": ["T-GITLAB-01-autoupdate-engine"], "owner": "Codex", "baseline": "e6e0a4c201cdfc1106fa0c060b502c7bc0a5135a", "started_at": "2026-07-17T12:46:11.4435599Z", "finished_at": "2026-07-17T12:46:11.6568031Z", "result": "GREEN"},
-    {"lane_id": "LANE-MCP-015", "task_ids": ["T-MCP-01-foundation"], "owner": "Codex", "baseline": "e6e0a4c201cdfc1106fa0c060b502c7bc0a5135a", "started_at": "2026-07-17T12:46:11.4435599Z", "finished_at": "2026-07-17T12:46:11.5956721Z", "result": "GREEN"},
-    {"lane_id": "LANE-RUN-OBS-015", "task_ids": ["T-RUN-02-observability"], "owner": "Codex", "baseline": "7e19fe35922425b294629958853709934c0c3086", "started_at": "2026-07-17T12:46:11.4435599Z", "finished_at": "2026-07-17T12:56:33.0785528Z", "result": "LIVE_TRUST_VERIFIED_REMOTE_CI_FAILED"}
-  ],
+  "environment_blocks": [],
   "history": [
     {
-      "round_id": "RND-20260717-015",
-      "event": "start",
-      "state": "READY",
-      "observed_at": "2026-07-17T12:46:11Z"
+      "event": "architecture_v2_started",
+      "observed_at": "2026-07-17T00:00:00Z",
+      "round_id": "RND-20260717-016"
+    }
+  ],
+  "human_gates": [
+    {
+      "condition": "the task creates or promotes an external resource and is outside reversible technical preparation",
+      "evidence": [
+        "all independent preparation remains represented in the backlog"
+      ],
+      "external_authority": true,
+      "fallbacks_attempted": [
+        "continue research, fixtures, tests and package preparation without external mutation"
+      ],
+      "reason_class": "external_authorization",
+      "requested_human_action": "authorize creation/synchronization of the GitLab upstream mirror",
+      "resume": "create the mirror and validate read-only sync",
+      "safe_state": "no external resource or production state changed",
+      "state": "open",
+      "task_id": "T-MIRROR-GITLAB-001"
     },
     {
-      "round_id": "RND-20260717-015",
-      "event": "final_continuity",
-      "state": "EXECUTED_AWAITING_REVIEW",
-      "runner_head": "b25c63727921c511c78aed32dcdb7a71a45667d7",
-      "observed_at": "2026-07-17T13:31:00Z"
+      "condition": "the task creates or promotes an external resource and is outside reversible technical preparation",
+      "evidence": [
+        "all independent preparation remains represented in the backlog"
+      ],
+      "external_authority": true,
+      "fallbacks_attempted": [
+        "continue research, fixtures, tests and package preparation without external mutation"
+      ],
+      "reason_class": "external_authorization",
+      "requested_human_action": "authorize creation/synchronization of the Runner upstream mirror",
+      "resume": "create the mirror and validate read-only sync",
+      "safe_state": "no external resource or production state changed",
+      "state": "open",
+      "task_id": "T-MIRROR-RUNNER-001"
+    },
+    {
+      "condition": "the task creates or promotes an external resource and is outside reversible technical preparation",
+      "evidence": [
+        "all independent preparation remains represented in the backlog"
+      ],
+      "external_authority": true,
+      "fallbacks_attempted": [
+        "continue research, fixtures, tests and package preparation without external mutation"
+      ],
+      "reason_class": "external_authorization",
+      "requested_human_action": "authorize creation of faleious-ai/gitlab-mcp and authority migration",
+      "resume": "create repository and migrate prepared package",
+      "safe_state": "no external resource or production state changed",
+      "state": "open",
+      "task_id": "T-MCP-REPO-CREATE-001"
+    },
+    {
+      "condition": "the task creates or promotes an external resource and is outside reversible technical preparation",
+      "evidence": [
+        "all independent preparation remains represented in the backlog"
+      ],
+      "external_authority": true,
+      "fallbacks_attempted": [
+        "continue research, fixtures, tests and package preparation without external mutation"
+      ],
+      "reason_class": "product_consequence",
+      "requested_human_action": "approve the exact package versions and release/promotion action",
+      "resume": "execute release gates and publish",
+      "safe_state": "no external resource or production state changed",
+      "state": "open",
+      "task_id": "T-RELEASE-PACKAGES-001"
     }
-  ]
+  ],
+  "program_id": "gitlab-ynh-mcp-program",
+  "round_id": "RND-20260717-016",
+  "schema_version": 2,
+  "task_overrides": {
+    "T-BASELINE-INSTALLERS-001": {
+      "commits": {
+        "coordinator": "23729a7284b2970116e1f1fc968735a12e1bc6ea",
+        "runner": "9da54f246018808c13dfea2dd0c5a92e0b1da970"
+      },
+      "review": "historical orchestrator acceptance",
+      "state": "accepted"
+    },
+    "T-GITLAB-RESOLVER-FIXTURE-001": {
+      "commit": "50401610110e35a4c114e2127f799dca7989be2a",
+      "review": "fixture-backed component accepted; live catalog remains open",
+      "state": "accepted"
+    },
+    "T-GOV-ARCHITECTURE-V2": {
+      "review": "orchestrator implementation in current round",
+      "state": "in_progress"
+    },
+    "T-GOV-BOOTSTRAP-001": {
+      "commit": "23729a7284b2970116e1f1fc968735a12e1bc6ea",
+      "review": "historical orchestrator acceptance",
+      "state": "accepted"
+    },
+    "T-MCP-FOUNDATION-FIXTURE-001": {
+      "commit": "c88fc281de66060023f3c8c6c3425a2827e5df20",
+      "review": "fixture-only protocol component accepted; real transport remains open",
+      "state": "accepted"
+    },
+    "T-MCP-REPO-CREATE-001": {
+      "state": "blocked_human"
+    },
+    "T-MIRROR-GITLAB-001": {
+      "state": "blocked_human"
+    },
+    "T-MIRROR-RUNNER-001": {
+      "state": "blocked_human"
+    },
+    "T-RELEASE-PACKAGES-001": {
+      "state": "blocked_human"
+    },
+    "T-RUN-ARCHITECTURE-V2": {
+      "state": "ready"
+    },
+    "T-RUN-DOCKER-DEFAULT-001": {
+      "commit": "40e3a0854da387ed51320afa15416abb1747009f",
+      "review": "component accepted; broader Runner WP remains open",
+      "state": "accepted"
+    },
+    "T-RUN-TRUST-OBSERVATION-001": {
+      "commit": "9d2ef34201688749a547bf5625bca03ecc16f369",
+      "review": "live trust observation accepted; CI remained failed",
+      "state": "accepted"
+    }
+  }
 }
