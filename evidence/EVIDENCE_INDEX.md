@@ -50,17 +50,18 @@
 | EVD-WP02D-CROSS-REPO-SYNTHESIS | FAILED | T-WP02D-08 / RND-20260716-010 | commits existem; continuidade manteve referências pré-publicação |
 | EVD-WP02D-ORCHESTRATOR-REVIEW | LOCAL_VERIFIED | RND-20260717-011 | `continuity/reviews/REV-RND-20260716-010.md`; verdict `CORRECTION_REQUIRED`; coordinator review commit `bece03b10d2ba56caa8bea55c1d032f38fcd7a9c` |
 
-## Findings e próxima unidade
+## Evidências finais de RND-20260717-012
 
-| ID | Estado | Finding | Próxima tarefa Runner |
+| ID | Estado | Round/Task | Resultado cross-repo |
 |---|---|---|---|
-| EVD-WP02E-KEY-TRANSPORT | FAILED | entrega oficial da chave é recusada antes do GPG | T01 |
-| EVD-WP02E-LIVE-TRUST | UNVERIFIED | código corrigido ainda não produziu observação live | T02 |
-| EVD-WP02E-HISTORICAL-PROVENANCE | FAILED | promoção retrospectiva de evidência | T03 |
-| EVD-WP02E-DOCKER-DEFAULT | FAILED | `latest` diverge do default versionado | T04 |
-| EVD-WP02E-REMOTE-CI | UNVERIFIED | run/status remoto pendente | T05 |
-| EVD-WP02E-FINAL-CONTINUITY | FAILED | referências pré-publicação | T07 |
-| EVD-WP02E-PROCESS-BACKPROP | LOCAL_VERIFIED | imutabilidade/proveniência e transport seam incorporados no Runner | `4cefe926732c95344c3d7d129aa9dbe110dcae72` |
+| EVD-WP02E-KEY-TRANSPORT | LOCAL_VERIFIED | T01 / RND-20260717-012 | Runner `6fb500ec3474c07137fcb8962512ed0adc59a9bb`; cadeia capturada e adversários fail-closed |
+| EVD-WP02E-LIVE-TRUST | UNVERIFIED | T02 / RND-20260717-012 | `evidence/wp02e-live-trust-observation.json`; falha antes da chave/GPG |
+| EVD-WP02E-HISTORICAL-PROVENANCE | LOCAL_VERIFIED | T03 / RND-20260717-012 | Runner `ea9774001fbf181b5fc210a17fad6a1208a83d4c`; hashes pré-T06 e supersessão |
+| EVD-WP02E-DOCKER-DEFAULT | LOCAL_VERIFIED | T04 / RND-20260717-012 | Runner `2563fc31e1b71db89315fd8c707235ed98659962`; `alpine:3.20` consistente |
+| EVD-WP02E-REMOTE-CI | UNVERIFIED | T05 / RND-20260717-012 | `workflow_runs=[]`, `statuses=[]`, `gh` ausente; gates locais separados |
+| EVD-WP02E-INTEGRATION | LOCAL_VERIFIED | T06 / RND-20260717-012 | Runner `08563cbd2c957e6cca16ae6535a56ef9b2d52b9e`; integração local e manifest inalterado |
+| EVD-WP02E-FINAL-CONTINUITY | LOCAL_VERIFIED | T07 / RND-20260717-012 | Runner `652c24819bc778eed04fb9eebe4836ab5ad016f2` + este commit; síntese reconciliada |
+| EVD-WP02E-PROCESS-BACKPROP | LOCAL_VERIFIED | RND-20260717-011 | Runner `4cefe926732c95344c3d7d129aa9dbe110dcae72` |
 
 ## Convenção
 
