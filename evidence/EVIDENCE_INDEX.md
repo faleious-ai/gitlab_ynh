@@ -48,6 +48,21 @@
 - síntese cross-repo;
 - revisão externa.
 
+## Evidências de CHR-WP02-003 — RND-20260716-010
+
+| ID | Estado | Task/round | Resultado cross-repo |
+|---|---|---|---|
+| EVD-WP02D-YUNOHOST-RUN-CONTROLLER | LOCAL_VERIFIED | T-WP02D-01 / RND-20260716-010 | Runner `ada6b78ca4db00c1dcacda4eb01736f123f6040b`; controlador e inputs efêmeros verificados localmente, sem host YunoHost real |
+| EVD-WP02D-NO-LEGACY-ARGV | LOCAL_VERIFIED | T-WP02D-02 / RND-20260716-010 | Runner `79fb763c6c2d20f9bb1b76e42a266da1b41e8ad9`; interface legada removida, sem token em argv ativo |
+| EVD-WP02D-LIFECYCLE-IDENTITY | LOCAL_VERIFIED | T-WP02D-03 / RND-20260716-010 | Runner `2f0185cbf8b630f94d9618c9d7afe56cabc434b3`; harness backup/restore preserva identidade sem re-registro; lifecycle real não observado |
+| EVD-WP02D-SIGNATURE-FAIL-CLOSED | LOCAL_VERIFIED | T-WP02D-04 / RND-20260716-010 | Runner `35e8e44dd9fb39b47ad71e6dfb06e854c0029618`; falhas criptográficas adversas fecham; chave/assinatura real não usada |
+| EVD-WP02D-SELF-LINK-REDIRECTS | LOCAL_VERIFIED | T-WP02D-05 / RND-20260716-010 | Runner `51dbb98a7e6de477c4f3234b1c7d40b4ac1a54ac`; self-link, paths e redirects limitados verificados em adapters falsos |
+| EVD-WP02D-CANONICAL-EVIDENCE | LOCAL_VERIFIED | T-WP02D-06 / RND-20260716-010 | Runner `2acc1a3ec1a6c42a81eacea02f7ae093131070de`; JSONs portáveis, índice task→SHA e validade observada |
+| EVD-WP02D-LOCAL-TESTS | LOCAL_VERIFIED | T-WP02D-01..07 / RND-20260716-010 | Runner `2d9cb41f41f292f3b4bd19513b91ca66720457d6`; 32 testes, scanner, parsers, Bash e dry-run finais passaram |
+| EVD-WP02D-REMOTE-CI | UNVERIFIED | T-WP02D-07 / RND-20260716-010 | workflow read-only e actions fixadas; run/status remoto do SHA funcional não foi recuperado neste ambiente |
+| EVD-WP02D-CROSS-REPO-SYNTHESIS | LOCAL_VERIFIED | T-WP02D-08 / RND-20260716-010 | Runner `221634780ecca490ce86c9a0703a21f5b4c53e95` reconciliado com este coordenador; matriz, manifest e continuidade fechados |
+| EVD-WP02D-ORCHESTRATOR-REVIEW | UNVERIFIED | T-WP02D-08 / RND-20260716-010 | revisão independente e aceite pertencem ao ChatGPT; não declarar `ACCEPTED` |
+
 ## Convenção
 
 O Runner é a fonte funcional. Claims sem prova permanecem estruturais ou unverified. Fixture não prova freshness. Busca textual não prova runtime. Nunca reproduzir a credencial histórica. Aceite pertence ao orquestrador.

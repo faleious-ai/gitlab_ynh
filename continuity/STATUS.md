@@ -2,12 +2,12 @@
 
 Atualizado em: 2026-07-16  
 Branch autorizada: `master`  
-Última rodada executada pelo Codex: `RND-20260716-007`  
-Última rodada do orquestrador: `RND-20260716-009`
+Última rodada executada pelo Codex: `RND-20260716-010`
+Última rodada do orquestrador: `RND-20260716-010`
 
 ## Fase do programa
 
-`WP02_CHR003_READY_WITH_MAESTRO_CAVEKIT_TASK_PROTOCOL`
+`WP02_CHR003_EXECUTED_AWAITING_REVIEW`
 
 O charter corretivo do Runner permanece funcionalmente `CHR-WP02-003`, agora decomposto em oito tarefas rastreáveis com TDD, backprop, revisão adversarial e commit remoto por tarefa.
 
@@ -25,7 +25,7 @@ O charter corretivo do Runner permanece funcionalmente `CHR-WP02-003`, agora dec
 ## Unidade ativa
 
 `CHR-WP02-003 — Action, trust fail-closed e lifecycle seguro`  
-Estado: `READY`.  
+Estado: `EXECUTED_AWAITING_REVIEW`.
 Repositório funcional: `faleious-ai/gitlab-runner_ynh`.
 
 Tarefas: controller, remoção legada, lifecycle/identidade, assinatura fail-closed, self-link/redirects, evidência portátil, CI remoto e integração/continuidade.
@@ -45,4 +45,4 @@ Tarefas: controller, remoção legada, lifecycle/identidade, assinatura fail-clo
 
 ## Próxima ação
 
-Codex executa `Leia AGENTS.md e continue`, lê o charter detalhado e as skills no Runner, atribui novo Round-ID e publica um commit por Task-ID. Este coordenador só recebe commits nas tarefas que realmente alterarem síntese/continuidade cross-repo, especialmente T08.
+Revisão independente do pacote remoto pelo ChatGPT. T01–T08 estão publicados ou bloqueados validamente; CI remoto permanece `UNVERIFIED`, sem promoção para sucesso presumido, e o coordenador não declara `ACCEPTED`.

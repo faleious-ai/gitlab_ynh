@@ -1,7 +1,7 @@
 # Rodada ativa
 
 Charter-ID: `CHR-WP02-003`  
-Estado: `READY`  
+Estado: `EXECUTED_AWAITING_REVIEW`
 Preparado em: 2026-07-16  
 Orquestrador: ChatGPT com o Maestro Diretor  
 Executor principal: Codex  
@@ -62,3 +62,9 @@ O Runner contém seams, RED/GREEN, paths, dependências e gates completos de cad
 ## Definition of Done
 
 Oito tarefas concluídas ou bloqueadas validamente, commits remotos rastreáveis, manifest sem promoção, evidência honesta e T08 publicada também neste coordenador com síntese, status, handoff e round record do mesmo Round-ID.
+
+## Fechamento T08
+
+T01–T07 foram publicados no Runner; T07 está explicitamente `UNVERIFIED` para CI remoto por limitação de observabilidade. T08 reconciliou a matriz task→claim→prova, os HEADs, o manifest e a continuidade neste coordenador, sem duplicar implementação funcional.
+
+Estado persistido: `EXECUTED_AWAITING_REVIEW`. Lifecycle real, CI remoto e aceite externo permanecem não demonstrados; `HG-RUN-SEC-01` continua `UNRESOLVED_NO_AUTHORITY` e nenhuma credencial foi usada.

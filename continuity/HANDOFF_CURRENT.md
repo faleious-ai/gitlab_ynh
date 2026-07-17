@@ -1,6 +1,6 @@
 # Handoff atual
 
-Estado: `READY_FOR_CODEX_FULL_ROUND`  
+Estado: `EXECUTED_AWAITING_REVIEW`
 Charter ativo: `CHR-WP02-003`  
 Revisão anterior: `REV-RND-20260716-007 — CORRECTION_REQUIRED`  
 Processo vigente: `ADR-0006`  
@@ -12,15 +12,13 @@ Branch: `master`
 Leia AGENTS.md e continue.
 ```
 
-## Retomada
+## Resultado persistido
 
-1. Reconciliar `origin/master` deste coordenador e do Runner.
-2. Confirmar `RND-20260716-009` nos dois repositórios.
-3. Ler `AGENTS.md`, status e active round nos dois repositórios.
-4. No Runner, ler `.agents/skills/README.md` e o charter detalhado.
-5. Atribuir novo Round-ID e executar as oito tarefas.
-6. Publicar um commit por Task-ID em cada repositório realmente afetado.
-7. T08 deve publicar síntese/continuidade também neste coordenador.
+`RND-20260716-010` executou T01–T07 no Runner e T08 nos dois repositórios, com o mesmo Charter-ID e commits remotos por tarefa afetada. O Runner terminou em `221634780ecca490ce86c9a0703a21f5b4c53e95`; este coordenador recebe a síntese T08 neste commit.
+
+Gates finais do Runner: 32 testes locais, secret scan limpo, parsers JSON/TOML, Bash, dry-run e allowlist passam; `manifest.toml` permanece `18.6.2~ynh1`. CI remoto não foi recuperado pelo ambiente disponível e permanece `UNVERIFIED`; lifecycle YunoHost real também não foi observado.
+
+Para revisão, usar `continuity/rounds/RND-20260716-010.md`, `evidence/EVIDENCE_INDEX.md` e o intervalo remoto completo. O executor não declara `ACCEPTED`.
 
 ## Direção
 
